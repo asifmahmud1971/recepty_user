@@ -1,0 +1,49 @@
+name: receptyUser
+description: Flutter Starter” --org com.alcubix.receptyUser”
+version: 1.0.1+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: 3.3.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  google_fonts: ^2.3.1
+  dio: ^4.0.6
+  connectivity_plus: ^2.3.7
+  get_it: ^7.2.0
+  injectable: ^1.5.3
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.0
+  flutter_svg: ^1.0.3
+  flutter_screenutil: ^5.5.3+2
+  shared_preferences: ^2.0.13
+  easy_localization: ^3.0.1
+  flutter_spinkit: ^5.1.0
+  cached_network_image: ^3.2.1
+  new_version: ^0.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+  # add the generator to your dev_dependencies
+  injectable_generator:
+  build_runner:
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/images/1.5x/
+    - assets/images/0.75x/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
+    - assets/images/4.0x/
+    - assets/icons/
+    - assets/translations/

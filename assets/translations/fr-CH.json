@@ -1,0 +1,14 @@
+{
+  "bad_request_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "forbidden_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "unauthorized_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "not_found_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "conflict_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "internal_server_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "unknown_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "timeout_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "default_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "cache_error": "Erreur inconnue. Veuillez réessayer plus tard.",
+  "no_internet_error": "Veuillez vérifier votre connexion Internet",
+
+ }

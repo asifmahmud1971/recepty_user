@@ -1,0 +1,15 @@
+{
+  "bad_request_error": "Unknown error. Please try again later.",
+  "forbidden_error": "Unknown error. Please try again later.",
+  "unauthorized_error": "Unknown error. Please try again later.",
+  "not_found_error": "Unknown error. Please try again later.",
+  "conflict_error": "Unknown error. Please try again later.",
+  "internal_server_error": "Unknown error. Please try again later.",
+  "unknown_error": "Unknown error. Please try again later.",
+  "timeout_error": "Unknown error. Please try again later.",
+  "default_error": "Unknown error. Please try again later.",
+  "cache_error": "Unknown error. Please try again later.",
+  "no_internet_error": "Bitte prüfen Sie Ihre Internetverbindung"
+
+
+}
