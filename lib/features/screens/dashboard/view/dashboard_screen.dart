@@ -60,6 +60,7 @@ class _DashboardScreen extends State<DashboardScreen> {
         return false;
       },
       child: Scaffold(
+        extendBody: true,
         bottomNavigationBar: CustomBottomBar(
           children: [
             bottomBarItem(

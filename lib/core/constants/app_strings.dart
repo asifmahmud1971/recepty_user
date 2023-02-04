@@ -35,6 +35,10 @@ class AppStrings {
   static const String addIngredients = "Add Ingredients";
   static const String viewRecipe = "View Recipe";
   static const String viewCategory = "View Category";
+  static const String category = "Category";
+  static const String seeAll = "See All";
+  static const String trendingRecipe = "Trending Recipe";
+  static const String todayNews = "Today's News";
 
   //Home screen
   static const String searchHint = "What you want to cook today?";

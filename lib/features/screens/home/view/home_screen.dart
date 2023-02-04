@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
@@ -5,7 +6,10 @@ import 'package:receptyUser/features/screens/home/widget/category_card.dart';
 import 'package:receptyUser/features/screens/home/widget/food_card.dart';
 import 'package:receptyUser/features/screens/home/widget/get_premium_card.dart';
 import 'package:receptyUser/features/screens/home/widget/homepage_header.dart';
+import 'package:receptyUser/features/screens/home/widget/news_card.dart';
 import 'package:receptyUser/features/screens/home/widget/search_bar.dart';
+
+import '../../../../core/constants/app_strings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,10 +36,10 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                     child: Text(
-                      "Category",
+                      AppStrings.category.tr(),
                       style: kRegularLine16.copyWith(fontWeight: FontWeight.w600),
                     )),
-                Text("See All",
+                Text(AppStrings.seeAll.tr(),
                     style: kRegularLine16.copyWith(
                         fontWeight: FontWeight.w500, color: Colors.teal))
               ],
@@ -58,10 +62,10 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                     child: Text(
-                  "Trending Recipe",
+                  AppStrings.trendingRecipe.tr(),
                   style: kRegularLine16.copyWith(fontWeight: FontWeight.w600),
                 )),
-                Text("See All",
+                Text(AppStrings.seeAll.tr(),
                     style: kRegularLine16.copyWith(
                         fontWeight: FontWeight.w500, color: Colors.teal))
               ],
@@ -76,7 +80,32 @@ class HomeScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return FoodCard();
                 }),
-          )
+          ),
+          Divider(),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Text(
+                      AppStrings.todayNews.tr(),
+                      style: kRegularLine16.copyWith(fontWeight: FontWeight.w600),
+                    )),
+                Text(AppStrings.seeAll.tr(),
+                    style: kRegularLine16.copyWith(
+                        fontWeight: FontWeight.w500, color: Colors.teal))
+              ],
+            ),
+          ),
+          ListView.builder(
+              padding: EdgeInsets.only(left: 10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return NewsCard();
+              }),
         ],
       ),
     );

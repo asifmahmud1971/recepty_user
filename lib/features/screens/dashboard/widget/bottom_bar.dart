@@ -18,7 +18,7 @@ class CustomBottomBar extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: AppColors.kPrimaryColor.withOpacity(0.5)),
+                color: AppColors.kPrimaryColor.withOpacity(0.7)),
             child: Row(
               children: children!,
             ),
