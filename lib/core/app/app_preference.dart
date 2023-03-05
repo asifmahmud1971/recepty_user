@@ -1,6 +1,7 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
+import 'package:receptyUser/features/screens/auth/models/login_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_dependency.dart';
@@ -23,6 +24,7 @@ const String prefsKeyUserEmail = "prefsKeyUserEmail";
 const String prefsKeyUserPhone = "prefsKeyUserPhone";
 const String prefsKeyUserFullPhone = "prefsKeyUserFullPhone";
 const String prefsKeyUserType = "prefsKeyUserType";
+const String prefsUserData = "prefsUserData";
 
 @injectable
 class AppPreferences {
@@ -30,9 +32,8 @@ class AppPreferences {
 
   /// set preferences data start here ///
 
-  Future<void> saveUserData(dynamic userData) async {
-    log(userData.data!.user!.email.toString());
-    _sharedPreferences.setInt(prefsKeyUserId, userData.data?.user?.id ?? 0);
+  Future<void> saveUserData(LoginResponse userData) async {
+    _sharedPreferences.setString(prefsUserData, json.encode(userData));
   }
 
   Future<void> updateUserData(dynamic data) async {
@@ -51,6 +52,10 @@ class AppPreferences {
     _sharedPreferences.setBool(prefsKeyAppDarkTheme, true);
   }
 
+  Future<void> setIsUserLoggedIn() async {
+    _sharedPreferences.setBool(prefsKeyIsUserLoggedIn, true);
+  }
+
   Future<void> setIntroScreenCompleted() async {
     _sharedPreferences.setBool(prefsKeyIntroScreen, true);
   }
@@ -59,8 +64,8 @@ class AppPreferences {
     _sharedPreferences.setBool(prefsKeyAppDarkTheme, false);
   }
 
-  Future<void> setIsUserLoggedIn() async {
-    _sharedPreferences.setBool(prefsKeyIsUserLoggedIn, true);
+  Future<void> setUserToken(String? accessToken) async {
+    _sharedPreferences.setString(prefsKeyUserToken, accessToken ?? '');
   }
 
   Future<void> removeUserData() async {}
@@ -68,6 +73,14 @@ class AppPreferences {
   /// set preferences data end here ///
 
   /// get preferences data start here ///
+  LoginResponse? getUserData() {
+    if (_sharedPreferences.containsKey(prefsUserData)) {
+      return LoginResponse.fromJson(
+          json.decode(_sharedPreferences.getString(prefsUserData)!));
+    } else {
+      return null;
+    }
+  }
 
   Future<String> getUserToken() async {
     return _sharedPreferences.getString(prefsKeyUserToken) ?? "";
@@ -102,5 +115,5 @@ class AppPreferences {
     _sharedPreferences.remove(prefsKeyIsUserLoggedIn);
   }
 
-  /// get preferences data end here ///
+/// get preferences data end here ///
 }

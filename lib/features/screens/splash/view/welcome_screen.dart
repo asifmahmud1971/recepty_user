@@ -6,7 +6,7 @@ import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
-import 'package:receptyUser/features/screens/login/view/login_page.dart';
+import 'package:receptyUser/features/screens/auth/view/login_page.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 class WelcomeScreen extends StatelessWidget {

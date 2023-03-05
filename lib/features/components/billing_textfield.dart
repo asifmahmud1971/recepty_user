@@ -5,9 +5,14 @@ class BillingTextField extends StatelessWidget {
   final String? labelName;
   final String? hint;
   final bool? isDropdown;
+  final TextEditingController? controller;
 
   const BillingTextField(
-      {Key? key, this.labelName, this.hint, this.isDropdown = false})
+      {Key? key,
+        this.labelName,
+        this.hint,
+        this.isDropdown = false,
+        this.controller})
       : super(key: key);
 
   @override
@@ -25,58 +30,59 @@ class BillingTextField extends StatelessWidget {
 
     return !isDropdown!
         ? SizedBox(
-            width: 1.sw,
-            child: TextField(
-              autofocus: false,
-              onChanged: (val) {},
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10.0),
-                labelText: labelName ?? 'label',
-                hintText: hint ?? "hint",
-                // add here
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelStyle: const TextStyle(
-                  color: Color.fromARGB(255, 107, 106, 144),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 107, 106, 144), width: 2),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-            ),
-          )
+      width: 1.sw,
+      child: TextField(
+        controller: controller,
+        autofocus: false,
+        onChanged: (val) {},
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(10.0),
+          labelText: labelName ?? 'label',
+          hintText: hint ?? "hint",
+          // add here
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: const TextStyle(
+            color: Color.fromARGB(255, 107, 106, 144),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(
+                color: Color.fromARGB(255, 107, 106, 144), width: 2),
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+      ),
+    )
         : SizedBox(
-            width: 1.sw,
-            child: DropdownButtonFormField(
-              autofocus: false,
-              onChanged: (val) {},
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10.0),
-                labelText: labelName ?? 'label',
-                hintText: hint ?? "hint",
-                // add here
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelStyle: const TextStyle(
-                  color: Color.fromARGB(255, 107, 106, 144),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 107, 106, 144), width: 2),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              items: list.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
+      width: 1.sw,
+      child: DropdownButtonFormField(
+        autofocus: false,
+        onChanged: (val) {},
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(10.0),
+          labelText: labelName ?? 'label',
+          hintText: hint ?? "hint",
+          // add here
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: const TextStyle(
+            color: Color.fromARGB(255, 107, 106, 144),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(
+                color: Color.fromARGB(255, 107, 106, 144), width: 2),
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+        items: list.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
           );
+        }).toList(),
+      ),
+    );
   }
 }

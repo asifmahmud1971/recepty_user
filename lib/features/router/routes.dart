@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
+import 'package:receptyUser/features/screens/auth/view/login_page.dart';
 import 'package:receptyUser/features/screens/splash/view/welcome_screen.dart';
 
 import '../screens/dashboard/view/dashboard_screen.dart';
-import '../screens/login/view/login_page.dart';
 import '../screens/splash/view/splash_screen.dart';
 
 class Routes {

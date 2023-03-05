@@ -19,7 +19,7 @@ void main() async {
   AppFlavor.appFlavor = FlavorStatus.development;
   //Init my app with observer
   await blocObserver(
-    () => EasyLocalization(
+        () => EasyLocalization(
       supportedLocales: const [
         Locale('en', 'US'),
         Locale('de', 'DE'),
