@@ -7,6 +7,7 @@ import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/auth/view/login_page.dart';
+import 'package:receptyUser/features/screens/auth/view/signup_page.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -41,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 10),
                       child: Text(
-                        AppStrings.welcomeTextUser,
+                        AppStrings.welcomeTextUser.tr(),
                         textAlign: TextAlign.start,
                         style: kRegularLine20.copyWith(
                             color: Colors.white70, fontWeight: FontWeight.w700),
@@ -50,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Text(
-                        AppStrings.welcomeTextDesc,
+                        AppStrings.welcomeTextDesc.tr(),
                         textAlign: TextAlign.start,
                         style: kRegularLine16.copyWith(
                             color: Colors.white60, fontWeight: FontWeight.w500),
@@ -74,6 +75,9 @@ class WelcomeScreen extends StatelessWidget {
                         width: 1.sw,
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: DefaultBtn(
+                          onPress: (){
+                            GetContext.to(SignupPage());
+                          },
                           title: AppStrings.registration.tr(),
                           radius: 10,
                         )),

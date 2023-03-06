@@ -6,13 +6,14 @@ class BillingTextField extends StatelessWidget {
   final String? hint;
   final bool? isDropdown;
   final TextEditingController? controller;
+  final TextInputType? keyboardType;
 
   const BillingTextField(
       {Key? key,
         this.labelName,
         this.hint,
         this.isDropdown = false,
-        this.controller})
+        this.controller, this.keyboardType})
       : super(key: key);
 
   @override
@@ -35,6 +36,7 @@ class BillingTextField extends StatelessWidget {
         controller: controller,
         autofocus: false,
         onChanged: (val) {},
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10.0),
           labelText: labelName ?? 'label',

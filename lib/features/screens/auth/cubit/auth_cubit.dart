@@ -19,8 +19,14 @@ class AuthCubit extends Cubit<AuthState> {
       : _appPreferences = instance.get(),
         super(AuthState());
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController otpController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController forgotEmailController = TextEditingController();
+  final TextEditingController regEmailController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController regPasswordController = TextEditingController();
 
   Future<void> login({bool isRemember = false}) async {
     /*String token = await _appPreferences.getUserAccessToken();*/
@@ -71,6 +77,45 @@ class AuthCubit extends Cubit<AuthState> {
       },
     );
   }
+  Future<void> matchOtp() async {
+    emit(state.copyWith(status: LoginStatus.loading));
+
+    final response = await _loginRepository.forgotPassword({
+      "email": forgotEmailController.text,
+    });
+
+    response.fold(
+          (failure) {
+        emit(state.copyWith(status: ForgotStatus.failure));
+      },
+          (data) async {
+        emit(state.copyWith(status: ForgotStatus.success));
+        resetControllers();
+      },
+    );
+  }
+
+  Future<void> registration() async {
+    emit(state.copyWith(status: LoginStatus.loading));
+
+    final response = await _loginRepository.registration({
+      "name": nameController.text,
+      "email": regEmailController.text,
+      "phone_number": numberController.text,
+      "password": passwordController.text,
+      "password_confirmation": confirmPasswordController.text,
+    });
+
+    response.fold(
+          (failure) {
+        emit(state.copyWith(status: ForgotStatus.failure));
+      },
+          (data) async {
+        emit(state.copyWith(status: RegistrationStatus.registrationSuccess));
+        resetControllers();
+      },
+    );
+  }
 
   Future<void> logout() async {
     emit(state.copyWith(status: LogoutStatus.loading));
@@ -91,6 +136,11 @@ class AuthCubit extends Cubit<AuthState> {
     emailController.clear();
     passwordController.clear();
     forgotEmailController.clear();
+    numberController.clear();
+    regEmailController.clear();
+    nameController.clear();
+    confirmPasswordController.clear();
+
     emit(state.copyWith(status: LoginStatus.initial, isEnable: false));
   }
 }

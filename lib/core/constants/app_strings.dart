@@ -39,6 +39,10 @@ class AppStrings {
   static const String seeAll = "See All";
   static const String trendingRecipe = "Trending Recipe";
   static const String todayNews = "Today's News";
+  static const String fullName = "Full Name";
+  static const String email = "Email";
+  static const String phoneNumber = "Phone Number";
+  static const String confirmPassword = "Confirm Password";
 
   //Home screen
   static const String searchHint = "What you want to cook today?";

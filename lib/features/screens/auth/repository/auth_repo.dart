@@ -45,6 +45,30 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+  @override
+  Future<Either<ApiFailure, dynamic>> registration(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await await apiClient.request(
+          url: Urls.registration, method: Method.post, params: params);
+
+      return Right(response);
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
+  @override
+  Future<Either<ApiFailure, dynamic>> otpMatch(
+      Map<String, dynamic> params,{id,otp}) async {
+    try {
+      final response = await await apiClient.request(
+          url: "${Urls.user}/$id/verify/$otp", method: Method.post, params: params);
+
+      return Right(response);
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
 
   @override
   Future<Either<ApiFailure, dynamic>> logout() async {

@@ -8,10 +8,21 @@ enum LoginStatus {
   failure,
 }
 
+enum RegistrationStatus {
+  initial,
+  loading,
+  authFail,
+  registrationSuccess,
+  failure,
+}
+
 enum ForgotStatus {
   loading,
   success,
   failure,
+  otpFailed,
+  otpSuccess,
+  otpLoading
 }
 
 enum LogoutStatus {
