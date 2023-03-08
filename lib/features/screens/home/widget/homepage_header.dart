@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_it/get_it.dart';
+import 'package:receptyUser/core/app/app_preference.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/generated/assets.dart';
 
-class HomePageHeader extends StatelessWidget {
+import '../../../../core/app/app_dependency.dart';
+
+class HomePageHeader extends StatefulWidget {
+
+
   const HomePageHeader({Key? key}) : super(key: key);
 
+  @override
+  State<HomePageHeader> createState() => _HomePageHeaderState();
+}
+
+class _HomePageHeaderState extends State<HomePageHeader> {
+  AppPreferences preferences = instance.get();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -48,7 +60,7 @@ class HomePageHeader extends StatelessWidget {
                                 color: Colors.grey),
                           ),
                           Text(
-                            "John Doe",
+                            preferences.getUserData()?.user?.name??"",
                             style: kRegularLine16.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black),

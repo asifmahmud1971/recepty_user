@@ -43,6 +43,8 @@ class AppStrings {
   static const String email = "Email";
   static const String phoneNumber = "Phone Number";
   static const String confirmPassword = "Confirm Password";
+  static const String otpVerificationText = "We have sent the code verification to your email.";
+  static const String enterCode = "Enter Code";
 
   //Home screen
   static const String searchHint = "What you want to cook today?";
@@ -51,6 +53,7 @@ class AppStrings {
 
   //sign in
   static const String login = "Login";
+  static const String logout = "Logout";
   static const String username = "username";
   static const String password = "password";
   static const String forgotPassword = "forgot_password";

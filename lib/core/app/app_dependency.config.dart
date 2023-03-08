@@ -11,14 +11,17 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i6;
 
 import '../../data/network/api_client.dart' as _i8;
-import '../../data/repository/item_repo.dart' as _i12;
-import '../../data/repository/item_repo_imp.dart' as _i11;
-import '../../features/screens/auth/cubit/auth_cubit.dart' as _i13;
+import '../../data/repository/item_repo.dart' as _i14;
+import '../../data/repository/item_repo_imp.dart' as _i13;
+import '../../features/screens/auth/cubit/auth_cubit.dart' as _i15;
 import '../../features/screens/auth/repository/auth_repo.dart' as _i10;
 import '../../features/screens/auth/repository/auth_repo_imp.dart' as _i9;
+import '../../features/screens/home/cubit/home_cubit.dart' as _i16;
+import '../../features/screens/home/repository/home_repo.dart' as _i12;
+import '../../features/screens/home/repository/home_repo_imp.dart' as _i11;
 import '../../features/screens/no_internet/cubit/internet_cubit.dart' as _i5;
 import '../../features/screens/theme/cubit/theme_cubit.dart' as _i7;
-import 'app_dependency.dart' as _i14;
+import 'app_dependency.dart' as _i17;
 import 'app_preference.dart' as _i3; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
@@ -45,11 +48,15 @@ Future<_i1.GetIt> $initGetIt(
   gh.factory<_i8.ApiClient>(() => _i8.ApiClient(get<_i4.Dio>()));
   gh.factory<_i9.AuthRepositoryImp>(
       () => _i10.AuthRepository(apiClient: get<_i8.ApiClient>()));
-  gh.factory<_i11.ItemRepositoryImp>(
-      () => _i12.ItemRepository(apiClient: get<_i8.ApiClient>()));
-  gh.factory<_i13.AuthCubit>(
-      () => _i13.AuthCubit(get<_i9.AuthRepositoryImp>()));
+  gh.factory<_i11.HomeRepositoryImp>(
+      () => _i12.HomeRepository(apiClient: get<_i8.ApiClient>()));
+  gh.factory<_i13.ItemRepositoryImp>(
+      () => _i14.ItemRepository(apiClient: get<_i8.ApiClient>()));
+  gh.factory<_i15.AuthCubit>(
+      () => _i15.AuthCubit(get<_i9.AuthRepositoryImp>()));
+  gh.factory<_i16.HomeCubit>(
+      () => _i16.HomeCubit(get<_i11.HomeRepositoryImp>()));
   return get;
 }
 
-class _$AppModule extends _i14.AppModule {}
+class _$AppModule extends _i17.AppModule {}

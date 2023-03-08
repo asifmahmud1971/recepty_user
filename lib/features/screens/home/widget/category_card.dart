@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/features/components/custom_image.dart';
+import 'package:receptyUser/generated/assets.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({Key? key}) : super(key: key);
+  final String? image;
+  final String? name;
+  const CategoryCard({Key? key, this.image, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,19 +15,17 @@ class CategoryCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
-          Container(
-            height: 100.r,
+          CustomImage(
+            radius: 10,
             width: 100.r,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                    image: NetworkImage(
-                        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/800px-Eq_it-na_pizza-margherita_sep2005_sml.jpg"))),
+            height: 100.r,
+            baseUrl:
+                image,
+            placeHolder: Assets.imagesPhotoPlaceholder,
           ),
+
           kHeightBox10,
-          Text("Pizza",
+          Text(name??"",
               style: kRegularLine16.copyWith(
                   fontWeight: FontWeight.w500, color: Colors.teal))
         ],

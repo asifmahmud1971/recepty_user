@@ -8,9 +8,10 @@ class Urls {
   static const String testUrl =
       'https://jahodiss-recepty.com/api/'; // test server
 
-  static const String login = 'auth/login';
+  static const String login = 'auth/user/login';
   static const String registration = 'auth/register';
   static const String user = 'user';
+  static const String home = 'user/home';
   static const String categories = 'categories';
   static const String ingredients = 'ingredients';
   static const String tutorials = 'tutorials';

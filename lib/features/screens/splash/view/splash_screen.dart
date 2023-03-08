@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigation() async {
     if (await widget._appPreferences.isUserLoggedIn()) {
       Navigator.pushNamedAndRemoveUntil(
-          context, Routes.welcomeScreen, (route) => false);
+          context, Routes.dashboard, (route) => false);
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.welcomeScreen, (route) => false);

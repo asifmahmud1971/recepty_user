@@ -29,7 +29,7 @@ class SignupPage extends StatelessWidget {
           showProgressDialog();
         } else if (state.status == RegistrationStatus.registrationSuccess) {
           dismissProgressDialog();
-          GetContext.to(ForgetOtpPage());
+          GetContext.to(ForgetOtpPage(registrationUser: state.registrationResponse?.user,));
         } else if (state.status == RegistrationStatus.authFail) {
           /* CustomDialog.showUnAuthorisedDialog(
             title: AppStrings.loginAlert.tr(),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:receptyUser/core/app/app_dependency.dart';
 import 'package:receptyUser/core/app/app_preference.dart';
+import 'package:receptyUser/features/screens/auth/models/registration_response.dart';
 
 import 'package:receptyUser/features/screens/auth/repository/auth_repo_imp.dart';
 
@@ -13,9 +14,9 @@ part 'auth_state.dart';
 @injectable
 class AuthCubit extends Cubit<AuthState> {
   final AppPreferences _appPreferences;
-  final AuthRepositoryImp _loginRepository;
+  final AuthRepositoryImp authRepository;
 
-  AuthCubit(this._loginRepository)
+  AuthCubit(this.authRepository)
       : _appPreferences = instance.get(),
         super(AuthState());
   final TextEditingController emailController = TextEditingController();
@@ -32,7 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
     /*String token = await _appPreferences.getUserAccessToken();*/
     emit(state.copyWith(status: LoginStatus.loading));
     try {
-      final response = await _loginRepository.loginUser({
+      final response = await authRepository.loginUser({
         "email": emailController.text,
         "password": passwordController.text,
       });
@@ -60,7 +61,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> forgot() async {
+ /* Future<void> forgot() async {
     emit(state.copyWith(status: LoginStatus.loading));
 
     final response = await _loginRepository.forgotPassword({
@@ -76,29 +77,28 @@ class AuthCubit extends Cubit<AuthState> {
         resetControllers();
       },
     );
-  }
-  Future<void> matchOtp() async {
-    emit(state.copyWith(status: LoginStatus.loading));
+  }*/
+  Future<void> matchOtp({userId,}) async {
+    emit(state.copyWith(status: OtpStatus.otpLoading));
 
-    final response = await _loginRepository.forgotPassword({
-      "email": forgotEmailController.text,
-    });
+    final response = await authRepository.otpMatch({
+    },id: userId,otp: otpController.text);
 
     response.fold(
           (failure) {
-        emit(state.copyWith(status: ForgotStatus.failure));
+        emit(state.copyWith(status: OtpStatus.failure));
       },
           (data) async {
-        emit(state.copyWith(status: ForgotStatus.success));
+        emit(state.copyWith(status: OtpStatus.otpSuccess));
         resetControllers();
       },
     );
   }
 
   Future<void> registration() async {
-    emit(state.copyWith(status: LoginStatus.loading));
+    emit(state.copyWith(status: RegistrationStatus.loading));
 
-    final response = await _loginRepository.registration({
+    final response = await authRepository.registration({
       "name": nameController.text,
       "email": regEmailController.text,
       "phone_number": numberController.text,
@@ -108,10 +108,10 @@ class AuthCubit extends Cubit<AuthState> {
 
     response.fold(
           (failure) {
-        emit(state.copyWith(status: ForgotStatus.failure));
+        emit(state.copyWith(status: RegistrationStatus.failure));
       },
           (data) async {
-        emit(state.copyWith(status: RegistrationStatus.registrationSuccess));
+        emit(state.copyWith(status: RegistrationStatus.registrationSuccess,registrationResponse: data));
         resetControllers();
       },
     );
@@ -119,7 +119,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logout() async {
     emit(state.copyWith(status: LogoutStatus.loading));
-    final response = await _loginRepository.logout();
+    final response = await authRepository.logout();
 
     response.fold(
       (failure) {

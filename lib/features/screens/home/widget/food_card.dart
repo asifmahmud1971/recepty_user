@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/product/view/product_item_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 class FoodCard extends StatelessWidget {
-  const FoodCard({Key? key}) : super(key: key);
+  final String? image;
+  final String? title;
+  final String? videoLength;
+  final String? calorie;
+  const FoodCard({Key? key, this.image, this.title, this.videoLength, this.calorie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +26,15 @@ class FoodCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-                Container(
+                CustomImage(
+                  radius: 10,
                   height: 240.h,
                   width: 180.w,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              "https://properfoodie.com/wp-content/uploads/2021/04/square-Steak-and-chips-8.jpg"))),
+                  baseUrl:
+                  image??"",
+                  placeHolder: Assets.imagesPhotoPlaceholder,
                 ),
+
                 Positioned(
                     bottom: 5,
                     left: 0,
@@ -52,7 +55,7 @@ class FoodCard extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      "Make steak and chips at home.",
+                                      title??"",
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: kRegularLine14.copyWith(
@@ -81,7 +84,7 @@ class FoodCard extends StatelessWidget {
                                       kWidthBox5,
                                       Expanded(
                                           child: Text(
-                                        "30 min",
+                                        "${videoLength??0} min",
                                         style: kRegularLine14.copyWith(
                                             color: Colors.grey),
                                       ))
@@ -96,7 +99,7 @@ class FoodCard extends StatelessWidget {
                                       ),
                                       kWidthBox5,
                                       Text(
-                                        "120 Kcal",
+                                        "${calorie??0} Kcal",
                                         style: kRegularLine14.copyWith(
                                             color: Colors.grey),
                                       )

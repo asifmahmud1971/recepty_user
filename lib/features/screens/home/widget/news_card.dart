@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/features/components/custom_image.dart';
+import 'package:receptyUser/generated/assets.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({Key? key}) : super(key: key);
+
+  final String? image;
+  final String? title;
+  final String? description;
+  const NewsCard({Key? key, this.image, this.title, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,32 +17,32 @@ class NewsCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10,right: 10),
       child: Container(
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 100.r,
+            CustomImage(
+              radius: 10,
               width: 100.r,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          "https://properfoodie.com/wp-content/uploads/2021/04/square-Steak-and-chips-8.jpg"))),
+              height: 100.r,
+              baseUrl:
+              image,
+              placeHolder: Assets.imagesPhotoPlaceholder,
             ),
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
+                   title??"",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: kRegularLine15.copyWith(fontWeight: FontWeight.w600),
                   ),
-                  kHeightBox5,
+                  kHeightBox10,
                   Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                     description??"",
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: kRegularLine15.copyWith(

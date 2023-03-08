@@ -8,6 +8,7 @@ import 'package:receptyUser/data/network/urls.dart';
 import 'package:receptyUser/features/screens/auth/models/login_response.dart';
 
 
+import '../models/registration_response.dart';
 import 'auth_repo_imp.dart';
 
 @Injectable(as: AuthRepositoryImp)
@@ -46,13 +47,13 @@ class AuthRepository implements AuthRepositoryImp {
     }
   }
   @override
-  Future<Either<ApiFailure, dynamic>> registration(
+  Future<Either<ApiFailure, RegistrationResponse>> registration(
       Map<String, dynamic> params) async {
     try {
       final response = await await apiClient.request(
           url: Urls.registration, method: Method.post, params: params);
 
-      return Right(response);
+      return Right(RegistrationResponse.fromJson(response));
     } catch (error) {
       return Left(ApiException.handle(error).failure);
     }
@@ -62,7 +63,7 @@ class AuthRepository implements AuthRepositoryImp {
       Map<String, dynamic> params,{id,otp}) async {
     try {
       final response = await await apiClient.request(
-          url: "${Urls.user}/$id/verify/$otp", method: Method.post, params: params);
+          url: "${Urls.user}/$id/verify/$otp", method: Method.get, params: params);
 
       return Right(response);
     } catch (error) {

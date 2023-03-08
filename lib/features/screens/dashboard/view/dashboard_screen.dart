@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/bottom_bar.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/dashboard_component.dart';
 import 'package:receptyUser/features/screens/profile/view/profile_page.dart';
+import 'package:receptyUser/features/screens/profile/view/profile_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 import '../../../components/custom_dialogs.dart';
@@ -22,7 +23,7 @@ class _DashboardScreen extends State<DashboardScreen> {
   final List<Widget> _screen = [
     const HomeScreen(),
     const HomeScreen(),
-    const ProfilePage(),
+     ProfileScreen(),
   ];
 
 
