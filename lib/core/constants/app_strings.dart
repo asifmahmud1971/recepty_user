@@ -40,8 +40,14 @@ class AppStrings {
   static const String viewCategory = "View Category";
   static const String category = "Category";
   static const String seeAll = "See All";
+  static const String playTutorial = "Play Tutorial";
   static const String trendingRecipe = "Trending Recipe";
   static const String todayNews = "Today's News";
+  static const String description = "Description";
+  static const String ingredients = "Ingredients";
+  static const String steps = "Steps";
+  static const String addStep = "Add Step";
+  static const String selectIngredients = "Select Ingredients";
   static const String fullName = "Full Name";
   static const String email = "Email";
   static const String phoneNumber = "Phone Number";
