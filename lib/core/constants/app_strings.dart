@@ -14,6 +14,9 @@ class AppStrings {
   static const String noInternetError = "no_internet_error";
   static const String noRouteFound = "no_route_found";
   static const String requiredFieldMissing = "required_field_missing";
+  static const String error = "Error";
+  static const String loginAlertBody =
+      "Invalid login credentials. Please try again";
 
   static const String welcomeText =
       "Welcome to the ultimate cooking app, filled with recipes, baking ideas, skills videos and expert tutorials to inspire you and improve your results in the kitchen.";
@@ -43,7 +46,8 @@ class AppStrings {
   static const String email = "Email";
   static const String phoneNumber = "Phone Number";
   static const String confirmPassword = "Confirm Password";
-  static const String otpVerificationText = "We have sent the code verification to your email.";
+  static const String otpVerificationText =
+      "We have sent the code verification to your email.";
   static const String enterCode = "Enter Code";
 
   //Home screen

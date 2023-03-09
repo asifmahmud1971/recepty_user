@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/billing_textfield.dart';
+import 'package:receptyUser/features/components/custom_dialogs.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
@@ -12,7 +13,6 @@ import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
-
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -31,14 +31,14 @@ class LoginPage extends StatelessWidget {
           dismissProgressDialog();
           GetContext.to(DashboardScreen());
         } else if (state.status == LoginStatus.authFail) {
-          /* CustomDialog.showUnAuthorisedDialog(
-            title: AppStrings.loginAlert.tr(),
+          showUnAuthorisedDialog(
+            title: AppStrings.error.tr(),
             details: AppStrings.loginAlertBody.tr(),
             context: context,
             onYes: () {
-              Navigator.pop(context);
+              GetContext.back();
             },
-          );*/
+          );
 
           dismissProgressDialog();
         } else {

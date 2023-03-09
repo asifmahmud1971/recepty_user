@@ -8,7 +8,6 @@ import 'package:receptyUser/features/screens/auth/models/registration_response.d
 
 import 'package:receptyUser/features/screens/auth/repository/auth_repo_imp.dart';
 
-
 part 'auth_state.dart';
 
 @injectable
@@ -26,7 +25,8 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController regEmailController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController regPasswordController = TextEditingController();
 
   Future<void> login({bool isRemember = false}) async {
@@ -40,10 +40,9 @@ class AuthCubit extends Cubit<AuthState> {
 
       response.fold(
         (failure) {
-          if (failure.code == 422) {
+          if (failure.code == 401) {
             emit(state.copyWith(
-                status: LoginStatus.authFail,
-                message: failure.error['message']));
+                status: LoginStatus.authFail, message: failure.message));
           } else {
             emit(state.copyWith(status: LoginStatus.failure));
           }
@@ -61,7 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
- /* Future<void> forgot() async {
+  /* Future<void> forgot() async {
     emit(state.copyWith(status: LoginStatus.loading));
 
     final response = await _loginRepository.forgotPassword({
@@ -78,17 +77,19 @@ class AuthCubit extends Cubit<AuthState> {
       },
     );
   }*/
-  Future<void> matchOtp({userId,}) async {
+  Future<void> matchOtp({
+    userId,
+  }) async {
     emit(state.copyWith(status: OtpStatus.otpLoading));
 
-    final response = await authRepository.otpMatch({
-    },id: userId,otp: otpController.text);
+    final response =
+        await authRepository.otpMatch({}, id: userId, otp: otpController.text);
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(state.copyWith(status: OtpStatus.failure));
       },
-          (data) async {
+      (data) async {
         emit(state.copyWith(status: OtpStatus.otpSuccess));
         resetControllers();
       },
@@ -107,11 +108,13 @@ class AuthCubit extends Cubit<AuthState> {
     });
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(state.copyWith(status: RegistrationStatus.failure));
       },
-          (data) async {
-        emit(state.copyWith(status: RegistrationStatus.registrationSuccess,registrationResponse: data));
+      (data) async {
+        emit(state.copyWith(
+            status: RegistrationStatus.registrationSuccess,
+            registrationResponse: data));
         resetControllers();
       },
     );
