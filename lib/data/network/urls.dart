@@ -12,8 +12,11 @@ class Urls {
   static const String registration = 'auth/register';
   static const String user = 'user';
   static const String home = 'user/home';
-  static const String categories = 'categories';
+  static const String categories = 'user/categories';
   static const String ingredients = 'ingredients';
-  static const String tutorials = 'tutorials';
-  static const String blogs = 'blogs';
+  static const String tutorials = 'user/tutorials';
+  static  String tutorialsByCategory(catID){
+    return 'user/categories/$catID/tutorials';
+  }
+  static const String blogs = 'user/blogs';
 }

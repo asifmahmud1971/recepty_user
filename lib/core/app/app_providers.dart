@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
+import 'package:receptyUser/features/screens/blogs/cubit/blogs_cubit.dart';
+import 'package:receptyUser/features/screens/category/cubit/category_cubit.dart';
 import 'package:receptyUser/features/screens/home/cubit/home_cubit.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_cubit.dart';
 
@@ -24,12 +26,17 @@ class AppProviders {
       <BlocProvider>[
         BlocProvider<HomeCubit>(
             create: (BuildContext context) => instance<HomeCubit>()),
-      ]
-   +
+      ] +
       <BlocProvider>[
         BlocProvider<RecipeCubit>(
             create: (BuildContext context) => instance<RecipeCubit>()),
-      ]
-
-  ;
+      ] +
+      <BlocProvider>[
+        BlocProvider<CategoryCubit>(
+            create: (BuildContext context) => instance<CategoryCubit>()),
+      ] +
+      <BlocProvider>[
+        BlocProvider<BlogsCubit>(
+            create: (BuildContext context) => instance<BlogsCubit>()),
+      ];
 }

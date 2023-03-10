@@ -21,8 +21,8 @@ class _DashboardScreen extends State<DashboardScreen> {
   var pageController = PageController();
   int _selectedIndex = 0;
   final List<Widget> _screen = [
-    const HomeScreen(),
-    const HomeScreen(),
+     HomeScreen(),
+     ProfilePage(),
      ProfileScreen(),
   ];
 

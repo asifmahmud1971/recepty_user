@@ -4,13 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
+import 'package:receptyUser/features/components/my_context.dart';
+import 'package:receptyUser/features/screens/blogs/view/blog_details.dart';
+import 'package:receptyUser/features/screens/blogs/view/blogs_homepage.dart';
+import 'package:receptyUser/features/screens/category/view/category_page.dart';
 import 'package:receptyUser/features/screens/home/cubit/home_cubit.dart';
+import 'package:receptyUser/features/screens/home/model/home_model.dart';
 import 'package:receptyUser/features/screens/home/widget/category_card.dart';
 import 'package:receptyUser/features/screens/home/widget/food_card.dart';
 import 'package:receptyUser/features/screens/home/widget/get_premium_card.dart';
 import 'package:receptyUser/features/screens/home/widget/homepage_header.dart';
 import 'package:receptyUser/features/screens/home/widget/news_card.dart';
 import 'package:receptyUser/features/screens/home/widget/search_bar.dart';
+import 'package:receptyUser/features/screens/recipe/view/product_item_screen.dart';
+import 'package:receptyUser/features/screens/recipe/view/recipe_homepage.dart';
 
 import '../../../../core/constants/app_strings.dart';
 
@@ -65,9 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       style:
                           kRegularLine16.copyWith(fontWeight: FontWeight.w600),
                     )),
-                    Text(AppStrings.seeAll.tr(),
-                        style: kRegularLine16.copyWith(
-                            fontWeight: FontWeight.w500, color: Colors.teal))
+                    InkWell(
+                      onTap: () {
+                        GetContext.to(CategoryPage());
+                      },
+                      child: Text(AppStrings.seeAll.tr(),
+                          style: kRegularLine16.copyWith(
+                              fontWeight: FontWeight.w500, color: Colors.teal)),
+                    )
                   ],
                 ),
               ),
@@ -79,6 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: List.generate(
                         state.homeModel?.categories?.length ?? 0,
                         (index) => CategoryCard(
+                          onTap: (){
+                            GetContext.to(RecipeHomepage(categories: state.homeModel?.categories?[index],));
+                          },
                               name: state.homeModel?.categories?[index].name,
                               image: state.homeModel?.categories?[index].image,
                             )),
@@ -97,9 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       style:
                           kRegularLine16.copyWith(fontWeight: FontWeight.w600),
                     )),
-                    Text(AppStrings.seeAll.tr(),
-                        style: kRegularLine16.copyWith(
-                            fontWeight: FontWeight.w500, color: Colors.teal))
+                    InkWell(
+                      onTap: () {
+                        GetContext.to(RecipeHomepage());
+                      },
+                      child: Text(AppStrings.seeAll.tr(),
+                          style: kRegularLine16.copyWith(
+                              fontWeight: FontWeight.w500, color: Colors.teal)),
+                    )
                   ],
                 ),
               ),
@@ -108,15 +128,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                     padding: EdgeInsets.only(left: 10),
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.homeModel?.tutorials?.length??0,
+                    itemCount: state.homeModel?.tutorials?.length ?? 0,
                     itemBuilder: (context, index) {
                       return FoodCard(
+                        onTap: () {
+                          GetContext.to(ProductItemScreen(
+                            recipeId: state.homeModel?.tutorials?[index].id
+                                .toString(),
+                          ));
+                        },
                         title: state.homeModel?.tutorials?[index].title,
-                        image: state.homeModel?.tutorials?[index].tutorialImages?[0].image
-                        ,
-                        videoLength:  state.homeModel?.tutorials?[index].videoLength,
-                        calorie:  state.homeModel?.tutorials?[index].calorie,
-
+                        image: state.homeModel?.tutorials?[index]
+                            .tutorialImages?[0].image,
+                        videoLength:
+                            state.homeModel?.tutorials?[index].videoLength,
+                        calorie: state.homeModel?.tutorials?[index].calorie,
                       );
                     }),
               ),
@@ -131,9 +157,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       style:
                           kRegularLine16.copyWith(fontWeight: FontWeight.w600),
                     )),
-                    Text(AppStrings.seeAll.tr(),
-                        style: kRegularLine16.copyWith(
-                            fontWeight: FontWeight.w500, color: Colors.teal))
+                    InkWell(
+                      onTap: () {
+                        GetContext.to(BlogsHomepage());
+                      },
+                      child: Text(AppStrings.seeAll.tr(),
+                          style: kRegularLine16.copyWith(
+                              fontWeight: FontWeight.w500, color: Colors.teal)),
+                    )
                   ],
                 ),
               ),
@@ -141,10 +172,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.only(left: 10),
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: state.homeModel?.blogs?.length??0,
+                  itemCount: state.homeModel?.blogs?.length ?? 0,
                   itemBuilder: (context, index) {
                     return NewsCard(
-                      title:state.homeModel?.blogs?[index].name ,
+                      onTap: (){
+                        GetContext.to(BlogsDetailPage(blogs: state.homeModel?.blogs?[index],));
+                      },
+                      title: state.homeModel?.blogs?[index].name,
                       image: state.homeModel?.blogs?[index].image,
                       description: state.homeModel?.blogs?[index].description,
                     );

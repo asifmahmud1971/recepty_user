@@ -7,28 +7,32 @@ import 'package:receptyUser/generated/assets.dart';
 class CategoryCard extends StatelessWidget {
   final String? image;
   final String? name;
-  const CategoryCard({Key? key, this.image, this.name}) : super(key: key);
+  final VoidCallback?onTap;
+  const CategoryCard({Key? key, this.image, this.name, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        children: [
-          CustomImage(
-            radius: 10,
-            width: 100.r,
-            height: 100.r,
-            baseUrl:
-                image,
-            placeHolder: Assets.imagesPhotoPlaceholder,
-          ),
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            CustomImage(
+              radius: 10,
+              width: 100.r,
+              height: 100.r,
+              baseUrl:
+                  image,
+              placeHolder: Assets.imagesPhotoPlaceholder,
+            ),
 
-          kHeightBox10,
-          Text(name??"",
-              style: kRegularLine16.copyWith(
-                  fontWeight: FontWeight.w500, color: Colors.teal))
-        ],
+            kHeightBox10,
+            Text(name??"",
+                style: kRegularLine16.copyWith(
+                    fontWeight: FontWeight.w500, color: Colors.teal))
+          ],
+        ),
       ),
     );
   }

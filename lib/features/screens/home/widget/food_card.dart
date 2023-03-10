@@ -12,14 +12,13 @@ class FoodCard extends StatelessWidget {
   final String? title;
   final String? videoLength;
   final String? calorie;
-  const FoodCard({Key? key, this.image, this.title, this.videoLength, this.calorie}) : super(key: key);
+  final VoidCallback? onTap;
+  const FoodCard({Key? key, this.image, this.title, this.videoLength, this.calorie, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        GetContext.to(ProductItemScreen());
-      },
+      onTap: onTap,
       child: Stack(
         children: [
           Padding(
