@@ -7,6 +7,7 @@ import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
+import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/router/routes.dart';
 
@@ -20,6 +21,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  @override
+  void initState() {
+    dismissProgressDialog();
+    super.initState();
+  }
   AppPreferences preferences = instance.get();
   @override
   Widget build(BuildContext context) {

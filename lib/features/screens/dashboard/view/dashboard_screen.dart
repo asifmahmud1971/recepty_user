@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:receptyUser/features/screens/bookmarks/view/bookmarks_homepage.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/bottom_bar.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/dashboard_component.dart';
 import 'package:receptyUser/features/screens/profile/view/profile_page.dart';
@@ -22,7 +23,7 @@ class _DashboardScreen extends State<DashboardScreen> {
   int _selectedIndex = 0;
   final List<Widget> _screen = [
      HomeScreen(),
-     ProfilePage(),
+    BookmarksHomepage(),
      ProfileScreen(),
   ];
 
