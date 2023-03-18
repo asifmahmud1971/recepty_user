@@ -10,6 +10,7 @@ import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/router/routes.dart';
+import 'package:receptyUser/features/screens/profile/view/edit_profile_page.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key, this.title}) : super(key: key);
@@ -58,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           CustomImage(
                             isCircle: true,
                             size: 150.r,
-                            baseUrl: "",
+                            baseUrl: preferences.getUserData()?.user?.profileInformation?.profilePicture??"",
                           ),
                           new SizedBox(
                             height: _height / 30,
@@ -72,6 +73,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         ],
                       ),
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 50.h,
+                    right: 10.w,
+                    child: IconButton(
+                      onPressed: (){
+                        GetContext.to(EditProfilePage());
+                      }, icon: Container(
+
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.white)
+                        ),
+                        child: Icon(Icons.edit_outlined,color: Colors.white,)),
+
                     ),
                   ),
                   new Padding(

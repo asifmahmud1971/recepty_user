@@ -7,6 +7,7 @@ import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/core/constants/colors.dart';
+import 'package:receptyUser/features/components/_video_player.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
@@ -39,15 +40,12 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
           showProgressDialog();
         } else if (state.status == RecipeStatus.success) {
           dismissProgressDialog();
-        }
-        else if (state.status == RecipeStatus.bookmarkAddSuccess) {
-          context.read<RecipeCubit>().getRecipeDesc(id: widget.recipeId.toString()).whenComplete(() => {
-          dismissProgressDialog()
-          });
-
-        }
-
-        else {
+        } else if (state.status == RecipeStatus.bookmarkAddSuccess) {
+          context
+              .read<RecipeCubit>()
+              .getRecipeDesc(id: widget.recipeId.toString())
+              .whenComplete(() => {dismissProgressDialog()});
+        } else {
           dismissProgressDialog();
         }
       },
@@ -71,6 +69,28 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                     }),
               ),
               buttonArrow(context),
+              Positioned(
+                top: 30.h,
+                right: 10,
+                child:  InkWell(
+                onTap: () {
+                  context.read<RecipeCubit>().addBookmark(
+                      id: state
+                          .recipeDescModel?.tutorial?.id);
+                },
+                child: CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: Colors.teal,
+                  child: Icon(
+                    state.recipeDescModel?.tutorial
+                        ?.isBookmarked ??
+                        false
+                        ? Icons.bookmark
+                        : Icons.bookmark_border,
+                    color: Colors.white,
+                  ),
+                ),
+              ),),
               scroll(),
             ],
           ),
@@ -158,7 +178,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                             .copyWith(color: AppColors.kSecondaryColor),
                       ),
                       kHeightBox15,
-                      Row(
+                     /* Row(
                         children: [
                           Expanded(
                               child: Container(
@@ -170,14 +190,19 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                   context.read<RecipeCubit>().addBookmark(id: state.recipeDescModel?.tutorial?.id);
+                                    context.read<RecipeCubit>().addBookmark(
+                                        id: state
+                                            .recipeDescModel?.tutorial?.id);
                                   },
                                   child: CircleAvatar(
                                     radius: 20.r,
                                     backgroundColor: Colors.teal,
                                     child: Icon(
-                                      state.recipeDescModel?.tutorial?.isBookmarked??false?
-                                      Icons.bookmark:Icons.bookmark_border,
+                                      state.recipeDescModel?.tutorial
+                                                  ?.isBookmarked ??
+                                              false
+                                          ? Icons.bookmark
+                                          : Icons.bookmark_border,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -186,8 +211,11 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                 Expanded(
                                   child: FittedBox(
                                     child: Text(
-                                        state.recipeDescModel?.tutorial?.isBookmarked??false?
-                                      AppStrings.removeBookmark.tr():AppStrings.addBookmark.tr(),
+                                      state.recipeDescModel?.tutorial
+                                                  ?.isBookmarked ??
+                                              false
+                                          ? AppStrings.removeBookmark.tr()
+                                          : AppStrings.addBookmark.tr(),
                                       style: kRegularLine18.copyWith(),
                                     ),
                                   ),
@@ -222,7 +250,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                           ),
                                         ),
                                       ),
-                                     kWidthBox5,
+                                      kWidthBox5,
                                       Expanded(
                                         child: Text(
                                           AppStrings.playTutorial.tr(),
@@ -234,7 +262,25 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                 ))
                               : Expanded(child: SizedBox()),
                         ],
-                      ),
+                      ),*/
+                      state.recipeDescModel
+                          ?.tutorial?.video!=null?
+
+                      Container(
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        width: 1.sw,
+                        height: 200.h,
+                        child: MyVideoPlayer(
+                          playAble: true,
+                          isLocal: false,
+                          mediumId:  state.recipeDescModel
+                              ?.tutorial?.video?? '',
+                        ),
+                      ):SizedBox(),
+
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15),
                         child: Divider(
@@ -253,7 +299,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                             .bodyMedium!
                             .copyWith(color: SecondaryText),
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 15),
                         child: Divider(
                           height: 4.h,
@@ -263,7 +309,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                         AppStrings.ingredients.tr(),
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
-                     kHeightBox10,
+                      kHeightBox10,
                       Wrap(
                         direction: Axis.horizontal,
                         children: List.generate(
@@ -276,7 +322,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                 image: state.recipeDescModel?.tutorial
                                     ?.ingredients?[index].image)),
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 15),
                         child: Divider(
                           height: 4.h,
@@ -286,7 +332,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                         AppStrings.steps.tr(),
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
-                     kHeightBox10,
+                      kHeightBox10,
                       ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -320,10 +366,9 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomImage(
-              isCircle: true,
-              baseUrl: image,
-              size: 30.r,
+            Icon(
+              Icons.check,
+              color: Colors.green,
             ),
             kHeightBox10,
             Text(
@@ -361,7 +406,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                       .copyWith(color: mainText),
                 ),
               ),
-            kHeightBox10,
+              kHeightBox10,
             ],
           )
         ],

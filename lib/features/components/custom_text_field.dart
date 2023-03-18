@@ -26,6 +26,7 @@ class CustomTextField extends StatelessWidget {
   final double? radius;
   final Function(String)? onSaved;
   final bool? isView;
+  final bool? isEnable;
   final bool? isEmail;
   final TextInputAction? textInputAction;
 
@@ -54,7 +55,7 @@ class CustomTextField extends StatelessWidget {
       this.height,
       this.weight,
       this.textInputAction = TextInputAction.next,
-      this.radius})
+      this.radius, this.isEnable = true})
       : super(key: key);
 
   @override
@@ -67,6 +68,7 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        enabled: isEnable,
         textAlign: TextAlign.start,
         obscureText: isView != null ? isView! : false,
         controller: controller,

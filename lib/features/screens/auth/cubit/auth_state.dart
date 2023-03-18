@@ -7,6 +7,13 @@ enum LoginStatus {
   success,
   failure,
 }
+enum ProfileUpdate {
+  initial,
+  loading,
+  authFail,
+  success,
+  failure,
+}
 
 enum RegistrationStatus {
   initial,

@@ -120,6 +120,27 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  Future<void> profileUpdate({name,phoneNumber,image}) async {
+    emit(state.copyWith(status: ProfileUpdate.loading));
+
+    final response = await authRepository.profileUpdate({
+      "name": name,
+      "phone_number": phoneNumber,
+      "profile_picture":image
+    });
+
+    response.fold(
+          (failure) {
+        emit(state.copyWith(status: ProfileUpdate.failure));
+      },
+          (data) async {
+            _appPreferences.saveUserData(data);
+        emit(state.copyWith(
+            status: ProfileUpdate.success));
+      },
+    );
+  }
+
   Future<void> logout() async {
     emit(state.copyWith(status: LogoutStatus.loading));
     final response = await authRepository.logout();

@@ -12,6 +12,7 @@ class Urls {
   static const String registration = 'auth/register';
   static const String user = 'user';
   static const String home = 'user/home';
+  static const String profileUpdate = 'user/profile-update';
   static const String bookmarks = 'user/bookmarks';
   static const String categories = 'user/categories';
   static const String ingredients = 'ingredients';

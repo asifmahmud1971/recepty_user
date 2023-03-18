@@ -33,6 +33,20 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+  @override
+  Future<Either<ApiFailure, LoginResponse>> profileUpdate(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await await apiClient.request(
+          url: Urls.profileUpdate, method: Method.post, params: params);
+
+      //log("All Headers ====> " + response[1].toString());
+
+      return Right(LoginResponse.fromJson(response));
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
 
   @override
   Future<Either<ApiFailure, dynamic>> forgotPassword(

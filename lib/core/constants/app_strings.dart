@@ -48,6 +48,7 @@ class AppStrings {
   static const String description = "Description";
   static const String ingredients = "Ingredients";
   static const String bookmarks = "Bookmarks";
+  static const String update = "Update";
   static const String steps = "Steps";
   static const String addStep = "Add Step";
   static const String addBookmark = "Add Bookmark";

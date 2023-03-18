@@ -55,7 +55,7 @@ class ProfileInformation {
   ProfileInformation.fromJson(dynamic json) {
     id = json['id'];
     userId = json['user_id'];
-    profilePicture = json['profile_picture'];
+    profilePicture = "https://jahodiss-recepty.com/storage/app/public/${json['profile_picture']}";
     isPremium = json['is_premium'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
