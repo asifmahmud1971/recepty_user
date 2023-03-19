@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:receptyUser/core/app/app_preference.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/data/network/urls.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/generated/assets.dart';
 
@@ -44,7 +45,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                         isCircle: true,
                         placeHolder: Assets.iconsProfile,
                         baseUrl:
-                            "https://miro.medium.com/max/1400/0*0fClPmIScV5pTLoE.jpg",
+                        Urls.imageUrl+preferences.getUserData()?.user?.profileInformation?.profilePicture,
                       ),
                     ),
                     Expanded(

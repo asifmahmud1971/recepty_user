@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +8,7 @@ import 'package:receptyUser/core/app/app_preference.dart';
 import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
+import 'package:receptyUser/data/network/urls.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
@@ -25,14 +28,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
+    log(preferences.getUserData()?.user?.profileInformation?.profilePicture);
     dismissProgressDialog();
     super.initState();
   }
   AppPreferences preferences = instance.get();
+  final List<String> items = [
+    'English',
+    'Czech',
+  ];
+  String selectedValue = "Czech";
+
   @override
   Widget build(BuildContext context) {
+
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+    if (context.locale.toString() == "en_US") {
+      selectedValue = "Czech";
+    } else if (context.locale.toString() == "de_DE") {
+      selectedValue = "English";
+    }
 
     return new Container(
       child: new Stack(
@@ -59,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           CustomImage(
                             isCircle: true,
                             size: 150.r,
-                            baseUrl: preferences.getUserData()?.user?.profileInformation?.profilePicture??"",
+                            baseUrl: Urls.imageUrl+preferences.getUserData()?.user?.profileInformation?.profilePicture??"",
                           ),
                           new SizedBox(
                             height: _height / 30,
@@ -132,6 +148,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               infoChild(
                                   _width, Icons.email, preferences.getUserData()?.user?.email??""),
                               infoChild(_width, Icons.call, preferences.getUserData()?.user?.phoneNumber??""),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  infoChild(_width, Icons.language, selectedValue??""),
+                                  InkWell(
+                                    onTap: (){
+                                      setState(() {
+
+                                      });
+                                      if (selectedValue == "English") {
+                                        context.setLocale(Locale('en', 'US'));
+                                      } else if (selectedValue == "Czech") {
+                                        context.setLocale(Locale('de', 'DE'));
+                                      }
+                                    },
+                                    child: Padding(
+                                      padding:  EdgeInsets.only(bottom: 8.0,left: 100.w),
+                                      child: Text("Change",style: kRegularLine16.copyWith(
+                                        color: Colors.blue,fontWeight: FontWeight.bold
+                                      ),),
+                                    ),
+                                  )
+                                ],
+                              ),
                               InkWell(
                                 onTap: (){
                                   preferences.logout();

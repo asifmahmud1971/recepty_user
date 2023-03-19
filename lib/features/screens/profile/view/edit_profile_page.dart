@@ -15,6 +15,7 @@ import 'package:receptyUser/core/app/app_preference.dart';
 import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
+import 'package:receptyUser/data/network/urls.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/custom_text_field.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
@@ -68,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     nameController = TextEditingController(text: preferences.getUserData()?.user?.name);
     phoneController = TextEditingController(text: preferences.getUserData()?.user?.phoneNumber);
     emailController = TextEditingController(text: preferences.getUserData()?.user?.email);
-    _image1 = preferences.getUserData()?.user?.profileInformation?.profilePicture;
+    _image1 = Urls.imageUrl+preferences.getUserData()?.user?.profileInformation?.profilePicture;
 
     super.initState();
   }

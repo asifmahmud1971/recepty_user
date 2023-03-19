@@ -8,6 +8,7 @@ class Urls {
   static const String testUrl =
       'https://jahodiss-recepty.com/api/'; // test server
 
+  static const String imageUrl = 'https://jahodiss-recepty.com/storage/app/public/';
   static const String login = 'auth/user/login';
   static const String registration = 'auth/register';
   static const String user = 'user';
