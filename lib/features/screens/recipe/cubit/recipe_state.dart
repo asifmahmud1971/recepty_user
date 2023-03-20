@@ -20,6 +20,7 @@ class RecipeState extends Equatable {
   final RecipeStatus status;
   final String? message;
   final RecipeListModel? recipeListModel;
+  final RecipeListModel? searchList;
   final RecipeDescModel? recipeDescModel;
 
 
@@ -27,6 +28,7 @@ class RecipeState extends Equatable {
     this.status = RecipeStatus.initial,
     this.message,
     this.recipeListModel,
+    this.searchList,
     this.recipeDescModel
   });
 
@@ -35,17 +37,19 @@ class RecipeState extends Equatable {
     bool? isEnable,
     String? message,
     RecipeListModel? recipeListModel,
+    RecipeListModel? searchList,
     RecipeDescModel? recipeDescModel
   }) {
     return RecipeState(
         status: status ?? this.status,
         message: message ?? this.message,
       recipeListModel: recipeListModel??this.recipeListModel,
+        searchList: searchList??this.searchList,
       recipeDescModel: recipeDescModel??this.recipeDescModel
 );
   }
 
   @override
   List<Object> get props =>
-      [status, message ?? "",recipeListModel??{},recipeDescModel??{}];
+      [status, message ?? "",recipeListModel??{},recipeDescModel??{},searchList??{}];
 }

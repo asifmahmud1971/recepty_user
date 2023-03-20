@@ -18,6 +18,7 @@ import 'package:receptyUser/features/screens/home/widget/news_card.dart';
 import 'package:receptyUser/features/screens/home/widget/search_bar.dart';
 import 'package:receptyUser/features/screens/recipe/view/product_item_screen.dart';
 import 'package:receptyUser/features/screens/recipe/view/recipe_homepage.dart';
+import 'package:receptyUser/features/screens/recipe/view/search_recipe.dart';
 
 import '../../../../core/constants/app_strings.dart';
 
@@ -57,7 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: ListView(
             children: [
-              SearchBar(),
+              SearchBar(
+                onTap: (){
+                  GetContext.to(SearchRecipe());
+                },
+              ),
               kHeightBox10,
               PremiumCard(),
               kHeightBox10,

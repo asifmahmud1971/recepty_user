@@ -44,8 +44,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                         size: AppCommonSize.s36,
                         isCircle: true,
                         placeHolder: Assets.iconsProfile,
-                        baseUrl:
-                        Urls.imageUrl+preferences.getUserData()?.user?.profileInformation?.profilePicture,
+                        baseUrl: preferences.getUserData()?.user?.profileInformation?.profilePicture!=null?Urls.imageUrl+preferences.getUserData()?.user?.profileInformation?.profilePicture:"",
                       ),
                     ),
                     Expanded(

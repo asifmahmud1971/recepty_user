@@ -18,6 +18,7 @@ class Urls {
   static const String categories = 'user/categories';
   static const String ingredients = 'ingredients';
   static const String tutorials = 'user/tutorials';
+  static const String searchRecipe = 'user/search-tutorial';
   static  String tutorialsByCategory(catID){
     return 'user/categories/$catID/tutorials';
   }

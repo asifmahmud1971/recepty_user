@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                   navigatorKey: GetContext.navigatorKey,
                   debugShowCheckedModeBanner: false,
                   builder: EasyLoading.init(),
-                  title: 'Flutter Bloc',
+                  title: 'Recipty',
                   theme: context.read<ThemeCubit>().darkTheme
                       ? AppTheme.darkTheme
                       : AppTheme.lightTheme,

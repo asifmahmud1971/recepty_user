@@ -35,6 +35,21 @@ class RecipeRepository implements RecipeRepositoryImp {
     }
   }
 
+  @override
+  Future<Either<ApiFailure, RecipeListModel>> searchRecipe(
+      Map<String, dynamic> params,{title}) async {
+    try {
+      final response = await await apiClient.request(
+          url: Urls.searchRecipe, method: Method.post, params: params);
+
+      //log("All Headers ====> " + response[1].toString());
+
+      return Right(RecipeListModel.fromJson(response));
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
+
 
   @override
   Future<Either<ApiFailure, RecipeDescModel>> getRecipeDesc(

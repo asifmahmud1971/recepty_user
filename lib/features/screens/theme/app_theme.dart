@@ -11,7 +11,6 @@ class AppTheme {
   /// light theme start here ///
 
   static final lightTheme = ThemeData(
-    fontFamily: GoogleFonts.aBeeZee().fontFamily,
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
         color: AppColors.kBlackColor2,

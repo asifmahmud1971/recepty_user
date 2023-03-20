@@ -39,6 +39,29 @@ class RecipeCubit extends Cubit<RecipeState> {
     );
   }
 
+  Future<void> searchRecipe({title}) async {
+    emit(state.copyWith(
+        status: RecipeStatus.loading,
+        searchList: RecipeListModel(),
+        message: ""));
+    showProgressDialog();
+
+    final response =
+    await recipeRepositoryImp.searchRecipe({
+      "title":title
+    });
+
+    response.fold(
+          (failure) {
+        emit(state.copyWith(status: RecipeStatus.failure));
+      },
+          (data) async {
+        emit(state.copyWith(
+            status: RecipeStatus.success, searchList: data));
+      },
+    );
+  }
+
   Future<void> getRecipeDesc({id}) async {
     emit(state.copyWith(
         status: RecipeStatus.loading,
