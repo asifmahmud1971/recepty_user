@@ -269,6 +269,9 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                       Container(
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AppColors.kPrimaryColor.withOpacity(0.5)
+                          ),
                           borderRadius: BorderRadius.circular(10)
                         ),
                         width: 1.sw,

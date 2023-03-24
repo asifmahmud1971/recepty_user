@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assets = 'assets/.env';
   static const String iconsClock = 'assets/icons/clock.svg';
   static const String iconsDrawerMenu = 'assets/icons/drawer_menu.svg';
   static const String iconsFavourite = 'assets/icons/favourite.svg';

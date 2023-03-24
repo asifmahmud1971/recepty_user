@@ -41,6 +41,9 @@ dependencies:
   video_player: ^2.5.2
   photo_gallery: ^1.1.1
   jiffy: ^5.0.0
+  flutter_stripe: ^9.0.0+1
+  flutter_dotenv: ^5.0.2
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
@@ -70,3 +73,4 @@ flutter:
     - assets/images/4.0x/
     - assets/icons/
     - assets/translations/
+    - assets/.env

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'core/app/app.dart';
 import 'core/app/app_dependency.dart';
@@ -15,21 +17,28 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   //Init modules
   configureInjection();
+
+  Stripe.publishableKey =
+  "pk_test_51MpFqYFkJt7AnaBKjmN1TJXc5j0ZHLJ72Nh0q1dIbfXIj8JR43gYn1eSlfwGDpzbKmCFaDxxNVvr2qxfgacILZg200CzMEgQ88";
+
+  //Load our .env file that contains our Stripe Secret key
+  await dotenv.load(fileName: "assets/.env");
   //Init app flavor
   AppFlavor.appFlavor = FlavorStatus.development;
   //Init my app with observer
   await blocObserver(
-        () => EasyLocalization(
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('de', 'DE'),
-        Locale('fr', 'CH'),
-      ],
-      fallbackLocale: const Locale('en', 'US'),
-      startLocale: const Locale('en', 'US'),
-      saveLocale: true,
-      path: 'assets/translations',
-      child: const InitApp(),
-    ),
+        () =>
+        EasyLocalization(
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale('de', 'DE'),
+            Locale('fr', 'CH'),
+          ],
+          fallbackLocale: const Locale('en', 'US'),
+          startLocale: const Locale('en', 'US'),
+          saveLocale: true,
+          path: 'assets/translations',
+          child: const InitApp(),
+        ),
   );
 }

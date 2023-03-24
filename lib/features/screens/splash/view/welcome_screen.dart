@@ -6,15 +6,23 @@ import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
+import 'package:receptyUser/features/components/payment_controller.dart';
 import 'package:receptyUser/features/screens/auth/view/login_page.dart';
 import 'package:receptyUser/features/screens/auth/view/signup_page.dart';
 import 'package:receptyUser/generated/assets.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  PaymentController? paymentController;
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.kPrimaryColor,
       body: Container(
@@ -62,8 +70,9 @@ class WelcomeScreen extends StatelessWidget {
                       width: 1.sw,
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: DefaultBtn(
-                        onPress: () {
-                          GetContext.to(LoginPage());
+                        onPress: ()async {
+                         await PaymentController().makePayment();
+                          //GetContext.to(LoginPage());
                         },
                         radius: 10,
                         btnColor: Colors.teal,
