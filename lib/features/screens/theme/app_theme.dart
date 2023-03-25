@@ -11,12 +11,14 @@ class AppTheme {
   /// light theme start here ///
 
   static final lightTheme = ThemeData(
+    fontFamily: "Alkatra",
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
         color: AppColors.kBlackColor2,
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
+
       color: AppColors.kWhiteColor,
       elevation: 0.0,
       iconTheme: IconThemeData(
@@ -76,7 +78,7 @@ class AppTheme {
   /// dark theme start here ///
 
   static final darkTheme = ThemeData(
-    fontFamily: GoogleFonts.aBeeZee().fontFamily,
+    fontFamily: "Alkatra",
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
         color: AppColors.kWhiteColor,

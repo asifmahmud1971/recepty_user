@@ -33,6 +33,37 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+   @override
+  Future<Either<ApiFailure, dynamic>> getActive(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await await apiClient.request(
+          url: Urls.isActive, method: Method.get, params: params);
+
+      //log("All Headers ====> " + response[1].toString());
+
+      return Right(response);
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
+  @override
+  Future<Either<ApiFailure, dynamic>> packageEntry(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await await apiClient.request(
+          url: Urls.updatePackage, method: Method.post, params: params);
+
+      //log("All Headers ====> " + response[1].toString());
+
+      return Right(response);
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
+
+
+
   @override
   Future<Either<ApiFailure, LoginResponse>> profileUpdate(
       Map<String, dynamic> params) async {

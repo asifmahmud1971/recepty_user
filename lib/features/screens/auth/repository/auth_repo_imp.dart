@@ -11,6 +11,10 @@ abstract class AuthRepositoryImp {
       Map<String, dynamic> params);
    Future<Either<ApiFailure, LoginResponse>> profileUpdate(
       Map<String, dynamic> params);
+  Future<Either<ApiFailure, dynamic>> getActive(
+      Map<String, dynamic> params);
+ Future<Either<ApiFailure, dynamic>> packageEntry(
+      Map<String, dynamic> params);
 
 
 

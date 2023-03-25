@@ -1,9 +1,11 @@
 import 'dart:math' as math;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/gradiant_text.dart';
 import 'package:receptyUser/generated/assets.dart';
 
@@ -29,7 +31,7 @@ class PremiumCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GradientText(
-                    "Go to premium now!",
+                    AppStrings.promoText.tr(),
                     style: kRegularLine24.copyWith(
                         color: Colors.white,
                         fontFamily: GoogleFonts.almarai().fontFamily),
@@ -41,12 +43,12 @@ class PremiumCard extends StatelessWidget {
                   ),
                   kHeightBox10,
                   Text(
-                    "Get access from all the amazing recipes from the world",
+                   AppStrings.welcomeTextDesc.tr(),
                     style: kRegularLine18.copyWith(
                         color: Colors.white,
                         fontFamily: GoogleFonts.abel().fontFamily),
                   ),
-                  kHeightBox30,
+                 /* kHeightBox30,
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
@@ -59,7 +61,7 @@ class PremiumCard extends StatelessWidget {
                           color: Colors.black,
                           fontFamily: GoogleFonts.abel().fontFamily),
                     ),
-                  )
+                  )*/
                 ],
               ),
             ),

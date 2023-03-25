@@ -89,7 +89,7 @@ class FoodCard extends StatelessWidget {
                                       ))
                                     ],
                                   )),
-                                  Row(
+                                  /*Row(
                                     children: [
                                       Icon(
                                         Icons.local_fire_department_outlined,
@@ -103,7 +103,7 @@ class FoodCard extends StatelessWidget {
                                             color: Colors.grey),
                                       )
                                     ],
-                                  ),
+                                  ),*/
                                 ],
                               ),
                             )

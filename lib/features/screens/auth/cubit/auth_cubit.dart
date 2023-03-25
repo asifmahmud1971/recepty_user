@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:receptyUser/core/app/app_dependency.dart';
 import 'package:receptyUser/core/app/app_preference.dart';
+import 'package:receptyUser/features/components/my_context.dart';
+import 'package:receptyUser/features/router/routes.dart';
 import 'package:receptyUser/features/screens/auth/models/registration_response.dart';
-
 import 'package:receptyUser/features/screens/auth/repository/auth_repo_imp.dart';
+import 'package:receptyUser/features/screens/auth/view/subscribe_page.dart';
 
 part 'auth_state.dart';
 
@@ -96,6 +98,54 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  Future<void> getActive() async {
+    final response = await authRepository.getActive({});
+
+    response.fold(
+      (failure) {
+        emit(state.copyWith(status: OtpStatus.failure));
+      },
+      (data) async {
+        if (data['is_subscribed'] == true) {
+          GetContext.offAll(Routes.dashboard);
+        } else {
+          GetContext.toReplace(SubscribePage());
+        }
+      },
+    );
+  }
+
+  Future<void> packageEntry({packageNo}) async {
+    final response =
+        await authRepository.packageEntry({"package_no": packageNo});
+
+    response.fold(
+      (failure) {
+        emit(state.copyWith(status: OtpStatus.failure));
+      },
+      (data) async {
+        showDialog(
+            context: GetContext.context,
+            builder: (_) => AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 100.0,
+                  ),
+                  SizedBox(height: 10.0),
+                  Text("Payment Successful!"),
+                ],
+              ),
+            ));
+        GetContext.offAll(Routes.dashboard);
+
+      },
+    );
+  }
+
   Future<void> registration() async {
     emit(state.copyWith(status: RegistrationStatus.loading));
 
@@ -120,23 +170,19 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> profileUpdate({name,phoneNumber,image}) async {
+  Future<void> profileUpdate({name, phoneNumber, image}) async {
     emit(state.copyWith(status: ProfileUpdate.loading));
 
-    final response = await authRepository.profileUpdate({
-      "name": name,
-      "phone_number": phoneNumber,
-      "profile_picture":image
-    });
+    final response = await authRepository.profileUpdate(
+        {"name": name, "phone_number": phoneNumber, "profile_picture": image});
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(state.copyWith(status: ProfileUpdate.failure));
       },
-          (data) async {
-            _appPreferences.saveUserData(data);
-        emit(state.copyWith(
-            status: ProfileUpdate.success));
+      (data) async {
+        _appPreferences.saveUserData(data);
+        emit(state.copyWith(status: ProfileUpdate.success));
       },
     );
   }

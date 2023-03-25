@@ -24,6 +24,7 @@ class CustomTextField extends StatelessWidget {
   final double? height;
   final double? weight;
   final double? radius;
+  final FocusNode? focusNode;
   final Function(String)? onSaved;
   final bool? isView;
   final bool? isEnable;
@@ -55,7 +56,7 @@ class CustomTextField extends StatelessWidget {
       this.height,
       this.weight,
       this.textInputAction = TextInputAction.next,
-      this.radius, this.isEnable = true})
+      this.radius, this.isEnable = true, this.focusNode})
       : super(key: key);
 
   @override
@@ -68,6 +69,7 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        focusNode: focusNode??null,
         enabled: isEnable,
         textAlign: TextAlign.start,
         obscureText: isView != null ? isView! : false,

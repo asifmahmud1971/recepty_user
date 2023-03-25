@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:receptyUser/core/app/app_preference.dart';
 import 'package:receptyUser/core/constants/app_colors.dart';
+import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 import '../../../../core/app/app_dependency.dart';
@@ -29,8 +32,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigation() async {
     if (await widget._appPreferences.isUserLoggedIn()) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, Routes.dashboard, (route) => false);
+
+      context.read<AuthCubit>().getActive();
+     /* Navigator.pushNamedAndRemoveUntil(
+          context, Routes.dashboard, (route) => false);*/
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.welcomeScreen, (route) => false);

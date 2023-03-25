@@ -2,38 +2,40 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 
 import 'my_context.dart';
 
-class PaymentController{
-
-
+class PaymentController {
   Map<String, dynamic>? paymentIntent;
-  Future<void> makePayment() async {
+
+  Future<void> makePayment({amount, currency, packageNo}) async {
     try {
-      paymentIntent = await createPaymentIntent('100', 'USD');
+      paymentIntent = await createPaymentIntent(amount, currency);
 
       //STEP 2: Initialize Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-              paymentIntentClientSecret: paymentIntent![
-              'client_secret'], //Gotten from payment intent
-              style: ThemeMode.dark,
-              merchantDisplayName: 'Ikay'))
+              paymentSheetParameters: SetupPaymentSheetParameters(
+                  paymentIntentClientSecret: paymentIntent![
+                      'client_secret'], //Gotten from payment intent
+                  style: ThemeMode.dark,
+                  merchantDisplayName: 'Ikay'))
           .then((value) {});
 
       //STEP 3: Display Payment sheet
-       displayPaymentSheet();
+      displayPaymentSheet(packageNo: packageNo);
     } catch (err) {
       throw Exception(err);
     }
   }
+
   calculateAmount(String amount) {
-    final calculatedAmout = (int.parse(amount)) * 100;
+    final calculatedAmout = (double.parse(amount)).round() * 100;
     return calculatedAmout.toString();
   }
 
@@ -60,25 +62,11 @@ class PaymentController{
       throw Exception(err.toString());
     }
   }
-  displayPaymentSheet() async {
+
+  displayPaymentSheet({packageNo}) async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        showDialog(
-            context: GetContext.context,
-            builder: (_) => AlertDialog(
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: 100.0,
-                  ),
-                  SizedBox(height: 10.0),
-                  Text("Payment Successful!"),
-                ],
-              ),
-            ));
+        GetContext.context.read<AuthCubit>().packageEntry(packageNo: packageNo);
 
         paymentIntent = null;
       }).onError((error, stackTrace) {

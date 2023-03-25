@@ -10,6 +10,8 @@ class Urls {
 
   static const String imageUrl = 'https://jahodiss-recepty.com/storage/app/public/';
   static const String login = 'auth/user/login';
+  static const String isActive = 'auth/check-payment-status';
+  static const String updatePackage = 'auth/update-payment-status';
   static const String registration = 'auth/register';
   static const String user = 'user';
   static const String home = 'user/home';

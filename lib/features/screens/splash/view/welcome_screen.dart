@@ -71,8 +71,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: DefaultBtn(
                         onPress: ()async {
-                         await PaymentController().makePayment();
-                          //GetContext.to(LoginPage());
+                         //await PaymentController().makePayment();
+                          GetContext.to(LoginPage());
                         },
                         radius: 10,
                         btnColor: Colors.teal,

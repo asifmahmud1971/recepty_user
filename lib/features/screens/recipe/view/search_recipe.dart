@@ -25,11 +25,24 @@ class SearchRecipe extends StatefulWidget {
 }
 
 class _SearchRecipeState extends State<SearchRecipe> {
+  FocusNode _focus = FocusNode();
   @override
   void initState() {
+    _focus.addListener(_onFocusChange);
+    _focus.requestFocus();
     context.read<RecipeCubit>().searchRecipe(title: "");
     // TODO: implement initState
     super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    _focus.removeListener(_onFocusChange);
+    _focus.dispose();
+  }
+
+  void _onFocusChange() {
+    debugPrint("Focus: ${_focus.hasFocus.toString()}");
   }
 
   @override
@@ -50,6 +63,7 @@ class _SearchRecipeState extends State<SearchRecipe> {
           appBar: AppBar(
             titleSpacing: 0,
             title: CustomTextField(
+              focusNode: _focus,
               onChanged: (value) {
                 context.read<RecipeCubit>().searchRecipe(title:value.toString());
               },

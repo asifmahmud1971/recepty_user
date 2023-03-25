@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final _height = MediaQuery.of(context).size.height;
     if (context.locale.toString() == "en_US") {
       selectedValue = "Czech";
-    } else if (context.locale.toString() == "de_DE") {
+    } else if (context.locale.toString() == "cs_CZ") {
       selectedValue = "English";
     }
 
@@ -160,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       if (selectedValue == "English") {
                                         context.setLocale(Locale('en', 'US'));
                                       } else if (selectedValue == "Czech") {
-                                        context.setLocale(Locale('de', 'DE'));
+                                        context.setLocale(Locale('cs', 'CZ'));
                                       }
                                     },
                                     child: Padding(

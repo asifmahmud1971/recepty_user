@@ -28,8 +28,11 @@ class LoginPage extends StatelessWidget {
         if (state.status == LoginStatus.loading) {
           showProgressDialog();
         } else if (state.status == LoginStatus.success) {
-          dismissProgressDialog();
-          GetContext.to(DashboardScreen());
+
+          context.read<AuthCubit>().getActive().then((value) => {
+          dismissProgressDialog()
+          });
+          //GetContext.to(DashboardScreen());
         } else if (state.status == LoginStatus.authFail) {
           showUnAuthorisedDialog(
             title: AppStrings.error.tr(),

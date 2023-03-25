@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:receptyUser/features/screens/bookmarks/view/bookmarks_homepage.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/bottom_bar.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/dashboard_component.dart';
-import 'package:receptyUser/features/screens/profile/view/profile_page.dart';
 import 'package:receptyUser/features/screens/profile/view/profile_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
@@ -22,12 +21,10 @@ class _DashboardScreen extends State<DashboardScreen> {
   var pageController = PageController();
   int _selectedIndex = 0;
   final List<Widget> _screen = [
-     HomeScreen(),
+    HomeScreen(),
     BookmarksHomepage(),
-     ProfileScreen(),
+    ProfileScreen(),
   ];
-
-
 
   @override
   void initState() {

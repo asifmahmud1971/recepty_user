@@ -17,6 +17,7 @@ class AppStrings {
   static const String error = "error";
   static const String loginAlertBody = "loginAlertBody";
   static const String welcomeText = "welcomeText";
+  static const String promoText = "promoText";
   static const String welcomeTextUser = "welcomeTextUser";
   static const String welcomeTextDesc = "welcomeTextDesc";
   static const String subscribers = "subscribers";
