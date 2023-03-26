@@ -62,4 +62,6 @@ class AppStrings {
   static const String username = "username";
   static const String password = "password";
   static const String registration = "registration";
+  static const String areYouSure = "areYouSure";
+  static const String exitDesc = "exitDesc";
 }

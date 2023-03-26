@@ -14,12 +14,28 @@ import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
-class LoginPage extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class LoginPage extends StatefulWidget {
 
   LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool check = true;
+
+  void _toggle() {
+    setState(() {
+      check = !check;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +94,13 @@ class LoginPage extends StatelessWidget {
                   BillingTextField(
                       controller: context.read<AuthCubit>().passwordController,
                       labelName: "Password",
+                      isView: check,
+                      suffixIcon: check
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      onPress: () {
+                        _toggle();
+                      },
                       hint: ""),
                   kHeightBox20,
                   SizedBox(

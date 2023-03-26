@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/billing_textfield.dart';
+import 'package:receptyUser/features/components/country_picker_textfield.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
@@ -15,11 +19,29 @@ import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dar
 import 'package:receptyUser/generated/assets.dart';
 
 
-class SignupPage extends StatelessWidget {
 
-  final _formKey = GlobalKey<FormState>();
+class SignupPage extends StatefulWidget {
+
 
   SignupPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final _formKey = GlobalKey<FormState>();
+  String? countryCode = 'CH';
+  int? countryCodeNumber;
+
+  bool check = true;
+
+  void _toggle() {
+    setState(() {
+      check = !check;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,20 +101,54 @@ class SignupPage extends StatelessWidget {
                         labelName: AppStrings.email.tr(),
                         hint: ""),
                     kHeightBox20,
-                    BillingTextField(
-                        controller: context.read<AuthCubit>().numberController,
-                        labelName: AppStrings.phoneNumber.tr(),
-                        keyboardType: TextInputType.number,
-                        hint: ""),
+                    CountryPickerTextField(
+                      labelName: AppStrings.phoneNumber.tr(),
+                      textEditingController: context.read<AuthCubit>().numberController,
+                      keyboardType: TextInputType.phone,
+                      numberPicker: CountryCodePicker(
+                        flagWidth: 24.r,
+                        flagDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2)),
+                        onChanged: (value) {
+                          setState(() {
+                            countryCode = value.code;
+                            print(value);
+                          });
+                        },
+                        textStyle: const TextStyle(color: Colors.grey),
+                        initialSelection: countryCode,
+                        //favorite: ['+41', countryCode.toString()],
+                        showCountryOnly: false,
+                        showOnlyCountryWhenClosed: false,
+                        alignLeft: false,
+                      ),
+                      prefixIconColor: Colors.white.withOpacity(0.3),
+                      hint: "11 111 11 11",
+                      hintColor: Colors.grey,
+                    ),
                     kHeightBox20,
                     BillingTextField(
-                        controller: context.read<AuthCubit>().passwordController,
+                        controller: context.read<AuthCubit>().regPasswordController,
                         labelName: AppStrings.password.tr(),
+                        isView: check,
+                        suffixIcon: check
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        onPress: () {
+                          _toggle();
+                        },
                         hint: ""),
                     kHeightBox20,
                     BillingTextField(
                         controller: context.read<AuthCubit>().confirmPasswordController,
                         labelName: AppStrings.confirmPassword.tr(),
+                        isView: check,
+                        suffixIcon: check
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        onPress: () {
+                          _toggle();
+                        },
                         hint: ""),
                     kHeightBox20,
                     SizedBox(
@@ -103,8 +159,8 @@ class SignupPage extends StatelessWidget {
                         title: AppStrings.registration.tr(),
                         onPress: () async {
                           /*if (_formKey.currentState!.validate()) {}*/
-
-                          context.read<AuthCubit>().registration();
+                          log(context.read<AuthCubit>().numberController.value!.international.toString());
+                          //context.read<AuthCubit>().registration();
 
                           //GetContext.to(DashboardScreen());
                         },

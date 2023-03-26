@@ -60,5 +60,7 @@
   "logout" :  "Odhlásit se",
   "username" :  "uživatelské jméno",
   "password" :  "heslo",
-  "registration" :  "Registrace"
+  "registration" :  "Registrace",
+  "areYouSure" :  "Jste si jistý?",
+  "exitDesc" :  "Chcete ukončit aplikaci!"
 }

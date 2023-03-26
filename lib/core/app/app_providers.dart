@@ -12,31 +12,19 @@ import 'app_dependency.dart';
 
 class AppProviders {
   static final providers = <BlocProvider>[
-        BlocProvider<ThemeCubit>(
-            create: (BuildContext context) => instance<ThemeCubit>()),
-      ] +
-      <BlocProvider>[
-        BlocProvider<InternetCubit>(
-            create: (BuildContext context) => instance<InternetCubit>()),
-      ] +
-      <BlocProvider>[
-        BlocProvider<AuthCubit>(
-            create: (BuildContext context) => instance<AuthCubit>()),
-      ] +
-      <BlocProvider>[
-        BlocProvider<HomeCubit>(
-            create: (BuildContext context) => instance<HomeCubit>()),
-      ] +
-      <BlocProvider>[
-        BlocProvider<RecipeCubit>(
-            create: (BuildContext context) => instance<RecipeCubit>()),
-      ] +
-      <BlocProvider>[
-        BlocProvider<CategoryCubit>(
-            create: (BuildContext context) => instance<CategoryCubit>()),
-      ] +
-      <BlocProvider>[
-        BlocProvider<BlogsCubit>(
-            create: (BuildContext context) => instance<BlogsCubit>()),
-      ];
+    BlocProvider<ThemeCubit>(
+        create: (BuildContext context) => instance<ThemeCubit>()),
+    BlocProvider<InternetCubit>(
+        create: (BuildContext context) => instance<InternetCubit>()),
+    BlocProvider<AuthCubit>(
+        create: (BuildContext context) => instance<AuthCubit>()),
+    BlocProvider<HomeCubit>(
+        create: (BuildContext context) => instance<HomeCubit>()),
+    BlocProvider<RecipeCubit>(
+        create: (BuildContext context) => instance<RecipeCubit>()),
+    BlocProvider<CategoryCubit>(
+        create: (BuildContext context) => instance<CategoryCubit>()),
+    BlocProvider<BlogsCubit>(
+        create: (BuildContext context) => instance<BlogsCubit>()),
+  ];
 }

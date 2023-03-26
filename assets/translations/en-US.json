@@ -60,5 +60,7 @@
   "logout" :  "Logout",
   "username" :  "username",
   "password" :  "password",
-  "registration" :  "Registration"
+  "registration" :  "Registration",
+  "areYouSure" :  "Are you sure?",
+  "exitDesc" :  "Do you want to exit an app!"
 }

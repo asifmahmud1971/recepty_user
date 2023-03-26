@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
 import 'package:receptyUser/core/app/app_providers.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/no_internet/cubit/internet_cubit.dart';
@@ -50,7 +51,9 @@ class MyApp extends StatelessWidget {
                       : AppTheme.lightTheme,
                   onGenerateRoute: RouteGenerator.getRoute,
                   initialRoute: Routes.splash,
-                  localizationsDelegates: [...context.localizationDelegates],
+                  localizationsDelegates: [...context.localizationDelegates,
+                    PhoneFieldLocalization.delegate
+                  ],
                   supportedLocales: context.supportedLocales,
                   locale: context.locale,
                 );

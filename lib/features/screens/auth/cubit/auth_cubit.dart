@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 import 'package:receptyUser/core/app/app_dependency.dart';
 import 'package:receptyUser/core/app/app_preference.dart';
 import 'package:receptyUser/features/components/my_context.dart';
@@ -25,7 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController forgotEmailController = TextEditingController();
   final TextEditingController regEmailController = TextEditingController();
-  final TextEditingController numberController = TextEditingController();
+ final  PhoneController numberController = PhoneController(PhoneNumber(isoCode: IsoCode.CZ,nsn: ''));
   final TextEditingController nameController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -152,8 +153,8 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await authRepository.registration({
       "name": nameController.text,
       "email": regEmailController.text,
-      "phone_number": numberController.text,
-      "password": passwordController.text,
+      "phone_number": numberController.value?.international.toString(),
+      "password": regPasswordController.text,
       "password_confirmation": confirmPasswordController.text,
     });
 
@@ -206,7 +207,6 @@ class AuthCubit extends Cubit<AuthState> {
     emailController.clear();
     passwordController.clear();
     forgotEmailController.clear();
-    numberController.clear();
     regEmailController.clear();
     nameController.clear();
     confirmPasswordController.clear();

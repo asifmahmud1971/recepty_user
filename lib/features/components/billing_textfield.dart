@@ -5,15 +5,20 @@ class BillingTextField extends StatelessWidget {
   final String? labelName;
   final String? hint;
   final bool? isDropdown;
+  final IconData? suffixIcon;
+  final IconData? prefixIcon;
+  final VoidCallback? onPress;
+  final Color? sufixIconColor;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final bool? isView;
 
   const BillingTextField(
       {Key? key,
         this.labelName,
         this.hint,
         this.isDropdown = false,
-        this.controller, this.keyboardType})
+        this.controller, this.keyboardType, this.suffixIcon, this.prefixIcon, this.onPress, this.sufixIconColor, this.isView})
       : super(key: key);
 
   @override
@@ -33,6 +38,7 @@ class BillingTextField extends StatelessWidget {
         ? SizedBox(
       width: 1.sw,
       child: TextField(
+        obscureText: isView != null ? isView! : false,
         controller: controller,
         autofocus: false,
         onChanged: (val) {},
@@ -41,6 +47,16 @@ class BillingTextField extends StatelessWidget {
           contentPadding: const EdgeInsets.all(10.0),
           labelText: labelName ?? 'label',
           hintText: hint ?? "hint",
+
+          suffixIcon: suffixIcon == null
+              ? null
+              : InkWell(
+              onTap: onPress,
+              child: Icon(
+                suffixIcon,
+                size: 20.r,
+                color: sufixIconColor,
+              )),
           // add here
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: const TextStyle(

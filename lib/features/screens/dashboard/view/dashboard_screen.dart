@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/screens/bookmarks/view/bookmarks_homepage.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/bottom_bar.dart';
 import 'package:receptyUser/features/screens/dashboard/widget/dashboard_component.dart';
@@ -54,6 +56,7 @@ class _DashboardScreen extends State<DashboardScreen> {
         } else {
           setState(() {
             _selectedIndex = 0;
+            _onItemTapped(0);
           });
         }
         return false;
@@ -94,8 +97,8 @@ class _DashboardScreen extends State<DashboardScreen> {
   Future<bool> _onBackPressed() {
     return showCustomDialog(
       context: context,
-      title: 'Are you sure?',
-      details: 'Do you want to exit an app!',
+      title: AppStrings.areYouSure.tr(),
+      details: AppStrings.exitDesc.tr(),
       onYes: () => SystemNavigator.pop(),
     ).show().then(
           (value) => value as bool,

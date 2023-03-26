@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/features/components/my_context.dart';
 
 import '../../core/constants/app_colors.dart';
 import 'default_btn.dart';
@@ -21,48 +22,63 @@ showCustomDialog({
         //this right here
         child: IntrinsicHeight(
           child: Padding(
-            padding: EdgeInsets.all(AppCommonSize.s16),
+            padding: EdgeInsets.only(top: AppCommonSize.s16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   title ?? '',
                   style: kRegularLine16.copyWith(
                     color: AppColors.kBlackColor,
+                    fontWeight: FontWeight.w700,
                     fontSize: AppTextSize.s20,
                   ),
                 ),
                 kHeightBox8,
-                Text(
-                  details ?? '',
-                  style: kRegularLine16.copyWith(
-                    color: AppColors.kBlackColor,
-                    fontSize: AppTextSize.s16,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppWeight.s10),
+                  child: Text(
+                    details ?? '',
+                    style: kRegularLine16.copyWith(
+                      color: AppColors.kBlackColor,
+                      fontSize: AppTextSize.s16,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                kHeightBox25,
-                Row(
-                  children: [
-                    Expanded(
-                      child: DefaultBtn(
-                        onPress: () {
-                          Navigator.of(context).pop();
-                          onYes();
-                        },
-                        title: confirmText ?? 'Yes',
+                kHeightBox20,
+                Divider(
+                  height: 0,
+                ),
+                IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {
+                            GetContext.back();
+                          },
+                          child: Text(
+                            "No",
+                            style: kRegularLine16.copyWith(
+                                color: AppColors.kSecondaryColor),
+                          ),
+                        ),
                       ),
-                    ),
-                    kWidthBox12,
-                    Expanded(
-                      child: DefaultBtn(
-                        onPress: () => Navigator.of(context).pop(),
-                        title: cancelText ?? 'No',
-                        outlineButton: true,
-                        textColor: AppColors.kBlackColor,
+                      VerticalDivider(),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: onYes,
+                          child: Text(
+                            "Yes",
+                            style: kRegularLine16.copyWith(
+                                color: AppColors.kPrimaryColor),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
