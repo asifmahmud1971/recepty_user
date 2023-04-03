@@ -62,5 +62,6 @@
   "password" :  "heslo",
   "registration" :  "Registrace",
   "areYouSure" :  "Jste si jistý?",
-  "exitDesc" :  "Chcete ukončit aplikaci!"
+  "exitDesc" :  "Chcete ukončit aplikaci!",
+  "emailTaken" :  "E-mail již byl převzat."
 }

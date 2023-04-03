@@ -128,7 +128,7 @@ showUnAuthorisedDialog({
                         'You need to sign in or sign up before continuing.',
                     textAlign: TextAlign.center,
                     style: kRegularLine16.copyWith(
-                      color: Color(0XFF535353),
+                      //color: Color(0XFF535353),
                       fontSize: AppTextSize.s14,
                     ),
                   ),
@@ -142,7 +142,9 @@ showUnAuthorisedDialog({
                   child: Text(
                     "Ok",
                     style:
-                        kRegularLine16.copyWith(color: AppColors.kPrimaryColor),
+                        kRegularLine16.copyWith(
+                          color: Colors.red,
+                        ),
                   ),
                 ),
                 VerticalDivider(),

@@ -74,15 +74,20 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomSvg(
-                    icon: Assets.imagesLoginImage,
-                    size: 250.r,
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Image.asset(Assets.imagesReceptyLogo,
+                      height: 200.r,
+                      width: 200.r,
+                    ),
                   ),
                   kHeightBox30,
                   Text(
                     AppStrings.login.tr(),
                     style: kRegularLine30.copyWith(
-                      color: Colors.black,
                     ),
                   ),
                   kHeightBox20,

@@ -20,6 +20,7 @@ enum RegistrationStatus {
   loading,
   authFail,
   registrationSuccess,
+  taken,
   failure,
 }
 

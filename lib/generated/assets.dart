@@ -46,9 +46,9 @@ class Assets {
   static const String imagesUs = 'assets/images/us.png';
   static const String imagesUserPlaceHolder = 'assets/images/user_place_holder.png';
   static const String imagesWelcomeImage = 'assets/images/welcome_image.jpg';
-  static const String translationsCzCS = 'assets/translations/cs-CZ.json';
-  static const String translationsDeDE = 'assets/translations/de-DE.json';
+  static const String translationsCsCZ = 'assets/translations/cs-CZ.json';
   static const String translationsEnUS = 'assets/translations/en-US.json';
   static const String translationsFrCH = 'assets/translations/fr-CH.json';
+  static const String translationsSkSK = 'assets/translations/sk-SK.json';
 
 }

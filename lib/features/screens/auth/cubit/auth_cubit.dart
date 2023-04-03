@@ -26,7 +26,8 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController forgotEmailController = TextEditingController();
   final TextEditingController regEmailController = TextEditingController();
- final  PhoneController numberController = PhoneController(PhoneNumber(isoCode: IsoCode.CZ,nsn: ''));
+  final PhoneController numberController =
+      PhoneController(PhoneNumber(isoCode: IsoCode.CZ, nsn: ''));
   final TextEditingController nameController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -128,21 +129,20 @@ class AuthCubit extends Cubit<AuthState> {
         showDialog(
             context: GetContext.context,
             builder: (_) => AlertDialog(
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: 100.0,
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text("Payment Successful!"),
+                    ],
                   ),
-                  SizedBox(height: 10.0),
-                  Text("Payment Successful!"),
-                ],
-              ),
-            ));
+                ));
         GetContext.offAll(Routes.dashboard);
-
       },
     );
   }
@@ -160,7 +160,11 @@ class AuthCubit extends Cubit<AuthState> {
 
     response.fold(
       (failure) {
-        emit(state.copyWith(status: RegistrationStatus.failure));
+        if (failure.code == 400) {
+          emit(state.copyWith(status: RegistrationStatus.taken));
+        } else {
+          emit(state.copyWith(status: RegistrationStatus.failure));
+        }
       },
       (data) async {
         emit(state.copyWith(

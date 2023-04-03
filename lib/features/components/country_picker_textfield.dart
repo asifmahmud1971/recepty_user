@@ -50,7 +50,7 @@ class _CountryPickerTextFieldState extends State<CountryPickerTextField> {
         decoration: InputDecoration(
           isDense: true,
           prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
-
+          filled: true,
           prefix: widget.numberPicker,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
@@ -60,13 +60,14 @@ class _CountryPickerTextFieldState extends State<CountryPickerTextField> {
           // add here
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: const TextStyle(
-            color: Color.fromARGB(255, 107, 106, 144),
+           // color: Color.fromARGB(255, 107, 106, 144),
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
             borderSide: const BorderSide(
-                color: Color.fromARGB(255, 107, 106, 144), width: 2),
+               // color: Color.fromARGB(255, 107, 106, 144),
+                width: 2),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

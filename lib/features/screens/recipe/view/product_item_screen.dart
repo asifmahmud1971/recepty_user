@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconly/iconly.dart';
 import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
@@ -10,10 +9,9 @@ import 'package:receptyUser/core/constants/colors.dart';
 import 'package:receptyUser/features/components/_video_player.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
-import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_cubit.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_state.dart';
-import 'package:receptyUser/features/screens/recipe/view/play_video.dart';
+import 'package:receptyUser/features/screens/theme/cubit/theme_cubit.dart';
 
 class ProductItemScreen extends StatefulWidget {
   final String? recipeId;
@@ -72,25 +70,24 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
               Positioned(
                 top: 30.h,
                 right: 10,
-                child:  InkWell(
-                onTap: () {
-                  context.read<RecipeCubit>().addBookmark(
-                      id: state
-                          .recipeDescModel?.tutorial?.id);
-                },
-                child: CircleAvatar(
-                  radius: 20.r,
-                  backgroundColor: Colors.teal,
-                  child: Icon(
-                    state.recipeDescModel?.tutorial
-                        ?.isBookmarked ??
-                        false
-                        ? Icons.bookmark
-                        : Icons.bookmark_border,
-                    color: Colors.white,
+                child: InkWell(
+                  onTap: () {
+                    context
+                        .read<RecipeCubit>()
+                        .addBookmark(id: state.recipeDescModel?.tutorial?.id);
+                  },
+                  child: CircleAvatar(
+                    radius: 20.r,
+                    backgroundColor: Colors.teal,
+                    child: Icon(
+                      state.recipeDescModel?.tutorial?.isBookmarked ?? false
+                          ? Icons.bookmark
+                          : Icons.bookmark_border,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),),
+              ),
               scroll(),
             ],
           ),
@@ -138,47 +135,51 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
             maxChildSize: 1.0,
             minChildSize: 0.6,
             builder: (context, scrollController) {
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                clipBehavior: Clip.hardEdge,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(20),
-                      topRight: const Radius.circular(20)),
-                ),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 5,
-                              width: 35,
-                              color: Colors.black12,
+              return BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, themeState) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      color: themeState.themeMode == ThemeModeStatus.dark
+                          ? Colors.black
+                          : Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(20),
+                          topRight: const Radius.circular(20)),
+                    ),
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, bottom: 25),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 5,
+                                  width: 35,
+                                  color: Colors.black12,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        state.recipeDescModel?.tutorial?.title ?? "",
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                      kHeightBox10,
-                      Text(
-                        "Food ${state.recipeDescModel?.tutorial?.videoLength ?? 0} min",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: AppColors.kSecondaryColor),
-                      ),
-                      kHeightBox15,
-                     /* Row(
+                          ),
+                          Text(
+                            state.recipeDescModel?.tutorial?.title ?? "",
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          kHeightBox10,
+                          Text(
+                            "Food ${state.recipeDescModel?.tutorial?.videoLength ?? 0} min",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: AppColors.kSecondaryColor),
+                          ),
+                          kHeightBox15,
+                          /* Row(
                         children: [
                           Expanded(
                               child: Container(
@@ -263,95 +264,95 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                               : Expanded(child: SizedBox()),
                         ],
                       ),*/
-                      state.recipeDescModel
-                          ?.tutorial?.video!=null?
-
-                      Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColors.kPrimaryColor.withOpacity(0.5)
+                          state.recipeDescModel?.tutorial?.video != null
+                              ? Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.kPrimaryColor
+                                              .withOpacity(0.5)),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  width: 1.sw,
+                                  height: 200.h,
+                                  child: MyVideoPlayer(
+                                    playAble: true,
+                                    isLocal: false,
+                                    mediumId: state
+                                            .recipeDescModel?.tutorial?.video ??
+                                        '',
+                                  ),
+                                )
+                              : SizedBox(),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: Divider(
+                              height: 4,
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        width: 1.sw,
-                        height: 200.h,
-                        child: MyVideoPlayer(
-                          playAble: true,
-                          isLocal: false,
-                          mediumId:  state.recipeDescModel
-                              ?.tutorial?.video?? '',
-                        ),
-                      ):SizedBox(),
-
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: Divider(
-                          height: 4,
-                        ),
-                      ),
-                      Text(
-                        AppStrings.description.tr(),
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      kHeightBox10,
-                      Text(
-                        state.recipeDescModel?.tutorial?.description ?? "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: SecondaryText),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: Divider(
-                          height: 4.h,
-                        ),
-                      ),
-                      Text(
-                        AppStrings.ingredients.tr(),
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      kHeightBox10,
-                      Wrap(
-                        direction: Axis.horizontal,
-                        children: List.generate(
-                            state.recipeDescModel?.tutorial?.ingredients
-                                    ?.length ??
+                          Text(
+                            AppStrings.description.tr(),
+                            style: Theme.of(context).textTheme.displayLarge,
+                          ),
+                          kHeightBox10,
+                          Text(
+                            state.recipeDescModel?.tutorial?.description ?? "",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: SecondaryText),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: Divider(
+                              height: 4.h,
+                            ),
+                          ),
+                          Text(
+                            AppStrings.ingredients.tr(),
+                            style: Theme.of(context).textTheme.displayLarge,
+                          ),
+                          kHeightBox10,
+                          Wrap(
+                            direction: Axis.horizontal,
+                            children: List.generate(
+                                state.recipeDescModel?.tutorial?.ingredients
+                                        ?.length ??
+                                    0,
+                                (index) => ingredients(
+                                    name: state.recipeDescModel?.tutorial
+                                        ?.ingredients?[index].name,
+                                    image: state.recipeDescModel?.tutorial
+                                        ?.ingredients?[index].image)),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: Divider(
+                              height: 4.h,
+                            ),
+                          ),
+                          Text(
+                            AppStrings.steps.tr(),
+                            style: Theme.of(context).textTheme.displayLarge,
+                          ),
+                          kHeightBox10,
+                          ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state.recipeDescModel?.tutorial
+                                    ?.tutorialSteps?.length ??
                                 0,
-                            (index) => ingredients(
+                            itemBuilder: (context, index) => steps(
+                                context: context,
                                 name: state.recipeDescModel?.tutorial
-                                    ?.ingredients?[index].name,
-                                image: state.recipeDescModel?.tutorial
-                                    ?.ingredients?[index].image)),
+                                    ?.tutorialSteps?[index].name,
+                                step: state.recipeDescModel?.tutorial
+                                    ?.tutorialSteps?[index].description),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: Divider(
-                          height: 4.h,
-                        ),
-                      ),
-                      Text(
-                        AppStrings.steps.tr(),
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      kHeightBox10,
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: state.recipeDescModel?.tutorial
-                                ?.tutorialSteps?.length ??
-                            0,
-                        itemBuilder: (context, index) => steps(
-                            context: context,
-                            name: state.recipeDescModel?.tutorial
-                                ?.tutorialSteps?[index].name,
-                            step: state.recipeDescModel?.tutorial
-                                ?.tutorialSteps?[index].description),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               );
             });
       },
@@ -385,6 +386,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
   }
 
   steps({BuildContext? context, String? name, String? step}) {
+    return BlocBuilder<ThemeCubit, ThemeState>(
+  builder: (context, state) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
@@ -403,10 +406,10 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                 child: Text(
                   step!,
                   maxLines: 3,
-                  style: Theme.of(context!)
+                  style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
-                      .copyWith(color: mainText),
+                      .copyWith(color: state.themeMode == ThemeModeStatus.dark?Colors.white:mainText),
                 ),
               ),
               kHeightBox10,
@@ -415,5 +418,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         ],
       ),
     );
+  },
+);
   }
 }

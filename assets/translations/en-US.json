@@ -62,5 +62,6 @@
   "password" :  "password",
   "registration" :  "Registration",
   "areYouSure" :  "Are you sure?",
-  "exitDesc" :  "Do you want to exit an app!"
+  "exitDesc" :  "Do you want to exit an app!",
+  "emailTaken" :  "The email has already been taken."
 }

@@ -62,8 +62,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                           Text(
                             preferences.getUserData()?.user?.name??"",
                             style: kRegularLine16.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
+                                fontWeight: FontWeight.w700,),
                           ),
                         ],
                       ),

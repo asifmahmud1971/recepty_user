@@ -4,10 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/colors.dart';
+import 'package:receptyUser/features/screens/theme/cubit/theme_cubit.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 class ProductItemScreen extends StatelessWidget {
@@ -55,7 +58,6 @@ class ProductItemScreen extends StatelessWidget {
               child: const Icon(
                 Icons.arrow_back_ios,
                 size: 20,
-                color: Colors.white,
               ),
             ),
           ),
@@ -65,6 +67,8 @@ class ProductItemScreen extends StatelessWidget {
   }
 
   scroll() {
+    return BlocBuilder<ThemeCubit, ThemeState>(
+  builder: (context, state) {
     return DraggableScrollableSheet(
         initialChildSize: 0.6,
         maxChildSize: 1.0,
@@ -74,7 +78,6 @@ class ProductItemScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(20),
                   topRight: const Radius.circular(20)),
@@ -92,7 +95,7 @@ class ProductItemScreen extends StatelessWidget {
                         Container(
                           height: 5,
                           width: 35,
-                          color: Colors.black12,
+
                         ),
                       ],
                     ),
@@ -108,8 +111,7 @@ class ProductItemScreen extends StatelessWidget {
                     "Food .60 min",
                     style: Theme.of(context)
                         .textTheme
-                        .bodyMedium!
-                        .copyWith(color: SecondaryText),
+                        .bodyMedium!,
                   ),
                   const SizedBox(
                     height: 15,
@@ -230,6 +232,8 @@ class ProductItemScreen extends StatelessWidget {
             ),
           );
         });
+  },
+);
   }
 
   ingredients(BuildContext context) {
@@ -243,7 +247,7 @@ class ProductItemScreen extends StatelessWidget {
             child: Icon(
               Icons.done,
               size: 15,
-              color: primary,
+              color: AppColors.kPrimaryColor,
             ),
           ),
           const SizedBox(

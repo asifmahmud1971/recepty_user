@@ -26,7 +26,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
   }
 
-  bool _darkTheme = false;
+  bool _darkTheme = true;
 
   bool get darkTheme => _darkTheme;
 

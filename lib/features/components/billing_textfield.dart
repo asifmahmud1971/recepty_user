@@ -47,7 +47,7 @@ class BillingTextField extends StatelessWidget {
           contentPadding: const EdgeInsets.all(10.0),
           labelText: labelName ?? 'label',
           hintText: hint ?? "hint",
-
+          filled: true,
           suffixIcon: suffixIcon == null
               ? null
               : InkWell(
@@ -60,13 +60,15 @@ class BillingTextField extends StatelessWidget {
           // add here
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: const TextStyle(
-            color: Color.fromARGB(255, 107, 106, 144),
+           // color: Color.fromARGB(255, 107, 106, 144),
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
+
           border: OutlineInputBorder(
             borderSide: const BorderSide(
-                color: Color.fromARGB(255, 107, 106, 144), width: 2),
+                //color: Color.fromARGB(255, 107, 106, 144),
+                width: 2),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

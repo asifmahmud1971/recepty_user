@@ -9,6 +9,7 @@ import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/billing_textfield.dart';
 import 'package:receptyUser/features/components/country_picker_textfield.dart';
+import 'package:receptyUser/features/components/custom_dialogs.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
@@ -31,7 +32,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
-  String? countryCode = 'CH';
+  String? countryCode = 'CZ';
   int? countryCodeNumber;
 
   bool check = true;
@@ -52,7 +53,19 @@ class _SignupPageState extends State<SignupPage> {
         } else if (state.status == RegistrationStatus.registrationSuccess) {
           dismissProgressDialog();
           GetContext.to(ForgetOtpPage(registrationUser: state.registrationResponse?.user,));
-        } else if (state.status == RegistrationStatus.authFail) {
+        } else if (state.status == RegistrationStatus.taken) {
+          showUnAuthorisedDialog(
+            title: AppStrings.error.tr(),
+            details: AppStrings.emailTaken.tr(),
+            context: context,
+            onYes: () {
+              Navigator.pop(context);
+            },
+          );
+
+          dismissProgressDialog();
+        }
+        else if (state.status == RegistrationStatus.authFail) {
           /* CustomDialog.showUnAuthorisedDialog(
             title: AppStrings.loginAlert.tr(),
             details: AppStrings.loginAlertBody.tr(),
@@ -63,7 +76,10 @@ class _SignupPageState extends State<SignupPage> {
           );*/
 
           dismissProgressDialog();
-        } else {
+        }
+
+
+        else {
           dismissProgressDialog();
         }
       },
@@ -79,15 +95,22 @@ class _SignupPageState extends State<SignupPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     kHeightBox75,
-                    CustomSvg(
-                      icon: Assets.imagesLoginImage,
-                      size: 250.r,
+
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Image.asset(Assets.imagesReceptyLogo,
+                        height: 200.r,
+                        width: 200.r,
+                      ),
                     ),
                     kHeightBox30,
                     Text(
                       AppStrings.registration.tr(),
                       style: kRegularLine30.copyWith(
-                        color: Colors.black,
+                        //color: Colors.black,
                       ),
                     ),
                     kHeightBox20,
@@ -160,7 +183,7 @@ class _SignupPageState extends State<SignupPage> {
                         onPress: () async {
                           /*if (_formKey.currentState!.validate()) {}*/
                           log(context.read<AuthCubit>().numberController.value!.international.toString());
-                          //context.read<AuthCubit>().registration();
+                          context.read<AuthCubit>().registration();
 
                           //GetContext.to(DashboardScreen());
                         },

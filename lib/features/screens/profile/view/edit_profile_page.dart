@@ -136,7 +136,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.black12, width: 0.5),
-                        color: Colors.white),
+                    ),
                     child: ListView(
                       controller: scrollController,
                       children: [
@@ -159,7 +159,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Text(
                           "Name",
                           style: kRegularLine15.copyWith(
-                              color: AppColors.kBlackColor,
                               fontWeight: FontWeight.w600),
                         ),
                         kHeightBox10,
@@ -172,7 +171,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Text(
                           "Email",
                           style: kRegularLine15.copyWith(
-                              color: AppColors.kBlackColor,
                               fontWeight: FontWeight.w600),
                         ),
                         kHeightBox10,
@@ -187,7 +185,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         Text(
                           "Phone Number",
                           style: kRegularLine15.copyWith(
-                              color: AppColors.kBlackColor,
+
                               fontWeight: FontWeight.w600),
                         ),
                         kHeightBox10,
