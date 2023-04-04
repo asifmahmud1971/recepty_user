@@ -103,22 +103,22 @@ class AppTheme {
         systemNavigationBarDividerColor: AppColors.kWhiteColor,
       ),
     ),
-    primaryColor: AppColors.kPrimaryColor,
+    primaryColor: Colors.white,
     secondaryHeaderColor: AppColors.kSecondaryColor,
     disabledColor: const Color(0xffa2a7ad),
     backgroundColor: AppColors.kBgDarkColor,
     scaffoldBackgroundColor: AppColors.kBgDarkColor,
     errorColor: const Color(0xFFdd3135),
     brightness: Brightness.dark,
-    hintColor: const Color(0xFFbebebe),
+    hintColor: Colors.white,
     cardColor: AppColors.kCardDarkColor,
     colorScheme: const ColorScheme.dark(
-      primary: AppColors.kPrimaryColor,
-      secondary: AppColors.kSecondaryColor,
+      primary: Colors.white,
+      secondary: Colors.white,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: AppColors.kPrimaryColor,
+        primary: Colors.white,
       ),
     ),
     textTheme: const TextTheme(

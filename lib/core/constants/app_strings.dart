@@ -65,4 +65,6 @@ class AppStrings {
   static const String areYouSure = "areYouSure";
   static const String exitDesc = "exitDesc";
   static const String emailTaken = "emailTaken";
+  static const String preferredLanguage = "preferredLanguage";
+  static const String alreadyHaveAccount = "alreadyHaveAccount";
 }

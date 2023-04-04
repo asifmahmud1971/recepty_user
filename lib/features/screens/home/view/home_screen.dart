@@ -53,8 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             toolbarHeight: 100.h,
             automaticallyImplyLeading: false,
-            titleSpacing: 0,
-            title: HomePageHeader(),
+            title: /*HomePageHeader()*/Text("Recepty",style: kRegularLine18.copyWith(fontWeight: FontWeight.w700),),
           ),
           body: ListView(
             children: [

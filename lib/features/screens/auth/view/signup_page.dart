@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 import 'package:receptyUser/features/screens/auth/view/forget_otp_page.dart';
+import 'package:receptyUser/features/screens/auth/view/login_page.dart';
 import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
@@ -94,6 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+
                     kHeightBox75,
 
                     Container(
@@ -123,7 +126,7 @@ class _SignupPageState extends State<SignupPage> {
                         controller: context.read<AuthCubit>().regEmailController,
                         labelName: AppStrings.email.tr(),
                         hint: ""),
-                    kHeightBox20,
+                    /*kHeightBox20,
                     CountryPickerTextField(
                       labelName: AppStrings.phoneNumber.tr(),
                       textEditingController: context.read<AuthCubit>().numberController,
@@ -148,7 +151,7 @@ class _SignupPageState extends State<SignupPage> {
                       prefixIconColor: Colors.white.withOpacity(0.3),
                       hint: "11 111 11 11",
                       hintColor: Colors.grey,
-                    ),
+                    ),*/
                     kHeightBox20,
                     BillingTextField(
                         controller: context.read<AuthCubit>().regPasswordController,
@@ -190,26 +193,25 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     kHeightBox20,
-                    /* Center(
+                     Center(
                       child: Text.rich(
                         TextSpan(
                           children: [
                             TextSpan(
-                                text: 'Don’t have any account? ',
-                                style: kRegularLine12.copyWith(
+                                text: AppStrings.alreadyHaveAccount.tr(),
+                                style: kRegularLine14.copyWith(
                                     fontWeight: FontWeight.w500, color: Colors.grey)),
                             TextSpan(
-                                text: 'Register',
-                                style: kRegularLine12.copyWith(
+                                text: AppStrings.login.tr(),
+                                style: kRegularLine14.copyWith(
                                     fontWeight: FontWeight.w500, color: Colors.blue),
-                                recognizer: DoubleTapGestureRecognizer()
-                                  ..onDoubleTap = () {
-                                    // Double tapped.
-                                  }),
+                              recognizer: TapGestureRecognizer()..onTap = () {
+                                GetContext.to(LoginPage());
+                              },),
                           ],
                         ),
                       ),
-                    )*/
+                    )
                   ],
                 ),
               ),

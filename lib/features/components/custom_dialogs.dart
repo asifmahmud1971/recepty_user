@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/my_context.dart';
+import 'package:receptyUser/features/screens/theme/cubit/theme_cubit.dart';
 
 import '../../core/constants/app_colors.dart';
 import 'default_btn.dart';
@@ -16,74 +18,81 @@ showCustomDialog({
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppCommonSize.s10)),
-        //this right here
-        child: IntrinsicHeight(
-          child: Padding(
-            padding: EdgeInsets.only(top: AppCommonSize.s16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title ?? '',
-                  style: kRegularLine16.copyWith(
-                    color: AppColors.kBlackColor,
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppTextSize.s20,
-                  ),
-                ),
-                kHeightBox8,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppWeight.s10),
-                  child: Text(
-                    details ?? '',
-                    style: kRegularLine16.copyWith(
-                      color: AppColors.kBlackColor,
-                      fontSize: AppTextSize.s16,
+      return BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppCommonSize.s10)),
+            //this right here
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: EdgeInsets.only(top: AppCommonSize.s16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      title ?? '',
+                      style: kRegularLine16.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: AppTextSize.s20,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                kHeightBox20,
-                Divider(
-                  height: 0,
-                ),
-                IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {
-                            GetContext.back();
-                          },
-                          child: Text(
-                            "No",
-                            style: kRegularLine16.copyWith(
-                                color: AppColors.kSecondaryColor),
-                          ),
+                    kHeightBox8,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: AppWeight.s10),
+                      child: Text(
+                        details ?? '',
+                        style: kRegularLine16.copyWith(
+                          fontSize: AppTextSize.s16,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                      VerticalDivider(),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: onYes,
-                          child: Text(
-                            "Yes",
-                            style: kRegularLine16.copyWith(
-                                color: AppColors.kPrimaryColor),
+                    ),
+                    kHeightBox20,
+                    Divider(
+                      height: 0,
+                    ),
+                    IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () {
+                                GetContext.back();
+                              },
+                              child: Text(
+                                "No",
+                                style: kRegularLine16.copyWith(
+                                   color: state.themeMode ==
+                                       ThemeModeStatus.dark?Colors.white:Colors.black
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          VerticalDivider(color:  state.themeMode ==
+                          ThemeModeStatus.dark?Colors.white:Colors.black,),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: onYes,
+                              child: Text(
+                                "Yes",
+                                style: kRegularLine16.copyWith(
+                                    color: state.themeMode ==
+                                        ThemeModeStatus.dark?Colors.white:Colors.black
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       );
     },
   );
@@ -142,9 +151,9 @@ showUnAuthorisedDialog({
                   child: Text(
                     "Ok",
                     style:
-                        kRegularLine16.copyWith(
-                          color: Colors.red,
-                        ),
+                    kRegularLine16.copyWith(
+                      color: Colors.red,
+                    ),
                   ),
                 ),
                 VerticalDivider(),

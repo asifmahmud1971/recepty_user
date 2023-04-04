@@ -181,7 +181,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           hint: "email",
 
                         ),
-                        kHeightBox10,
+                     /*   kHeightBox10,
                         Text(
                           "Phone Number",
                           style: kRegularLine15.copyWith(
@@ -194,7 +194,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           controller: phoneController,
                           hint: "phone number",
                         ),
-
+*/
 
                         kHeightBox50,
                         DefaultBtn(

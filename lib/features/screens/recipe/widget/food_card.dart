@@ -114,7 +114,7 @@ class FoodCard extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
+          /*Positioned(
               top: 15,
               left: 0,
               child:
@@ -131,7 +131,7 @@ class FoodCard extends StatelessWidget {
                     style: kRegularLine14.copyWith(color: Colors.grey),
                   ),
                 ),
-              ))
+              ))*/
         ],
       ),
     );

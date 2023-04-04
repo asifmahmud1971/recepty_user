@@ -36,6 +36,7 @@ class Assets {
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesMan = 'assets/images/man.png';
   static const String imagesOnboarding = 'assets/images/Onboarding.png';
+  static const String imagesOrgament = 'assets/images/orgament.png';
   static const String imagesPhotoPlaceholder = 'assets/images/photo_placeholder.svg';
   static const String imagesPlaceholder = 'assets/images/placeholder.jpg';
   static const String imagesReceptyLogo = 'assets/images/recepty_logo.png';

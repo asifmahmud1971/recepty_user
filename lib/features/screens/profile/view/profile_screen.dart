@@ -39,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final List<String> items = [
     'English',
     'Czech',
+    'Slovak',
   ];
   String selectedValue = "Czech";
 
@@ -149,14 +150,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Icons.email,
                                     preferences.getUserData()?.user?.email ??
                                         ""),
-                                infoChild(
+                              /*  infoChild(
                                     _width,
                                     Icons.call,
                                     preferences
                                             .getUserData()
                                             ?.user
                                             ?.phoneNumber ??
-                                        ""),
+                                        ""),*/
                                 InkWell(
                                   onTap: () {
                                     BlocProvider.of<ThemeCubit>(context)

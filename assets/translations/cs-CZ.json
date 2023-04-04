@@ -63,5 +63,7 @@
   "registration" :  "Registrace",
   "areYouSure" :  "Jste si jistý?",
   "exitDesc" :  "Chcete ukončit aplikaci!",
-  "emailTaken" :  "E-mail již byl převzat."
+  "emailTaken" :  "E-mail již byl převzat.",
+  "preferredLanguage" :  "Vyberte si preferovaný jazyk",
+  "alreadyHaveAccount" :  "Už máte účet? "
 }

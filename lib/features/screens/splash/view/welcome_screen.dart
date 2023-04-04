@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,8 +22,24 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   PaymentController? paymentController;
+  final List<String> items = [
+    'Slovak',
+    'Czech',
+    'English'
+
+
+  ];
+  String selectedValue = "Czech";
+
   @override
   Widget build(BuildContext context) {
+    if (context.locale.toString() == "en_US") {
+      selectedValue = "English";
+    } else if (context.locale.toString() == "cs_CZ") {
+      selectedValue = "Czech";
+    } else {
+      selectedValue = "Slovak";
+    }
 
     return Scaffold(
       backgroundColor: AppColors.kPrimaryColor,
@@ -44,9 +62,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   color: Colors.black.withOpacity(0.5),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
+                    /*  Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 10),
                       child: Text(
@@ -65,17 +83,71 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             color: Colors.white60, fontWeight: FontWeight.w500),
                       ),
                     ),
+                    kHeightBox10,*/
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        AppStrings.preferredLanguage.tr(),
+                        textAlign: TextAlign.center,
+                        style: kRegularLine16.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: List.generate(
+                        items.length,
+                        (index) => InkWell(
+                            onTap: () {
+                              setState(() {
+                                log(context.locale.toString());
+                              });
+                              if (items[index] == "English") {
+                                context.setLocale(Locale('en', 'US'));
+                                selectedValue = items[index];
+                              } else if (items[index] == "Czech") {
+                                context.setLocale(Locale('cs', 'CZ'));
+                                selectedValue = items[index];
+                              } else {
+                                context.setLocale(Locale('sk', 'SK'));
+                                selectedValue = items[index];
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: selectedValue == items[index]
+                                      ? AppColors.kPrimaryColor
+                                      : Colors.white,
+                                ),
+                                child: Text(
+                                  items[index],
+                                  style: kRegularLine16.copyWith(
+                                      color: selectedValue == items[index]
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                              ),
+                            )),
+                      ),
+                    ),
                     kHeightBox10,
                     Container(
                       width: 1.sw,
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: DefaultBtn(
-                        onPress: ()async {
-                         //await PaymentController().makePayment();
+                        onPress: () async {
+                          //await PaymentController().makePayment();
                           GetContext.to(LoginPage());
                         },
                         radius: 10,
-                        btnColor: Colors.teal,
                         title: AppStrings.login.tr(),
                       ),
                     ),
@@ -84,7 +156,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         width: 1.sw,
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: DefaultBtn(
-                          onPress: (){
+                          onPress: () {
                             GetContext.to(SignupPage());
                           },
                           title: AppStrings.registration.tr(),
