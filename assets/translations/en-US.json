@@ -52,7 +52,7 @@
   "email" :  "Email",
   "phoneNumber" :  "Phone Number",
   "confirmPassword" :  "Confirm Password",
-  "otpVerificationText" :  "We have sent the code verification to your email.",
+  "otpVerificationText" :  "Welcome to Jahodiss recepty. We are glad you have joined us. Please use the following code to log in.",
   "enterCode" :  "Enter Code",
   "searchHint" :  "What you want to cook today?",
   "noPageFound" :  "noPageFound",
@@ -65,5 +65,9 @@
   "exitDesc" :  "Do you want to exit an app!",
   "emailTaken" :  "The email has already been taken.",
   "preferredLanguage" :  "Choose your preferred language.",
-  "alreadyHaveAccount" :  "Already have an account? "
+  "alreadyHaveAccount" :  "Already have an account? ",
+  "dontHaveAccount" :  "Don’t have any account? ",
+  "forgetPass" :  "Forgot Password",
+  "confirm" :  "Confirm"
+
 }

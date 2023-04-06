@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,9 @@ import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
+import 'package:receptyUser/features/screens/auth/view/forget_email.dart';
+import 'package:receptyUser/features/screens/auth/view/reg_otp_page.dart';
+import 'package:receptyUser/features/screens/auth/view/signup_page.dart';
 import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
@@ -123,27 +127,45 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                   ),
-                  kHeightBox20,
-                  /* Center(
+                  kHeightBox10,
+                  Align(
+                    alignment: Alignment.centerRight,
                     child: Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
-                              text: 'Don’t have any account? ',
+                              text: AppStrings.forgetPass.tr(),
                               style: kRegularLine12.copyWith(
-                                  fontWeight: FontWeight.w500, color: Colors.grey)),
-                          TextSpan(
-                              text: 'Register',
-                              style: kRegularLine12.copyWith(
-                                  fontWeight: FontWeight.w500, color: Colors.blue),
-                              recognizer: DoubleTapGestureRecognizer()
-                                ..onDoubleTap = () {
-                                  // Double tapped.
-                                }),
+                                  fontWeight: FontWeight.w500, color: Colors.grey),
+
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              GetContext.to(ForgetEmailPage());
+                            },
+                          ),
                         ],
                       ),
                     ),
-                  )*/
+                  ),
+                  kHeightBox10,
+                   Center(
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              text: AppStrings.dontHaveAccount.tr(),
+                              style: kRegularLine12.copyWith(
+                                  fontWeight: FontWeight.w500, color: Colors.grey)),
+                          TextSpan(
+                              text: AppStrings.registration.tr(),
+                              style: kRegularLine12.copyWith(
+                                  fontWeight: FontWeight.w500, color: Colors.blue),
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              GetContext.to(SignupPage());
+                            },),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

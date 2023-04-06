@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:receptyUser/core/app/app_dependency.dart';
 import 'package:receptyUser/core/app/app_preference.dart';
+import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/screens/home/model/home_model.dart';
 import 'package:receptyUser/features/screens/home/repository/home_repo_imp.dart';
 
@@ -18,8 +19,10 @@ class HomeCubit extends Cubit<HomeState> {
         super(HomeState());
 
   Future<void> getHome() async {
+
     /*String token = await _appPreferences.getUserAccessToken();*/
     emit(state.copyWith(status: HomeStatus.loading));
+    showProgressDialog();
     try {
       final response = await homeRepository.getHome({});
 

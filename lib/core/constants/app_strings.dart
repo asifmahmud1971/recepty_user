@@ -67,4 +67,7 @@ class AppStrings {
   static const String emailTaken = "emailTaken";
   static const String preferredLanguage = "preferredLanguage";
   static const String alreadyHaveAccount = "alreadyHaveAccount";
+  static const String dontHaveAccount = "dontHaveAccount";
+  static const String forgetPass = "forgetPass";
+  static const String confirm = "confirm";
 }

@@ -115,7 +115,7 @@ class _ForgetOtpPageState extends State<ForgetOtpPage> {
           ),
           kHeightBox10,
           Text(
-            widget.registrationUser!.email.toString(),
+            widget.registrationUser?.email??"",
             style: kRegularLine16.copyWith(
                 color: Colors.white, fontWeight: FontWeight.w500),
           ),

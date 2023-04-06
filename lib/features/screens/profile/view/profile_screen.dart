@@ -158,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             ?.user
                                             ?.phoneNumber ??
                                         ""),*/
-                                InkWell(
+                                /*InkWell(
                                   onTap: () {
                                     BlocProvider.of<ThemeCubit>(context)
                                         .toggleTheme();
@@ -175,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       }
                                     },
                                   ),
-                                ),
+                                ),*/
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [

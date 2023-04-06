@@ -14,6 +14,20 @@ enum ProfileUpdate {
   success,
   failure,
 }
+enum ForgotStatus {
+  initial,
+  loading,
+  authFail,
+  success,
+  failure,
+}
+enum ChangePass {
+  initial,
+  loading,
+  authFail,
+  success,
+  failure,
+}
 
 enum RegistrationStatus {
   initial,

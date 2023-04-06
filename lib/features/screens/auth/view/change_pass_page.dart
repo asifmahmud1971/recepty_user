@@ -15,24 +15,26 @@ import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
+import 'package:receptyUser/features/router/routes.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 import 'package:receptyUser/features/screens/auth/view/reg_otp_page.dart';
 import 'package:receptyUser/features/screens/auth/view/login_page.dart';
 import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
+import 'package:receptyUser/features/screens/home/view/home_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 
 
-class SignupPage extends StatefulWidget {
+class ChangePasswordPage extends StatefulWidget {
 
 
-  SignupPage({Key? key}) : super(key: key);
+  ChangePasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _formKey = GlobalKey<FormState>();
   String? countryCode = 'CZ';
   int? countryCodeNumber;
@@ -50,24 +52,13 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state.status == RegistrationStatus.loading) {
+        if (state.status == ChangePass.loading) {
           showProgressDialog();
-        } else if (state.status == RegistrationStatus.registrationSuccess) {
+        } else if (state.status == ChangePass.success) {
           dismissProgressDialog();
-          GetContext.to(ForgetOtpPage(registrationUser: state.registrationResponse?.user,));
-        } else if (state.status == RegistrationStatus.taken) {
-          showUnAuthorisedDialog(
-            title: AppStrings.error.tr(),
-            details: AppStrings.emailTaken.tr(),
-            context: context,
-            onYes: () {
-              Navigator.pop(context);
-            },
-          );
-
-          dismissProgressDialog();
+          GetContext.offAll(Routes.welcomeScreen);
         }
-        else if (state.status == RegistrationStatus.authFail) {
+        else if (state.status == ChangePass.authFail) {
           /* CustomDialog.showUnAuthorisedDialog(
             title: AppStrings.loginAlert.tr(),
             details: AppStrings.loginAlertBody.tr(),
@@ -101,8 +92,8 @@ class _SignupPageState extends State<SignupPage> {
 
                     Container(
                       clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10)
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)
                       ),
                       child: Image.asset(Assets.imagesReceptyLogo,
                         height: 200.r,
@@ -111,50 +102,14 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     kHeightBox30,
                     Text(
-                      AppStrings.registration.tr(),
+                      AppStrings.forgetPass.tr(),
                       style: kRegularLine30.copyWith(
                         //color: Colors.black,
                       ),
                     ),
                     kHeightBox20,
                     BillingTextField(
-                        controller: context.read<AuthCubit>().nameController,
-                        labelName: AppStrings.fullName.tr(),
-                        hint: ""),
-                    kHeightBox20,
-                    BillingTextField(
-                        controller: context.read<AuthCubit>().regEmailController,
-                        labelName: AppStrings.email.tr(),
-                        hint: ""),
-                    /*kHeightBox20,
-                    CountryPickerTextField(
-                      labelName: AppStrings.phoneNumber.tr(),
-                      textEditingController: context.read<AuthCubit>().numberController,
-                      keyboardType: TextInputType.phone,
-                      numberPicker: CountryCodePicker(
-                        flagWidth: 24.r,
-                        flagDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2)),
-                        onChanged: (value) {
-                          setState(() {
-                            countryCode = value.code;
-                            print(value);
-                          });
-                        },
-                        textStyle: const TextStyle(color: Colors.grey),
-                        initialSelection: countryCode,
-                        //favorite: ['+41', countryCode.toString()],
-                        showCountryOnly: false,
-                        showOnlyCountryWhenClosed: false,
-                        alignLeft: false,
-                      ),
-                      prefixIconColor: Colors.white.withOpacity(0.3),
-                      hint: "11 111 11 11",
-                      hintColor: Colors.grey,
-                    ),*/
-                    kHeightBox20,
-                    BillingTextField(
-                        controller: context.read<AuthCubit>().regPasswordController,
+                        controller: context.read<AuthCubit>().changePasswordController,
                         labelName: AppStrings.password.tr(),
                         isView: check,
                         suffixIcon: check
@@ -166,7 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                         hint: ""),
                     kHeightBox20,
                     BillingTextField(
-                        controller: context.read<AuthCubit>().confirmPasswordController,
+                        controller: context.read<AuthCubit>().changeConfirmPasswordController,
                         labelName: AppStrings.confirmPassword.tr(),
                         isView: check,
                         suffixIcon: check
@@ -182,36 +137,17 @@ class _SignupPageState extends State<SignupPage> {
                       child: DefaultBtn(
                         buttonHeight: 15.r,
                         radius: 5,
-                        title: AppStrings.registration.tr(),
+                        title: AppStrings.confirm.tr(),
                         onPress: () async {
                           /*if (_formKey.currentState!.validate()) {}*/
                           log(context.read<AuthCubit>().numberController.value!.international.toString());
-                          context.read<AuthCubit>().registration();
+                          context.read<AuthCubit>().changePassword();
 
                           //GetContext.to(DashboardScreen());
                         },
                       ),
                     ),
-                    kHeightBox20,
-                     Center(
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                                text: AppStrings.alreadyHaveAccount.tr(),
-                                style: kRegularLine14.copyWith(
-                                    fontWeight: FontWeight.w500, color: Colors.grey)),
-                            TextSpan(
-                                text: AppStrings.login.tr(),
-                                style: kRegularLine14.copyWith(
-                                    fontWeight: FontWeight.w500, color: Colors.blue),
-                              recognizer: TapGestureRecognizer()..onTap = () {
-                                GetContext.to(LoginPage());
-                              },),
-                          ],
-                        ),
-                      ),
-                    )
+
                   ],
                 ),
               ),

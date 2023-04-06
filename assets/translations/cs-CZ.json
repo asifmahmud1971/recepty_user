@@ -52,7 +52,7 @@
   "email" :  "Email",
   "phoneNumber" :  "Telefonní číslo",
   "confirmPassword" :  "Potvrdit heslo",
-  "otpVerificationText" :  "Poslali jsme ti ověřovací kód na Email.",
+  "otpVerificationText" :  "Vítejte v sekci Jahodiss recepty. Jsme rádi, že jste se k nám připojili. Pro přihlášení použijte následující kód.",
   "enterCode" :  "Vlož kód",
   "searchHint" :  "Co chcete dnes uvařit?",
   "noPageFound" :  "noPageFound",
@@ -65,5 +65,8 @@
   "exitDesc" :  "Chcete ukončit aplikaci!",
   "emailTaken" :  "E-mail již byl převzat.",
   "preferredLanguage" :  "Vyberte si preferovaný jazyk",
-  "alreadyHaveAccount" :  "Už máte účet? "
+  "alreadyHaveAccount" :  "Už máte účet? ",
+  "dontHaveAccount" :  "Nemáte žádný účet? ",
+  "forgetPass" :  "Zabudnuté heslo",
+  "confirm" :  "Potvrďte"
 }

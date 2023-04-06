@@ -49,48 +49,50 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          body: Stack(
-            children: [
-              SizedBox(
-                width: 1.sw,
-                height: 0.5.sh,
-                child: PageView.builder(
-                    itemCount: state.recipeDescModel?.tutorial?.tutorialImages
-                            ?.length ??
-                        0,
-                    itemBuilder: (context, index) {
-                      return CustomImage(
-                        width: 1.sw,
-                        baseUrl: state.recipeDescModel?.tutorial
-                            ?.tutorialImages?[index].image,
-                      );
-                    }),
-              ),
-              buttonArrow(context),
-              Positioned(
-                top: 30.h,
-                right: 10,
-                child: InkWell(
-                  onTap: () {
-                    context
-                        .read<RecipeCubit>()
-                        .addBookmark(id: state.recipeDescModel?.tutorial?.id);
-                  },
-                  child: CircleAvatar(
-                    radius: 20.r,
-                    backgroundColor: Colors.teal,
-                    child: Icon(
-                      state.recipeDescModel?.tutorial?.isBookmarked ?? false
-                          ? Icons.bookmark
-                          : Icons.bookmark_border,
-                      color: Colors.white,
+          body: state.status != RecipeStatus.loading
+              ? Stack(
+                  children: [
+                    SizedBox(
+                      width: 1.sw,
+                      height: 0.5.sh,
+                      child: PageView.builder(
+                          itemCount: state.recipeDescModel?.tutorial
+                                  ?.tutorialImages?.length ??
+                              0,
+                          itemBuilder: (context, index) {
+                            return CustomImage(
+                              width: 1.sw,
+                              baseUrl: state.recipeDescModel?.tutorial
+                                  ?.tutorialImages?[index].image,
+                            );
+                          }),
                     ),
-                  ),
-                ),
-              ),
-              scroll(),
-            ],
-          ),
+                    buttonArrow(context),
+                    Positioned(
+                      top: 30.h,
+                      right: 10,
+                      child: InkWell(
+                        onTap: () {
+                          context.read<RecipeCubit>().addBookmark(
+                              id: state.recipeDescModel?.tutorial?.id);
+                        },
+                        child: CircleAvatar(
+                          radius: 20.r,
+                          backgroundColor: Colors.teal,
+                          child: Icon(
+                            state.recipeDescModel?.tutorial?.isBookmarked ??
+                                    false
+                                ? Icons.bookmark
+                                : Icons.bookmark_border,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    scroll(),
+                  ],
+                )
+              : SizedBox(),
         );
       },
     ));
@@ -387,38 +389,38 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
 
   steps({BuildContext? context, String? name, String? step}) {
     return BlocBuilder<ThemeCubit, ThemeState>(
-  builder: (context, state) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          CircleAvatar(
-            backgroundColor: mainText,
-            radius: 12,
-            child: Text(name!),
-          ),
-          Column(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SizedBox(
-                width: 270,
-                child: Text(
-                  step!,
-                  maxLines: 3,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: state.themeMode == ThemeModeStatus.dark?Colors.white:mainText),
-                ),
+              CircleAvatar(
+                backgroundColor: mainText,
+                radius: 12,
+                child: Text(name!),
               ),
-              kHeightBox10,
+              Column(
+                children: [
+                  SizedBox(
+                    width: 270,
+                    child: Text(
+                      step!,
+                      maxLines: 3,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: state.themeMode == ThemeModeStatus.dark
+                              ? Colors.white
+                              : mainText),
+                    ),
+                  ),
+                  kHeightBox10,
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      },
     );
-  },
-);
   }
 }

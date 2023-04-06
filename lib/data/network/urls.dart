@@ -21,6 +21,8 @@ class Urls {
   static const String ingredients = 'ingredients';
   static const String tutorials = 'user/tutorials';
   static const String searchRecipe = 'user/search-tutorial';
+  static const String forgotPass = 'forgot-password';
+  static const String changePass = 'reset-password';
   static  String tutorialsByCategory(catID){
     return 'user/categories/$catID/tutorials';
   }

@@ -84,13 +84,28 @@ class AuthRepository implements AuthRepositoryImp {
       Map<String, dynamic> params) async {
     try {
       final response = await await apiClient.request(
-          url: Urls.login, method: Method.post, params: params);
+          url: Urls.forgotPass, method: Method.post, params: params);
 
       return Right(response);
     } catch (error) {
       return Left(ApiException.handle(error).failure);
     }
   }
+
+  @override
+  Future<Either<ApiFailure, dynamic>> changePassword(
+      Map<String, dynamic> params) async {
+    try {
+      final response = await await apiClient.request(
+          url: Urls.changePass, method: Method.post, params: params);
+
+      return Right(response);
+    } catch (error) {
+      return Left(ApiException.handle(error).failure);
+    }
+  }
+
+
   @override
   Future<Either<ApiFailure, RegistrationResponse>> registration(
       Map<String, dynamic> params) async {

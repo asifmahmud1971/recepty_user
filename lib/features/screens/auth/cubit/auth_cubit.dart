@@ -24,6 +24,8 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController changePasswordController = TextEditingController();
+  final TextEditingController changeConfirmPasswordController = TextEditingController();
   final TextEditingController forgotEmailController = TextEditingController();
   final TextEditingController regEmailController = TextEditingController();
   final PhoneController numberController =
@@ -64,23 +66,46 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  /* Future<void> forgot() async {
-    emit(state.copyWith(status: LoginStatus.loading));
+   Future<void> forgot() async {
+    emit(state.copyWith(status: ForgotStatus.loading));
 
-    final response = await _loginRepository.forgotPassword({
+    final response = await authRepository.forgotPassword({
       "email": forgotEmailController.text,
     });
 
     response.fold(
       (failure) {
         emit(state.copyWith(status: ForgotStatus.failure));
+        resetControllers();
       },
       (data) async {
         emit(state.copyWith(status: ForgotStatus.success));
-        resetControllers();
+
       },
     );
-  }*/
+  }
+   Future<void> changePassword() async {
+    emit(state.copyWith(status: ChangePass.loading));
+
+    final response = await authRepository.changePassword({
+      "email": forgotEmailController.text,
+      "password": changePasswordController.text,
+      "password_confirmation": changeConfirmPasswordController.text,
+    });
+
+    response.fold(
+      (failure) {
+        emit(state.copyWith(status: ChangePass.failure));
+        resetControllers();
+      },
+      (data) async {
+        emit(state.copyWith(status: ChangePass.success));
+
+      },
+    );
+  }
+
+
   Future<void> matchOtp({
     userId,
   }) async {
@@ -214,6 +239,8 @@ class AuthCubit extends Cubit<AuthState> {
     regEmailController.clear();
     nameController.clear();
     confirmPasswordController.clear();
+    changePasswordController.clear();
+    changeConfirmPasswordController.clear();
 
     emit(state.copyWith(status: LoginStatus.initial, isEnable: false));
   }

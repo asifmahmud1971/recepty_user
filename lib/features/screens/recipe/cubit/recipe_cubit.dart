@@ -65,7 +65,7 @@ class RecipeCubit extends Cubit<RecipeState> {
   Future<void> getRecipeDesc({id}) async {
     emit(state.copyWith(
         status: RecipeStatus.loading,
-        recipeDescModel: state.recipeDescModel,
+        recipeDescModel: RecipeDescModel(),
         message: ""));
     showProgressDialog();
 
