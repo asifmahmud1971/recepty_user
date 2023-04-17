@@ -1,34 +1,25 @@
 import 'dart:developer';
 
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/billing_textfield.dart';
-import 'package:receptyUser/features/components/country_picker_textfield.dart';
 import 'package:receptyUser/features/components/custom_dialogs.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
-import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/router/routes.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
-import 'package:receptyUser/features/screens/auth/view/reg_otp_page.dart';
-import 'package:receptyUser/features/screens/auth/view/login_page.dart';
-import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
-import 'package:receptyUser/features/screens/home/view/home_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
-
-
 class ChangePasswordPage extends StatefulWidget {
+  final String? otp;
 
-
-  ChangePasswordPage({Key? key}) : super(key: key);
+  ChangePasswordPage({Key? key, this.otp}) : super(key: key);
 
   @override
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
@@ -47,7 +38,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
@@ -57,8 +47,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         } else if (state.status == ChangePass.success) {
           dismissProgressDialog();
           GetContext.offAll(Routes.welcomeScreen);
-        }
-        else if (state.status == ChangePass.authFail) {
+        } else if (state.status == ChangePass.authFail) {
           /* CustomDialog.showUnAuthorisedDialog(
             title: AppStrings.loginAlert.tr(),
             details: AppStrings.loginAlertBody.tr(),
@@ -69,10 +58,25 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           );*/
 
           dismissProgressDialog();
-        }
-
-
-        else {
+        } else if (state.status == ChangePass.invalidToken) {
+          showUnAuthorisedDialog(
+            title: AppStrings.error.tr(),
+            details: "Invalid Token",
+            context: context,
+            onYes: () {
+              Navigator.pop(context);
+            },
+          );
+        } else if (state.status == ChangePass.noUserFound) {
+          showUnAuthorisedDialog(
+            title: AppStrings.error.tr(),
+            details: "No user found",
+            context: context,
+            onYes: () {
+              Navigator.pop(context);
+            },
+          );
+        } else {
           dismissProgressDialog();
         }
       },
@@ -87,15 +91,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     kHeightBox75,
-
                     Container(
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Image.asset(Assets.imagesReceptyLogo,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Image.asset(
+                        Assets.imagesReceptyLogo,
                         height: 200.r,
                         width: 200.r,
                       ),
@@ -104,12 +106,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     Text(
                       AppStrings.forgetPass.tr(),
                       style: kRegularLine30.copyWith(
-                        //color: Colors.black,
-                      ),
+                          //color: Colors.black,
+                          ),
                     ),
                     kHeightBox20,
                     BillingTextField(
-                        controller: context.read<AuthCubit>().changePasswordController,
+                        controller:
+                            context.read<AuthCubit>().changePasswordController,
                         labelName: AppStrings.password.tr(),
                         isView: check,
                         suffixIcon: check
@@ -121,7 +124,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         hint: ""),
                     kHeightBox20,
                     BillingTextField(
-                        controller: context.read<AuthCubit>().changeConfirmPasswordController,
+                        controller: context
+                            .read<AuthCubit>()
+                            .changeConfirmPasswordController,
                         labelName: AppStrings.confirmPassword.tr(),
                         isView: check,
                         suffixIcon: check
@@ -136,18 +141,23 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       width: double.infinity,
                       child: DefaultBtn(
                         buttonHeight: 15.r,
+                        btnColor: AppColors.kPrimaryColor2,
                         radius: 5,
                         title: AppStrings.confirm.tr(),
                         onPress: () async {
                           /*if (_formKey.currentState!.validate()) {}*/
-                          log(context.read<AuthCubit>().numberController.value!.international.toString());
+                          log(context
+                              .read<AuthCubit>()
+                              .numberController
+                              .value!
+                              .international
+                              .toString());
                           context.read<AuthCubit>().changePassword();
 
                           //GetContext.to(DashboardScreen());
                         },
                       ),
                     ),
-
                   ],
                 ),
               ),

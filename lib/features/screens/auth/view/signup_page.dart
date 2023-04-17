@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/billing_textfield.dart';
@@ -104,7 +105,7 @@ class _SignupPageState extends State<SignupPage> {
                         decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10)
                       ),
-                      child: Image.asset(Assets.imagesReceptyLogo,
+                      child: Image.asset(Assets.imagesImg1,
                         height: 200.r,
                         width: 200.r,
                       ),
@@ -181,6 +182,7 @@ class _SignupPageState extends State<SignupPage> {
                       width: double.infinity,
                       child: DefaultBtn(
                         buttonHeight: 15.r,
+                        btnColor: AppColors.kPrimaryColor2,
                         radius: 5,
                         title: AppStrings.registration.tr(),
                         onPress: () async {

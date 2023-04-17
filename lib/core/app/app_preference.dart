@@ -103,7 +103,7 @@ class AppPreferences {
   }
 
   bool getIsAppDarkTheme() {
-    return _sharedPreferences.getBool(prefsKeyAppDarkTheme) ?? false;
+    return true;
   }
 
   Future<bool> isUserLoggedIn() async {

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/custom_snackbar.dart';
@@ -56,29 +57,27 @@ class _CategoryPageState extends State<CategoryPage> {
           appBar: AppBar(
             title: Text(AppStrings.category.tr()),
           ),
-          body: Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Wrap(
-                  direction: Axis.horizontal,
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: List.generate(
-                    state.categoryModel?.categories?.length ?? 0,
-                    (index) => CategoryCard(
-                      onTap: (){
-                        GetContext.to(RecipeHomepage(categories: state.categoryModel?.categories?[index],));
-                      },
-                      name: state.categoryModel?.categories?[index].name,
-                      image: state.categoryModel?.categories?[index].image,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+              child:
+              MasonryGridView.count(
+                physics: const BouncingScrollPhysics(),
+                crossAxisCount: 4,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 2,
+                itemCount:state.categoryModel?.categories?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return CategoryCard(
+                    onTap: (){
+                      GetContext.to(RecipeHomepage(categories: state.categoryModel?.categories?[index],));
+                    },
+                    name: state.categoryModel?.categories?[index].name,
+                    image: state.categoryModel?.categories?[index].image,
+                  );
+                },
+              )
+
+
           )
           /*ListView.builder(
               itemCount: state.categoryModel?.categories?.length ?? 0,

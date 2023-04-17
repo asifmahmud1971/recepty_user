@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/my_context.dart';
@@ -57,7 +58,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: Colors.white),
                 ),
 
                 kHeightBox10,
@@ -67,7 +68,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
                   children: <Widget>[
                     Icon(
                       Icons.access_time,
-                      color: Colors.grey,
+                      color: Colors.white,
                       size: 16,
                     ),
                     SizedBox(
@@ -77,7 +78,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
                       DateTime.parse(widget.blogs!.createdAt!)
                               .timeAgo(numericDates: false) ??
                           "",
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     kWidthBox20
                   ],
@@ -89,7 +90,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
                 Text(
                   widget.blogs?.description ?? "",
                   style: TextStyle(
-                      color: Colors.black54, fontSize: 16.5, height: 1.4),
+                      color: Colors.white, fontSize: 16.5, height: 1.4),
                   textAlign: TextAlign.left,
                   maxLines: 8,
                 ),
@@ -104,7 +105,6 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Container(
         child: Stack(
           alignment: Alignment.topCenter,
@@ -118,7 +118,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
               //Bottom Sheet Dimensions
               margin: EdgeInsets.only(top: height / 2.3),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.kPrimaryColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40)),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 
 class LanguageDialog extends StatefulWidget {
   @override
@@ -53,6 +54,10 @@ class _LanguageDialogState extends State<LanguageDialog> {
             });
             Navigator.of(context).pop();
           },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.kPrimaryColor,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),),
+
           child: Text('Save',style: TextStyle(color: Colors.white),),
         ),
       ],

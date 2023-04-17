@@ -85,7 +85,7 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
-      backgroundColor: AppColors.kCardDarkColor,
+      backgroundColor: AppColors.kPrimaryColor,
       elevation: 0.0,
       iconTheme: IconThemeData(
         color: AppColors.kWhiteColor,
@@ -95,26 +95,26 @@ class AppTheme {
       ),
       centerTitle: false,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.kCardDarkColor,
+        statusBarColor: AppColors.kPrimaryColor,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
-        systemNavigationBarColor: AppColors.kWhiteColor,
-        systemNavigationBarDividerColor: AppColors.kWhiteColor,
+        systemNavigationBarColor: AppColors.kPrimaryColor,
+        systemNavigationBarDividerColor: AppColors.kPrimaryColor,
       ),
     ),
     primaryColor: Colors.white,
     secondaryHeaderColor: AppColors.kSecondaryColor,
     disabledColor: const Color(0xffa2a7ad),
     backgroundColor: AppColors.kBgDarkColor,
-    scaffoldBackgroundColor: AppColors.kBgDarkColor,
+    scaffoldBackgroundColor: AppColors.kPrimaryColor,
     errorColor: const Color(0xFFdd3135),
     brightness: Brightness.dark,
     hintColor: Colors.white,
-    cardColor: AppColors.kCardDarkColor,
+    cardColor: AppColors.kPrimaryColor,
     colorScheme: const ColorScheme.dark(
-      primary: Colors.white,
-      secondary: Colors.white,
+      primary: Colors.black,
+      secondary: Colors.black,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -123,7 +123,7 @@ class AppTheme {
     ),
     textTheme: const TextTheme(
         headline1: TextStyle(
-          color: AppColors.kWhiteColor,
+          color: Colors.black,
           fontSize: 15,
           fontWeight: FontWeight.w500,
           height: 1.25,

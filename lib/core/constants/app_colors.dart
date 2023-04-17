@@ -9,7 +9,7 @@ class AppColors {
   //int color: Color(0xFFFF3A27);
 //App secondary color
   static const kSecondaryColor =
-      Color(0xFF1B364B); //int color: Color(0xFFFF6D27);
+      Color(0xFFD98F79); //int color: Color(0xFFFF6D27);
 //Light theme app background color
   static const kBgColor = Color(0xFFF3F3F3);
 

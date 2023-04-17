@@ -6,7 +6,7 @@ enum LoginStatus {
   authFail,
   success,
   failure,
-}
+  empty }
 enum ProfileUpdate {
   initial,
   loading,
@@ -21,12 +21,15 @@ enum ForgotStatus {
   success,
   failure,
 }
+
 enum ChangePass {
   initial,
   loading,
   authFail,
+  noUserFound,
   success,
   failure,
+  invalidToken
 }
 
 enum RegistrationStatus {
@@ -59,28 +62,37 @@ class AuthState extends Equatable {
   final bool isEnable;
   final String? message;
   final RegistrationResponse? registrationResponse;
+  final SendOtpUser? sendOtpUser;
 
-  const AuthState( {
+  const AuthState({
     this.status = LoginStatus.initial,
     this.isEnable = false,
     this.message,
     this.registrationResponse,
+    this.sendOtpUser,
   });
 
-  AuthState copyWith({
-    final dynamic status,
-    final bool? isEnable,
-    final String? message,
-    RegistrationResponse? registrationResponse
-  }) {
+  AuthState copyWith(
+      {final dynamic status,
+      final bool? isEnable,
+      final String? message,
+      RegistrationResponse? registrationResponse,
+      SendOtpUser? sendOtpUser}) {
     return AuthState(
-      status: status ?? this.status,
-      isEnable: isEnable ?? this.isEnable,
-      message: message ?? this.message,
-      registrationResponse: registrationResponse??this.registrationResponse
-    );
+        status: status ?? this.status,
+        isEnable: isEnable ?? this.isEnable,
+        message: message ?? this.message,
+        sendOtpUser: sendOtpUser ?? this.sendOtpUser,
+        registrationResponse:
+            registrationResponse ?? this.registrationResponse);
   }
 
   @override
-  List<Object> get props => [status, isEnable, message ?? "",registrationResponse??{}];
+  List<Object> get props => [
+        status,
+        isEnable,
+        message ?? "",
+        registrationResponse ?? {},
+        sendOtpUser ?? {}
+      ];
 }

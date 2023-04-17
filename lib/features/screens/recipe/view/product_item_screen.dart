@@ -143,9 +143,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
-                      color: themeState.themeMode == ThemeModeStatus.dark
-                          ? Colors.black
-                          : Colors.white,
+                      color: AppColors.kPrimaryColor,
                       borderRadius: BorderRadius.only(
                           topLeft: const Radius.circular(20),
                           topRight: const Radius.circular(20)),
@@ -324,6 +322,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                     name: state.recipeDescModel?.tutorial
                                         ?.ingredients?[index].name,
                                     image: state.recipeDescModel?.tutorial
+
                                         ?.ingredients?[index].image)),
                           ),
                           Padding(
@@ -372,11 +371,11 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+           /* Icon(
               Icons.check,
               color: Colors.green,
             ),
-            kHeightBox10,
+            kHeightBox10,*/
             Text(
               name ?? "",
               style: Theme.of(context).textTheme.bodyMedium,

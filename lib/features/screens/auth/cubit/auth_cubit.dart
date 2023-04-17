@@ -11,6 +11,8 @@ import 'package:receptyUser/features/screens/auth/models/registration_response.d
 import 'package:receptyUser/features/screens/auth/repository/auth_repo_imp.dart';
 import 'package:receptyUser/features/screens/auth/view/subscribe_page.dart';
 
+import '../models/SendOtpUser.dart';
+
 part 'auth_state.dart';
 
 @injectable
@@ -24,8 +26,10 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController changePasswordController = TextEditingController();
-  final TextEditingController changeConfirmPasswordController = TextEditingController();
+  final TextEditingController changePasswordController =
+      TextEditingController();
+  final TextEditingController changeConfirmPasswordController =
+      TextEditingController();
   final TextEditingController forgotEmailController = TextEditingController();
   final TextEditingController regEmailController = TextEditingController();
   final PhoneController numberController =
@@ -37,36 +41,44 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login({bool isRemember = false}) async {
     /*String token = await _appPreferences.getUserAccessToken();*/
-    emit(state.copyWith(status: LoginStatus.loading));
-    try {
-      final response = await authRepository.loginUser({
-        "email": emailController.text,
-        "password": passwordController.text,
-      });
 
-      response.fold(
-        (failure) {
-          if (failure.code == 401) {
-            emit(state.copyWith(
-                status: LoginStatus.authFail, message: failure.message));
-          } else {
-            emit(state.copyWith(status: LoginStatus.failure));
-          }
-        },
-        (data) async {
-          _appPreferences.saveUserData(data);
-          _appPreferences.setUserToken(data.accessToken);
-          _appPreferences.setIsUserLoggedIn();
-          emit(state.copyWith(status: LoginStatus.success));
-          resetControllers();
-        },
-      );
-    } on Exception catch (_) {
-      emit(state.copyWith(status: LoginStatus.failure));
+    emit(state.copyWith(status: LoginStatus.initial));
+    if (emailController.text.isNotEmpty || passwordController.text.isNotEmpty) {
+      emit(state.copyWith(status: LoginStatus.loading));
+      try {
+        final response = await authRepository.loginUser({
+          "email": emailController.text,
+          "password": passwordController.text,
+        });
+
+        response.fold(
+          (failure) {
+            if (failure.code == 401) {
+              emit(state.copyWith(
+                  status: LoginStatus.authFail, message: failure.message));
+            } else {
+              emit(state.copyWith(status: LoginStatus.failure));
+            }
+          },
+          (data) async {
+            _appPreferences.saveUserData(data);
+            _appPreferences.setUserToken(data.accessToken);
+            _appPreferences.setIsUserLoggedIn();
+            emit(state.copyWith(status: LoginStatus.success));
+            resetControllers();
+          },
+        );
+      } on Exception catch (_) {
+        emit(state.copyWith(status: LoginStatus.failure));
+      }
+    } else {
+      emit(state.copyWith(
+          status: LoginStatus.empty,
+          message: "Please fill all required fields"));
     }
   }
 
-   Future<void> forgot() async {
+  Future<void> forgot() async {
     emit(state.copyWith(status: ForgotStatus.loading));
 
     final response = await authRepository.forgotPassword({
@@ -79,32 +91,39 @@ class AuthCubit extends Cubit<AuthState> {
         resetControllers();
       },
       (data) async {
-        emit(state.copyWith(status: ForgotStatus.success));
-
+        emit(state.copyWith(status: ForgotStatus.success, sendOtpUser: data));
       },
     );
   }
-   Future<void> changePassword() async {
+
+  Future<void> changePassword() async {
     emit(state.copyWith(status: ChangePass.loading));
 
     final response = await authRepository.changePassword({
-      "email": forgotEmailController.text,
+      "email": state.sendOtpUser?.user?.email,
       "password": changePasswordController.text,
       "password_confirmation": changeConfirmPasswordController.text,
+      "token": otpController.text,
     });
 
     response.fold(
       (failure) {
-        emit(state.copyWith(status: ChangePass.failure));
+        if (failure.code == 404) {
+          emit(state.copyWith(status: ChangePass.invalidToken));
+        }
+        if (failure.code == 422) {
+          emit(state.copyWith(status: ChangePass.noUserFound));
+        } else {
+          emit(state.copyWith(status: ChangePass.failure));
+        }
+
         resetControllers();
       },
       (data) async {
         emit(state.copyWith(status: ChangePass.success));
-
       },
     );
   }
-
 
   Future<void> matchOtp({
     userId,
@@ -178,7 +197,7 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await authRepository.registration({
       "name": nameController.text,
       "email": regEmailController.text,
-      "phone_number": numberController.value?.international.toString(),
+      //"phone_number": numberController.value?.international.toString(),
       "password": regPasswordController.text,
       "password_confirmation": confirmPasswordController.text,
     });

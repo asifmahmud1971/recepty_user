@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
@@ -10,6 +9,7 @@ import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/router/routes.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
+import 'package:receptyUser/features/screens/auth/view/change_pass_page.dart';
 import 'package:receptyUser/generated/assets.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -72,28 +72,33 @@ class _ForgetPassOtpPageState extends State<ForgetPassOtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Center(
-        child: Container(
-          width: 1.sw,
-          margin: EdgeInsets.symmetric(vertical: 100.h, horizontal: 20),
-          decoration: BoxDecoration(
-            color: AppColors.kPrimaryColor2,
-            borderRadius: BorderRadius.circular(32),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                    width: 100.r,
-                    height: 100.r,
-                    child: Image.asset(Assets.imagesReceptyLogo)),
-                kHeightBox50,
-                otpWidget(context),
-                kHeightBox50
-              ],
+    return WillPopScope(
+      onWillPop: ()async{
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Center(
+          child: Container(
+            width: 1.sw,
+            margin: EdgeInsets.symmetric(vertical: 100.h, horizontal: 20),
+            decoration: BoxDecoration(
+              color: AppColors.kPrimaryColor2,
+              borderRadius: BorderRadius.circular(32),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                      width: 100.r,
+                      height: 100.r,
+                      child: Image.asset(Assets.imagesReceptyLogo)),
+                  kHeightBox50,
+                  otpWidget(context),
+                  kHeightBox50
+                ],
+              ),
             ),
           ),
         ),
@@ -146,8 +151,8 @@ class _ForgetPassOtpPageState extends State<ForgetPassOtpPage> {
               return PinFieldAutoFill(
                 controller: context.read<AuthCubit>().otpController,
                 textInputAction: TextInputAction.done,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.text,
+                /*inputFormatters: [FilteringTextInputFormatter.digitsOnly],*/
                 decoration: BoxLooseDecoration(
                   textStyle: kRegularLine18.copyWith(
                     color: AppColors.kPrimaryColor,
@@ -166,9 +171,12 @@ class _ForgetPassOtpPageState extends State<ForgetPassOtpPage> {
                 onCodeChanged: (code) {
                   if (code!.length == 6) {
                     FocusScope.of(context).requestFocus(FocusNode());
-                    context
+                    GetContext.to(ChangePasswordPage(
+                      otp: context.read<AuthCubit>().otpController.text,
+                    ));
+                    /*context
                         .read<AuthCubit>()
-                        .matchOtp(userId: widget.registrationUser?.id);
+                        .matchOtp(userId: state.sendOtpUser!.user!.id);*/
                     // context.read<ForgotCubit>().forgotOTPSubmit();
                   }
                 },

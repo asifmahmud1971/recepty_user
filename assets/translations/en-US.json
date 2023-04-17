@@ -19,7 +19,7 @@
   "welcomeTextUser" :  "Cooking a\nDelicious food\neasily.",
   "welcomeTextDesc" :  "Discover more than 1200 food recipes in your hands & cooking it easyly.",
   "subscribers" :  "Subscribers",
-  "appName" :  "ReceptyUser",
+  "appName" :  "Recipes Jahodiss",
   "totalSubscribers" :  "Total Subscribers",
   "totalUsers" :  "Total Users",
   "totalIngredients" :  "Total Ingredients",
@@ -41,7 +41,7 @@
   "allRecipe" :  "All Recipe",
   "description" :  "Description",
   "ingredients" :  "Ingredients",
-  "bookmarks" :  "Bookmarks",
+  "bookmarks" :  "Likes",
   "update" :  "Update",
   "steps" :  "Steps",
   "addStep" :  "Add Step",
@@ -69,5 +69,4 @@
   "dontHaveAccount" :  "Don’t have any account? ",
   "forgetPass" :  "Forgot Password",
   "confirm" :  "Confirm"
-
 }

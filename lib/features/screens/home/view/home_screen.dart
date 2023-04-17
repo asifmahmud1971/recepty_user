@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
@@ -27,7 +28,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin{
   @override
   void initState() {
     context.read<HomeCubit>().getHome();
@@ -52,9 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
             toolbarHeight: 100.h,
             automaticallyImplyLeading: false,
             title: /*HomePageHeader()*/ Text(
-              "Recepty",
-              style: kRegularLine18.copyWith(fontWeight: FontWeight.w700),
+              AppStrings.appName.tr(),
+              style: kRegularLine22.copyWith(fontWeight: FontWeight.w700,fontFamily: "Alkatra",color: AppColors.kSecondaryColor),
             ),
+            centerTitle: true,
           ),
           body: state.homeModel != null
               ? ListView(
@@ -75,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                               child: Text(
                             AppStrings.category.tr(),
-                            style: kRegularLine16.copyWith(
+                            style: kRegularLine18.copyWith(
                                 fontWeight: FontWeight.w600),
                           )),
                           InkWell(
@@ -83,9 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               GetContext.to(CategoryPage());
                             },
                             child: Text(AppStrings.seeAll.tr(),
-                                style: kRegularLine16.copyWith(
+                                style: kRegularLine18.copyWith(
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.teal)),
+                                    color: AppColors.kSecondaryColor)),
                           )
                         ],
                       ),
@@ -121,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                               child: Text(
                             AppStrings.trendingRecipe.tr(),
-                            style: kRegularLine16.copyWith(
+                            style: kRegularLine18.copyWith(
                                 fontWeight: FontWeight.w600),
                           )),
                           InkWell(
@@ -129,9 +131,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               GetContext.to(RecipeHomepage());
                             },
                             child: Text(AppStrings.seeAll.tr(),
-                                style: kRegularLine16.copyWith(
+                                style: kRegularLine18.copyWith(
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.teal)),
+                                    color: AppColors.kSecondaryColor)),
                           )
                         ],
                       ),
@@ -169,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                               child: Text(
                             AppStrings.todayNews.tr(),
-                            style: kRegularLine16.copyWith(
+                            style: kRegularLine18.copyWith(
                                 fontWeight: FontWeight.w600),
                           )),
                           InkWell(
@@ -179,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Text(AppStrings.seeAll.tr(),
                                 style: kRegularLine16.copyWith(
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.teal)),
+                                    color: AppColors.kSecondaryColor)),
                           )
                         ],
                       ),
@@ -209,4 +211,8 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

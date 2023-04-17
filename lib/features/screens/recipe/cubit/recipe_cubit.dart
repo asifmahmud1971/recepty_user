@@ -39,7 +39,7 @@ class RecipeCubit extends Cubit<RecipeState> {
     );
   }
 
-  Future<void> searchRecipe({title}) async {
+  Future<void> searchRecipe({title,catId}) async {
     emit(state.copyWith(
         status: RecipeStatus.loading,
         searchList: RecipeListModel(),
@@ -48,7 +48,8 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     final response =
     await recipeRepositoryImp.searchRecipe({
-      "title":title
+      "title":title,
+      "category_id":catId
     });
 
     response.fold(

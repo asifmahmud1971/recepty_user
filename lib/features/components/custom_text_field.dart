@@ -88,6 +88,7 @@ class CustomTextField extends StatelessWidget {
                 contentPadding: EdgeInsets.symmetric(
                     vertical: height ?? AppHeight.s20,
                     horizontal: weight ?? AppWeight.s25),
+
                 isDense: true,
                 suffixIcon: suffixIcon == null
                     ? null
@@ -125,7 +126,9 @@ class CustomTextField extends StatelessWidget {
                       BorderRadius.circular(radius ?? AppCommonSize.s30),
                 ),
                 filled: true,
+                fillColor: fillColor,
                 errorStyle: const TextStyle(height: 0),
+
                 hintStyle: TextStyle(
                   fontSize: hintTextSize ?? AppTextSize.s16,
                   color: state.themeMode == ThemeModeStatus.dark?hintColor ?? Colors.grey:hintColor ?? Colors.white.withOpacity(0.4),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
+import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/generated/assets.dart';
 
@@ -23,7 +24,15 @@ class FoodCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-                Container(
+
+                CustomImage(
+                  radius: 10,
+                  height: 240.h,
+                  width: 180.w,
+                  baseUrl: image??"https://properfoodie.com/wp-content/uploads/2021/04/square-Steak-and-chips-8.jpg",
+                ),
+
+               /* Container(
                   height: 240.h,
                   width: 1.sw,
                   clipBehavior: Clip.antiAlias,
@@ -33,7 +42,7 @@ class FoodCard extends StatelessWidget {
                           fit: BoxFit.cover,
                           image: NetworkImage(
                               image??"https://properfoodie.com/wp-content/uploads/2021/04/square-Steak-and-chips-8.jpg"))),
-                ),
+                ),*/
                 Positioned(
                     bottom: 5,
                     left: 0,

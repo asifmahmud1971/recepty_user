@@ -3,19 +3,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/core/constants/app_strings.dart';
 import 'package:receptyUser/features/components/billing_textfield.dart';
 import 'package:receptyUser/features/components/custom_dialogs.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
-import 'package:receptyUser/features/components/custom_svg.dart';
 import 'package:receptyUser/features/components/default_btn.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/auth/cubit/auth_cubit.dart';
 import 'package:receptyUser/features/screens/auth/view/forget_email.dart';
-import 'package:receptyUser/features/screens/auth/view/reg_otp_page.dart';
 import 'package:receptyUser/features/screens/auth/view/signup_page.dart';
-import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
 import 'package:receptyUser/generated/assets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -62,6 +60,16 @@ class _LoginPageState extends State<LoginPage> {
               GetContext.back();
             },
           );
+          dismissProgressDialog();
+        } else if (state.status == LoginStatus.empty) {
+          showUnAuthorisedDialog(
+            title: AppStrings.error.tr(),
+            details: state.message,
+            context: context,
+            onYes: () {
+              GetContext.back();
+            },
+          );
 
           dismissProgressDialog();
         } else {
@@ -83,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    child: Image.asset(Assets.imagesReceptyLogo,
+                    child: Image.asset(Assets.imagesImg1,
                       height: 200.r,
                       width: 200.r,
                     ),
@@ -115,15 +123,14 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: double.infinity,
                     child: DefaultBtn(
+                      btnColor: AppColors.kPrimaryColor2,
                       buttonHeight: 15.r,
                       radius: 5,
                       title: AppStrings.login.tr(),
                       onPress: () async {
-                        /*if (_formKey.currentState!.validate()) {}*/
 
                         context.read<AuthCubit>().login();
 
-                        //GetContext.to(DashboardScreen());
                       },
                     ),
                   ),

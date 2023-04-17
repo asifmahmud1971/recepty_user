@@ -1,12 +1,11 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:receptyUser/data/network/api_client.dart';
 import 'package:receptyUser/data/network/api_exception.dart';
 import 'package:receptyUser/data/network/api_failure.dart';
 import 'package:receptyUser/data/network/urls.dart';
+import 'package:receptyUser/features/screens/auth/models/SendOtpUser.dart';
 import 'package:receptyUser/features/screens/auth/models/login_response.dart';
-
 
 import '../models/registration_response.dart';
 import 'auth_repo_imp.dart';
@@ -33,7 +32,8 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
-   @override
+
+  @override
   Future<Either<ApiFailure, dynamic>> getActive(
       Map<String, dynamic> params) async {
     try {
@@ -47,6 +47,7 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+
   @override
   Future<Either<ApiFailure, dynamic>> packageEntry(
       Map<String, dynamic> params) async {
@@ -61,8 +62,6 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
-
-
 
   @override
   Future<Either<ApiFailure, LoginResponse>> profileUpdate(
@@ -80,13 +79,13 @@ class AuthRepository implements AuthRepositoryImp {
   }
 
   @override
-  Future<Either<ApiFailure, dynamic>> forgotPassword(
+  Future<Either<ApiFailure, SendOtpUser>> forgotPassword(
       Map<String, dynamic> params) async {
     try {
       final response = await await apiClient.request(
           url: Urls.forgotPass, method: Method.post, params: params);
 
-      return Right(response);
+      return Right(SendOtpUser.fromJson(response));
     } catch (error) {
       return Left(ApiException.handle(error).failure);
     }
@@ -105,7 +104,6 @@ class AuthRepository implements AuthRepositoryImp {
     }
   }
 
-
   @override
   Future<Either<ApiFailure, RegistrationResponse>> registration(
       Map<String, dynamic> params) async {
@@ -118,12 +116,15 @@ class AuthRepository implements AuthRepositoryImp {
       return Left(ApiException.handle(error).failure);
     }
   }
+
   @override
-  Future<Either<ApiFailure, dynamic>> otpMatch(
-      Map<String, dynamic> params,{id,otp}) async {
+  Future<Either<ApiFailure, dynamic>> otpMatch(Map<String, dynamic> params,
+      {id, otp}) async {
     try {
       final response = await await apiClient.request(
-          url: "${Urls.user}/$id/verify/$otp", method: Method.get, params: params);
+          url: "${Urls.user}/$id/verify/$otp",
+          method: Method.get,
+          params: params);
 
       return Right(response);
     } catch (error) {

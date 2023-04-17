@@ -26,7 +26,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
   }
 
-  bool _darkTheme = true;
+  bool _darkTheme = false;
 
   bool get darkTheme => _darkTheme;
 
@@ -45,8 +45,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   void loadCurrentTheme() {
     log('is Dark mode ${_appPreferences.getIsAppDarkTheme()}');
-    changeStatusBarTheme(
-        _appPreferences.getIsAppDarkTheme() ? ThemeMode.dark : ThemeMode.light);
+    changeStatusBarTheme(ThemeMode.dark);
     _darkTheme = _appPreferences.getIsAppDarkTheme();
   }
 

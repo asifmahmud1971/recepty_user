@@ -72,28 +72,33 @@ class _ForgetOtpPageState extends State<ForgetOtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Center(
-        child: Container(
-          width: 1.sw,
-          margin: EdgeInsets.symmetric(vertical: 100.h, horizontal: 20),
-          decoration: BoxDecoration(
-            color: AppColors.kPrimaryColor2,
-            borderRadius: BorderRadius.circular(32),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                    width: 100.r,
-                    height: 100.r,
-                    child: Image.asset(Assets.imagesReceptyLogo)),
-                kHeightBox50,
-                otpWidget(context),
-                kHeightBox50
-              ],
+    return WillPopScope(
+      onWillPop: ()async{
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Center(
+          child: Container(
+            width: 1.sw,
+            margin: EdgeInsets.symmetric(vertical: 100.h, horizontal: 20),
+            decoration: BoxDecoration(
+              color: AppColors.kPrimaryColor2,
+              borderRadius: BorderRadius.circular(32),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                      width: 100.r,
+                      height: 100.r,
+                      child: Image.asset(Assets.imagesReceptyLogo)),
+                  kHeightBox50,
+                  otpWidget(context),
+                  kHeightBox50
+                ],
+              ),
             ),
           ),
         ),

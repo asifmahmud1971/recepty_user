@@ -46,6 +46,7 @@ dependencies:
   flutter_stripe: ^9.0.0+1
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:

@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               body: new Container(
                 child: new Stack(
                   children: <Widget>[
-                    new Align(
+                /*    new Align(
                       alignment: Alignment.center,
                       child: new Padding(
                         padding: new EdgeInsets.only(top: _height / 15),
@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-                    ),
+                    ),*/
                     Positioned(
                       top: 50.h,
                       right: 10.w,
@@ -145,6 +145,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             padding: new EdgeInsets.only(top: _height / 20),
                             child: new Column(
                               children: <Widget>[
+                                infoChild(
+                                    _width,
+                                    Icons.person,
+                                    preferences.getUserData()?.user?.name ??
+                                        ""),
                                 infoChild(
                                     _width,
                                     Icons.email,

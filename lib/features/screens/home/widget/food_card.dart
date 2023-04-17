@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
@@ -63,7 +64,7 @@ class FoodCard extends StatelessWidget {
                                   ),
                                   Icon(
                                     Icons.bookmark,
-                                    color: Colors.teal,
+                                    color: AppColors.kSecondaryColor,
                                   )
                                 ],
                               ),
