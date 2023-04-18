@@ -9,9 +9,11 @@ import 'package:receptyUser/core/constants/colors.dart';
 import 'package:receptyUser/features/components/_video_player.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_progress_loader.dart';
+import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_cubit.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_state.dart';
 import 'package:receptyUser/features/screens/theme/cubit/theme_cubit.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ProductItemScreen extends StatefulWidget {
   final String? recipeId;
@@ -23,10 +25,64 @@ class ProductItemScreen extends StatefulWidget {
 }
 
 class _ProductItemScreenState extends State<ProductItemScreen> {
+  late YoutubePlayerController _controller;
+  late TextEditingController _idController;
+  late TextEditingController _seekToController;
+
+  late PlayerState _playerState;
+  late YoutubeMetaData _videoMetaData;
+  double _volume = 100;
+  bool _muted = false;
+  bool _isPlayerReady = false;
   @override
   void initState() {
     super.initState();
-    context.read<RecipeCubit>().getRecipeDesc(id: widget.recipeId.toString());
+    context
+        .read<RecipeCubit>()
+        .getRecipeDesc(id: widget.recipeId.toString())
+        .then((value) => {
+              _controller = YoutubePlayerController(
+                initialVideoId: "nPt8bK2gbaU",
+                flags: const YoutubePlayerFlags(
+                  mute: false,
+                  autoPlay: true,
+                  disableDragSeek: false,
+                  loop: false,
+                  isLive: false,
+                  forceHD: false,
+                  enableCaption: true,
+                ),
+              )..addListener(listener)
+            });
+
+    _idController = TextEditingController();
+    _seekToController = TextEditingController();
+    _videoMetaData = const YoutubeMetaData();
+    _playerState = PlayerState.unknown;
+  }
+
+  void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
+      });
+    }
+  }
+
+  @override
+  void deactivate() {
+    // Pauses video while navigating to next page.
+    _controller.pause();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _idController.dispose();
+    _seekToController.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,51 +104,61 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          body: state.status != RecipeStatus.loading
-              ? Stack(
-                  children: [
-                    SizedBox(
-                      width: 1.sw,
-                      height: 0.5.sh,
-                      child: PageView.builder(
-                          itemCount: state.recipeDescModel?.tutorial
-                                  ?.tutorialImages?.length ??
-                              0,
-                          itemBuilder: (context, index) {
-                            return CustomImage(
-                              width: 1.sw,
-                              baseUrl: state.recipeDescModel?.tutorial
-                                  ?.tutorialImages?[index].image,
-                            );
-                          }),
-                    ),
-                    buttonArrow(context),
-                    Positioned(
-                      top: 30.h,
-                      right: 10,
-                      child: InkWell(
-                        onTap: () {
-                          context.read<RecipeCubit>().addBookmark(
-                              id: state.recipeDescModel?.tutorial?.id);
-                        },
-                        child: CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor: Colors.teal,
-                          child: Icon(
-                            state.recipeDescModel?.tutorial?.isBookmarked ??
-                                    false
-                                ? Icons.bookmark
-                                : Icons.bookmark_border,
-                            color: Colors.white,
+        return WillPopScope(
+          onWillPop: () async {
+            if (_controller.value.isFullScreen) {
+              _controller.toggleFullScreenMode();
+              return false;
+            } else {
+              return true;
+            }
+          },
+          child: Scaffold(
+            body: state.status != RecipeStatus.loading
+                ? Stack(
+                    children: [
+                      SizedBox(
+                        width: 1.sw,
+                        height: 0.5.sh,
+                        child: PageView.builder(
+                            itemCount: state.recipeDescModel?.tutorial
+                                    ?.tutorialImages?.length ??
+                                0,
+                            itemBuilder: (context, index) {
+                              return CustomImage(
+                                width: 1.sw,
+                                baseUrl: state.recipeDescModel?.tutorial
+                                    ?.tutorialImages?[index].image,
+                              );
+                            }),
+                      ),
+                      buttonArrow(context),
+                      Positioned(
+                        top: 30.h,
+                        right: 10,
+                        child: InkWell(
+                          onTap: () {
+                            context.read<RecipeCubit>().addBookmark(
+                                id: state.recipeDescModel?.tutorial?.id);
+                          },
+                          child: CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: Colors.teal,
+                            child: Icon(
+                              state.recipeDescModel?.tutorial?.isBookmarked ??
+                                      false
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    scroll(),
-                  ],
-                )
-              : SizedBox(),
+                      scroll(),
+                    ],
+                  )
+                : SizedBox(),
+          ),
         );
       },
     ));
@@ -103,7 +169,11 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
-          Navigator.pop(context);
+          if (_controller.value.isFullScreen) {
+            _controller.toggleFullScreenMode();
+          } else {
+            Navigator.pop(context);
+          }
         },
         child: Container(
           clipBehavior: Clip.hardEdge,
@@ -273,13 +343,30 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                               .withOpacity(0.5)),
                                       borderRadius: BorderRadius.circular(10)),
                                   width: 1.sw,
-                                  height: 200.h,
-                                  child: MyVideoPlayer(
-                                    playAble: true,
-                                    isLocal: false,
-                                    mediumId: state
-                                            .recipeDescModel?.tutorial?.video ??
-                                        '',
+                                  height: _controller.value.isFullScreen
+                                      ? 1.sw
+                                      : 200.h,
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        clipBehavior: Clip.antiAlias,
+                                        width: 1.sw,
+                                        height: _controller.value.isFullScreen
+                                            ? 1.sh
+                                            : 0.3.sh,
+                                        decoration: const BoxDecoration(),
+                                        child: YoutubePlayerBuilder(
+                                            player: YoutubePlayer(
+                                              aspectRatio: 16 / 9,
+                                              controller: _controller,
+                                            ),
+                                            builder: (context, player) {
+                                              return Container(
+                                                child: player,
+                                              );
+                                            }),
+                                      ),
+                                    ],
                                   ),
                                 )
                               : SizedBox(),
@@ -322,7 +409,6 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                     name: state.recipeDescModel?.tutorial
                                         ?.ingredients?[index].name,
                                     image: state.recipeDescModel?.tutorial
-
                                         ?.ingredients?[index].image)),
                           ),
                           Padding(
@@ -371,7 +457,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-           /* Icon(
+            /* Icon(
               Icons.check,
               color: Colors.green,
             ),
