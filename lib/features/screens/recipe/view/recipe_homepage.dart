@@ -60,7 +60,7 @@ class _RecipeHomepageState extends State<RecipeHomepage> {
                 return FoodCard(
                   onTap: (){
                     GetContext.to(ProductItemScreen(recipeId: state.recipeListModel!.tutorials![index].id
-                        .toString(),));
+                        .toString(), videoId: state.recipeListModel!.tutorials![index].video,));
                   },
                   calorie: state.recipeListModel?.tutorials?[index].calorie,
                   tutorialLength: state.recipeListModel?.tutorials?[index].videoLength,

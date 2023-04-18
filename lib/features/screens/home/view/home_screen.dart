@@ -150,7 +150,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                 GetContext.to(ProductItemScreen(
                                   recipeId: state
                                       .homeModel?.tutorials?[index].id
-                                      .toString(),
+                                      .toString(), videoId:state
+                                    .homeModel?.tutorials?[index].video,
                                 ));
                               },
                               title: state.homeModel?.tutorials?[index].title,

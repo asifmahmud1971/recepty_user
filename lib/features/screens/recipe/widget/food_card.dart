@@ -70,10 +70,10 @@ class FoodCard extends StatelessWidget {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.bookmark,
-                                    color: Colors.teal,
-                                  )
+                                  // Icon(
+                                  //   Icons.fav,
+                                  //   color: Colors.teal,
+                                  // )
                                 ],
                               ),
                             ),

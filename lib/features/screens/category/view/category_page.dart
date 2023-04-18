@@ -62,8 +62,8 @@ class _CategoryPageState extends State<CategoryPage> {
               child:
               MasonryGridView.count(
                 physics: const BouncingScrollPhysics(),
-                crossAxisCount: 4,
-                mainAxisSpacing: 8,
+                crossAxisCount: 2,
+                mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
                 itemCount:state.categoryModel?.categories?.length ?? 0,
                 itemBuilder: (context, index) {

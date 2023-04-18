@@ -17,8 +17,10 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ProductItemScreen extends StatefulWidget {
   final String? recipeId;
+  final String videoId;
 
-  const ProductItemScreen({Key? key, this.recipeId}) : super(key: key);
+
+  const ProductItemScreen({Key? key, this.recipeId, required this.videoId}) : super(key: key);
 
   @override
   State<ProductItemScreen> createState() => _ProductItemScreenState();
@@ -42,10 +44,10 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         .getRecipeDesc(id: widget.recipeId.toString())
         .then((value) => {
               _controller = YoutubePlayerController(
-                initialVideoId: "nPt8bK2gbaU",
+                initialVideoId: widget.videoId,
                 flags: const YoutubePlayerFlags(
                   mute: false,
-                  autoPlay: true,
+                  autoPlay: false,
                   disableDragSeek: false,
                   loop: false,
                   isLive: false,
@@ -147,8 +149,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                             child: Icon(
                               state.recipeDescModel?.tutorial?.isBookmarked ??
                                       false
-                                  ? Icons.bookmark
-                                  : Icons.bookmark_border,
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
                               color: Colors.white,
                             ),
                           ),

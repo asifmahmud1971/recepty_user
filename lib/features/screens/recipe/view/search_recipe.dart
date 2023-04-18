@@ -127,6 +127,7 @@ class _SearchRecipeState extends State<SearchRecipe> {
                           GetContext.to(ProductItemScreen(
                             recipeId: state.searchList!.tutorials![index].id
                                 .toString(),
+                              videoId: state.searchList!.tutorials![index].video
                           ));
                         },
                         calorie: state.searchList?.tutorials?[index].calorie,
