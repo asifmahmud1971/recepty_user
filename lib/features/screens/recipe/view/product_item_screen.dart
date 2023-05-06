@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/core/constants/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:receptyUser/features/components/custom_progress_loader.dart';
 import 'package:receptyUser/features/components/my_context.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_cubit.dart';
 import 'package:receptyUser/features/screens/recipe/cubit/recipe_state.dart';
+import 'package:receptyUser/features/screens/recipe/view/fullscreen_video.dart';
 import 'package:receptyUser/features/screens/theme/cubit/theme_cubit.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -27,7 +29,7 @@ class ProductItemScreen extends StatefulWidget {
 }
 
 class _ProductItemScreenState extends State<ProductItemScreen> {
-  late YoutubePlayerController _controller;
+  late YoutubePlayerController _controllerSex;
   late TextEditingController _idController;
   late TextEditingController _seekToController;
 
@@ -43,7 +45,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         .read<RecipeCubit>()
         .getRecipeDesc(id: widget.recipeId.toString())
         .then((value) => {
-              _controller = YoutubePlayerController(
+              _controllerSex = YoutubePlayerController(
                 initialVideoId: widget.videoId,
                 flags: const YoutubePlayerFlags(
                   mute: false,
@@ -64,10 +66,10 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
   }
 
   void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+    if (_isPlayerReady && mounted && !_controllerSex.value.isFullScreen) {
       setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
+        _playerState = _controllerSex.value.playerState;
+        _videoMetaData = _controllerSex.metadata;
       });
     }
   }
@@ -75,13 +77,13 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
   @override
   void deactivate() {
     // Pauses video while navigating to next page.
-    _controller.pause();
+    _controllerSex.pause();
     super.deactivate();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controllerSex.dispose();
     _idController.dispose();
     _seekToController.dispose();
     super.dispose();
@@ -108,8 +110,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
       builder: (context, state) {
         return WillPopScope(
           onWillPop: () async {
-            if (_controller.value.isFullScreen) {
-              _controller.toggleFullScreenMode();
+            if (_controllerSex.value.isFullScreen) {
+              _controllerSex.toggleFullScreenMode();
               return false;
             } else {
               return true;
@@ -171,8 +173,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
-          if (_controller.value.isFullScreen) {
-            _controller.toggleFullScreenMode();
+          if (_controllerSex.value.isFullScreen) {
+            _controllerSex.toggleFullScreenMode();
           } else {
             Navigator.pop(context);
           }
@@ -345,7 +347,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                               .withOpacity(0.5)),
                                       borderRadius: BorderRadius.circular(10)),
                                   width: 1.sw,
-                                  height: _controller.value.isFullScreen
+                                  height: _controllerSex.value.isFullScreen
                                       ? 1.sw
                                       : 200.h,
                                   child: Stack(
@@ -353,14 +355,19 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                       Container(
                                         clipBehavior: Clip.antiAlias,
                                         width: 1.sw,
-                                        height: _controller.value.isFullScreen
-                                            ? 1.sh
-                                            : 0.3.sh,
+                                        height:  0.3.sh,
                                         decoration: const BoxDecoration(),
                                         child: YoutubePlayerBuilder(
+                                          onEnterFullScreen: (){
+                                            _controllerSex.dispose();
+                                            GetContext.to(FullScreenVideo(videoId: widget.videoId,recipeId: widget.recipeId.toString(),));
+
+
+                                          },
                                             player: YoutubePlayer(
                                               aspectRatio: 16 / 9,
-                                              controller: _controller,
+
+                                              controller: _controllerSex,
                                             ),
                                             builder: (context, player) {
                                               return Container(
@@ -380,7 +387,6 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                           ),
                           Text(
                             AppStrings.description.tr(),
-                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                           kHeightBox10,
                           Text(
@@ -398,7 +404,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                           ),
                           Text(
                             AppStrings.ingredients.tr(),
-                            style: Theme.of(context).textTheme.displayLarge,
+
                           ),
                           kHeightBox10,
                           Wrap(
@@ -421,7 +427,6 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                           ),
                           Text(
                             AppStrings.steps.tr(),
-                            style: Theme.of(context).textTheme.displayLarge,
                           ),
                           kHeightBox10,
                           ListView.builder(

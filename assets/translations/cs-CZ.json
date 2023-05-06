@@ -68,5 +68,9 @@
   "alreadyHaveAccount" :  "Už máte účet? ",
   "dontHaveAccount" :  "Nemáte žádný účet? ",
   "forgetPass" :  "Zabudnuté heslo",
-  "confirm" :  "Potvrďte"
+  "confirm" :  "Potvrďte",
+  "package" :  "Balíček",
+  "buyNow" :  "Koupit nyní",
+  "month" :  "Měsíc",
+  "lifeTime" :  "Doživotní"
 }

@@ -68,5 +68,9 @@
   "alreadyHaveAccount" :  "Already have an account? ",
   "dontHaveAccount" :  "Don’t have any account? ",
   "forgetPass" :  "Forgot Password",
-  "confirm" :  "Confirm"
+  "confirm" :  "Confirm",
+  "package" :  "Package",
+  "buyNow" :  "Buy Now",
+  "month" :  "Month",
+  "lifeTime" :  "Lifetime"
 }

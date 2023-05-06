@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),*/
-                    Positioned(
+                   /* Positioned(
                       top: 50.h,
                       right: 10.w,
                       child: IconButton(
@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Icons.edit_outlined,
                             )),
                       ),
-                    ),
+                    ),*/
                     new Padding(
                       padding: new EdgeInsets.only(
                           top: _height / 2.6,

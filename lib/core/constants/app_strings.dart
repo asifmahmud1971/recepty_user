@@ -70,4 +70,8 @@ class AppStrings {
   static const String dontHaveAccount = "dontHaveAccount";
   static const String forgetPass = "forgetPass";
   static const String confirm = "confirm";
+  static const String buyNow = "buyNow";
+  static const String package = "package";
+  static const String month = "month";
+  static const String lifeTime = "lifeTime";
 }

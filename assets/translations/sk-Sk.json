@@ -19,7 +19,7 @@
   "welcomeTextUser": "Jednoduché varenie najlepších jedál.",
   "welcomeTextDesc": "Objavte chutné recepty na jedlá od Jahodiss vo vašich rukách a jednoducho uvarte chutné jedlo.",
   "subscribers": "Odoberatelia",
-  "appName": "Jahodiss Recepty",
+  "appName": "Recepty Jahodiss",
   "totalSubscribers": "Všetci odberatelia",
   "totalUsers": "Všetci užívatelia",
   "totalIngredients": "Všetky ingrediencie",
@@ -65,5 +65,9 @@
   "alreadyHaveAccount" :  "Už máte účet? ",
   "dontHaveAccount" :  "Nemáte žiadny účet? ",
   "forgetPass" :  "Zabudnuté heslo",
-  "confirm" :  "Potvrďte"
+  "confirm" :  "Potvrďte",
+  "package" :  "Balík",
+  "buyNow" :  "Kúpiť teraz",
+  "month" :  "Mesiac",
+  "lifeTime" :  "Životnosť"
 }
