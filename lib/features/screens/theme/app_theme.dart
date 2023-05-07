@@ -18,7 +18,6 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
-
       color: AppColors.kWhiteColor,
       elevation: 0.0,
       iconTheme: IconThemeData(
@@ -98,7 +97,7 @@ class AppTheme {
         statusBarColor: AppColors.kPrimaryColor,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
         systemNavigationBarColor: AppColors.kPrimaryColor,
         systemNavigationBarDividerColor: AppColors.kPrimaryColor,
       ),

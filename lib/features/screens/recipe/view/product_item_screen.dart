@@ -21,17 +21,15 @@ class ProductItemScreen extends StatefulWidget {
   final String? recipeId;
   final String videoId;
 
-
-  const ProductItemScreen({Key? key, this.recipeId, required this.videoId}) : super(key: key);
+  const ProductItemScreen({Key? key, this.recipeId, required this.videoId})
+      : super(key: key);
 
   @override
   State<ProductItemScreen> createState() => _ProductItemScreenState();
 }
 
 class _ProductItemScreenState extends State<ProductItemScreen> {
-  late YoutubePlayerController _controllerSex;
-  late TextEditingController _idController;
-  late TextEditingController _seekToController;
+  late YoutubePlayerController _controller;
 
   late PlayerState _playerState;
   late YoutubeMetaData _videoMetaData;
@@ -45,7 +43,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         .read<RecipeCubit>()
         .getRecipeDesc(id: widget.recipeId.toString())
         .then((value) => {
-              _controllerSex = YoutubePlayerController(
+              _controller = YoutubePlayerController(
                 initialVideoId: widget.videoId,
                 flags: const YoutubePlayerFlags(
                   mute: false,
@@ -59,17 +57,15 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
               )..addListener(listener)
             });
 
-    _idController = TextEditingController();
-    _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
   }
 
   void listener() {
-    if (_isPlayerReady && mounted && !_controllerSex.value.isFullScreen) {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
       setState(() {
-        _playerState = _controllerSex.value.playerState;
-        _videoMetaData = _controllerSex.metadata;
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
       });
     }
   }
@@ -77,15 +73,13 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
   @override
   void deactivate() {
     // Pauses video while navigating to next page.
-    _controllerSex.pause();
+    _controller.pause();
     super.deactivate();
   }
 
   @override
   void dispose() {
-    _controllerSex.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -110,8 +104,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
       builder: (context, state) {
         return WillPopScope(
           onWillPop: () async {
-            if (_controllerSex.value.isFullScreen) {
-              _controllerSex.toggleFullScreenMode();
+            if (_controller.value.isFullScreen) {
+              _controller.toggleFullScreenMode();
               return false;
             } else {
               return true;
@@ -173,8 +167,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
-          if (_controllerSex.value.isFullScreen) {
-            _controllerSex.toggleFullScreenMode();
+          if (_controller.value.isFullScreen) {
+            _controller.toggleFullScreenMode();
           } else {
             Navigator.pop(context);
           }
@@ -347,27 +341,27 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                               .withOpacity(0.5)),
                                       borderRadius: BorderRadius.circular(10)),
                                   width: 1.sw,
-                                  height: _controllerSex.value.isFullScreen
-                                      ? 1.sw
-                                      : 200.h,
+                                  height: 200.h,
                                   child: Stack(
                                     children: [
                                       Container(
                                         clipBehavior: Clip.antiAlias,
                                         width: 1.sw,
-                                        height:  0.3.sh,
+                                        height: 0.3.sh,
                                         decoration: const BoxDecoration(),
                                         child: YoutubePlayerBuilder(
-                                          onEnterFullScreen: (){
-                                            _controllerSex.dispose();
-                                            GetContext.to(FullScreenVideo(videoId: widget.videoId,recipeId: widget.recipeId.toString(),));
-
-
-                                          },
+                                            onEnterFullScreen: () {
+                                              _controller.dispose();
+                                              GetContext.to(FullScreenVideo(
+                                                videoId: widget.videoId,
+                                                recipeId:
+                                                    widget.recipeId.toString(),
+                                                controller: _controller,
+                                              ));
+                                            },
                                             player: YoutubePlayer(
                                               aspectRatio: 16 / 9,
-
-                                              controller: _controllerSex,
+                                              controller: _controller,
                                             ),
                                             builder: (context, player) {
                                               return Container(
@@ -404,7 +398,6 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                           ),
                           Text(
                             AppStrings.ingredients.tr(),
-
                           ),
                           kHeightBox10,
                           Wrap(

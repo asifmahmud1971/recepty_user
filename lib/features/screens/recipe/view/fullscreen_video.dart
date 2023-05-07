@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/features/components/my_context.dart';
+import 'package:receptyUser/features/router/routes.dart';
 import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
 import 'package:receptyUser/features/screens/recipe/view/product_item_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -9,17 +10,18 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class FullScreenVideo extends StatefulWidget {
   final String? videoId;
   final String? recipeId;
+  final YoutubePlayerController? controller;
 
-  const FullScreenVideo({Key? key, this.videoId, this.recipeId}) : super(key: key);
+  const FullScreenVideo(
+      {Key? key, this.videoId, this.recipeId, this.controller})
+      : super(key: key);
 
   @override
   State<FullScreenVideo> createState() => _FullScreenVideoState();
 }
 
 class _FullScreenVideoState extends State<FullScreenVideo> {
-  late YoutubePlayerController _controller;
-  late TextEditingController _idController;
-  late TextEditingController _seekToController;
+  late YoutubePlayerController _controller2;
 
   late PlayerState _playerState;
   late YoutubeMetaData _videoMetaData;
@@ -31,7 +33,7 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
   void initState() {
     super.initState();
 
-    _controller = YoutubePlayerController(
+    _controller2 = YoutubePlayerController(
       initialVideoId: widget.videoId!,
       flags: const YoutubePlayerFlags(
         mute: false,
@@ -48,17 +50,15 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
       DeviceOrientation.landscapeLeft,
     ]);
 
-    _idController = TextEditingController();
-    _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
   }
 
   void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+    if (_isPlayerReady && mounted && !_controller2.value.isFullScreen) {
       setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
+        _playerState = _controller2.value.playerState;
+        _videoMetaData = _controller2.metadata;
       });
     }
   }
@@ -66,15 +66,13 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
   @override
   void deactivate() {
     // Pauses video while navigating to next page.
-    _controller.pause();
+    _controller2.pause();
     super.deactivate();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
+    _controller2.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -87,10 +85,9 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-
-      onWillPop: ()async {
-
-        GetContext.toReplace(DashboardScreen());
+      onWillPop: () async {
+        dispose();
+        GetContext.offAll(Routes.dashboard);
         return false;
       },
       child: Align(
@@ -98,10 +95,9 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
         child: FittedBox(
           fit: BoxFit.fill,
           child: YoutubePlayerBuilder(
-
               player: YoutubePlayer(
                 aspectRatio: 16 / 9,
-                controller: _controller,
+                controller: _controller2,
               ),
               builder: (context, player) {
                 return Container(
