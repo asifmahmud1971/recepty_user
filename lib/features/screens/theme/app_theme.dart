@@ -146,12 +146,9 @@ class AppTheme {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness:
-          themeMode == ThemeMode.light ? Brightness.dark : Brightness.light,
-      systemNavigationBarIconBrightness:
-          themeMode == ThemeMode.light ? Brightness.dark : Brightness.light,
-      systemNavigationBarColor: themeMode == ThemeMode.light
-          ? AppColors.kWhiteColor
-          : AppColors.kBgDarkColor,
+          Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: AppColors.kBgDarkColor,
       systemNavigationBarDividerColor: Colors.transparent,
     ));
   }
