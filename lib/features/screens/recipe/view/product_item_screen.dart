@@ -52,15 +52,13 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
               )..addListener(listener)
             });
 
-    _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
+
   }
 
   void listener() {
     if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
       setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
+
       });
     }
   }
