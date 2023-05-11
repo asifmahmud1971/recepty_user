@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receptyUser/features/components/my_context.dart';
-import 'package:receptyUser/features/router/routes.dart';
-import 'package:receptyUser/features/screens/dashboard/view/dashboard_screen.dart';
-import 'package:receptyUser/features/screens/recipe/view/product_item_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class FullScreenVideo extends StatefulWidget {
@@ -45,11 +41,11 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
         enableCaption: true,
       ),
     )..addListener(listener);
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-
+*/
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
   }
@@ -86,8 +82,13 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        dispose();
-        GetContext.offAll(Routes.dashboard);
+        if (_controller2.value.isFullScreen) {
+          _controller2.toggleFullScreenMode();
+        } else {
+          _controller2.pause();
+          GetContext.back();
+        }
+
         return false;
       },
       child: Align(
@@ -96,7 +97,7 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
           fit: BoxFit.fill,
           child: YoutubePlayerBuilder(
               player: YoutubePlayer(
-                aspectRatio: 16 / 9,
+                aspectRatio: 9 / 16,
                 controller: _controller2,
               ),
               builder: (context, player) {
