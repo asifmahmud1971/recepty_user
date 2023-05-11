@@ -32,14 +32,14 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
     _controller2 = YoutubePlayerController(
       initialVideoId: widget.videoId!,
       flags: const YoutubePlayerFlags(
-        mute: false,
-        autoPlay: true,
-        disableDragSeek: false,
-        loop: false,
-        isLive: false,
-        forceHD: false,
-        enableCaption: true,
-      ),
+          mute: false,
+          autoPlay: true,
+          disableDragSeek: false,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+          showLiveFullscreenButton: false),
     )..addListener(listener);
     /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,

@@ -43,19 +43,20 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
         .read<RecipeCubit>()
         .getRecipeDesc(id: widget.recipeId.toString())
         .then((value) => {
-      _controller = YoutubePlayerController(
-        initialVideoId: widget.videoId,
-        flags: const YoutubePlayerFlags(
-          mute: false,
-          autoPlay: false,
-          disableDragSeek: false,
-          loop: false,
-          isLive: false,
-          forceHD: false,
-          enableCaption: true,
-        ),
-      )..addListener(listener)
-    });
+              _controller = YoutubePlayerController(
+                initialVideoId: widget.videoId,
+                flags: const YoutubePlayerFlags(
+                    mute: false,
+                    autoPlay: false,
+                    disableDragSeek: false,
+                    loop: false,
+                    isLive: false,
+                    forceHD: false,
+                    enableCaption: false,
+                    hideThumbnail: false,
+                    showLiveFullscreenButton: false),
+              )..addListener(listener)
+            });
 
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
@@ -87,79 +88,79 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocConsumer<RecipeCubit, RecipeState>(
-          listener: (context, state) {
-            if (state.status == RecipeStatus.loading) {
-              showProgressDialog();
-            } else if (state.status == RecipeStatus.success) {
-              dismissProgressDialog();
-            } else if (state.status == RecipeStatus.bookmarkAddSuccess) {
-              context
-                  .read<RecipeCubit>()
-                  .getRecipeDesc(id: widget.recipeId.toString())
-                  .whenComplete(() => {dismissProgressDialog()});
+      listener: (context, state) {
+        if (state.status == RecipeStatus.loading) {
+          showProgressDialog();
+        } else if (state.status == RecipeStatus.success) {
+          dismissProgressDialog();
+        } else if (state.status == RecipeStatus.bookmarkAddSuccess) {
+          context
+              .read<RecipeCubit>()
+              .getRecipeDesc(id: widget.recipeId.toString())
+              .whenComplete(() => {dismissProgressDialog()});
+        } else {
+          dismissProgressDialog();
+        }
+      },
+      builder: (context, state) {
+        return WillPopScope(
+          onWillPop: () async {
+            if (_controller.value.isFullScreen) {
+              _controller.toggleFullScreenMode();
+              return false;
             } else {
-              dismissProgressDialog();
+              return true;
             }
           },
-          builder: (context, state) {
-            return WillPopScope(
-              onWillPop: () async {
-                if (_controller.value.isFullScreen) {
-                  _controller.toggleFullScreenMode();
-                  return false;
-                } else {
-                  return true;
-                }
-              },
-              child: Scaffold(
-                body: state.status != RecipeStatus.loading
-                    ? Stack(
-                  children: [
-                    SizedBox(
-                      width: 1.sw,
-                      height: 0.5.sh,
-                      child: PageView.builder(
-                          itemCount: state.recipeDescModel?.tutorial
-                              ?.tutorialImages?.length ??
-                              0,
-                          itemBuilder: (context, index) {
-                            return CustomImage(
-                              width: 1.sw,
-                              baseUrl: state.recipeDescModel?.tutorial
-                                  ?.tutorialImages?[index].image,
-                            );
-                          }),
-                    ),
-                    buttonArrow(context),
-                    Positioned(
-                      top: 30.h,
-                      right: 10,
-                      child: InkWell(
-                        onTap: () {
-                          context.read<RecipeCubit>().addBookmark(
-                              id: state.recipeDescModel?.tutorial?.id);
-                        },
-                        child: CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor: Colors.teal,
-                          child: Icon(
-                            state.recipeDescModel?.tutorial?.isBookmarked ??
-                                false
-                                ? Icons.favorite
-                                : Icons.favorite_outline,
-                            color: Colors.white,
+          child: Scaffold(
+            body: state.status != RecipeStatus.loading
+                ? Stack(
+                    children: [
+                      SizedBox(
+                        width: 1.sw,
+                        height: 0.5.sh,
+                        child: PageView.builder(
+                            itemCount: state.recipeDescModel?.tutorial
+                                    ?.tutorialImages?.length ??
+                                0,
+                            itemBuilder: (context, index) {
+                              return CustomImage(
+                                width: 1.sw,
+                                baseUrl: state.recipeDescModel?.tutorial
+                                    ?.tutorialImages?[index].image,
+                              );
+                            }),
+                      ),
+                      buttonArrow(context),
+                      Positioned(
+                        top: 30.h,
+                        right: 10,
+                        child: InkWell(
+                          onTap: () {
+                            context.read<RecipeCubit>().addBookmark(
+                                id: state.recipeDescModel?.tutorial?.id);
+                          },
+                          child: CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: Colors.teal,
+                            child: Icon(
+                              state.recipeDescModel?.tutorial?.isBookmarked ??
+                                      false
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    scroll(),
-                  ],
-                )
-                    : SizedBox(),
-              ),
-            );
-          },
-        ));
+                      scroll(),
+                    ],
+                  )
+                : SizedBox(),
+          ),
+        );
+      },
+    ));
   }
 
   buttonArrow(BuildContext context) {
@@ -334,52 +335,50 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                       ),*/
                           state.recipeDescModel?.tutorial?.video != null
                               ? Container(
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: AppColors.kPrimaryColor
-                                        .withOpacity(0.5)),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 1.sw,
-                            height: 200.h,
-                            child: Stack(
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    GetContext.to(FullScreenVideo(
-                                      videoId: widget.videoId,
-                                      recipeId:
-                                      widget.recipeId.toString(),
-                                    ));
-
-                                  },
-                                  child: Container(
-                                    clipBehavior: Clip.antiAlias,
-                                    width: 1.sw,
-                                    height: 0.3.sh,
-                                    decoration: const BoxDecoration(),
-                                    child: AbsorbPointer(
-                                      absorbing: true,
-                                      child: YoutubePlayerBuilder(
-                                          onEnterFullScreen: () {
-                                            _controller.dispose();
-
-                                          },
-                                          player: YoutubePlayer(
-                                            aspectRatio: 9 / 16,
-                                            controller: _controller,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.kPrimaryColor
+                                              .withOpacity(0.5)),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  width: 1.sw,
+                                  height: 200.h,
+                                  child: Stack(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          GetContext.to(FullScreenVideo(
+                                            videoId: widget.videoId,
+                                            recipeId:
+                                                widget.recipeId.toString(),
+                                          ));
+                                        },
+                                        child: Container(
+                                          clipBehavior: Clip.antiAlias,
+                                          width: 1.sw,
+                                          height: 0.3.sh,
+                                          decoration: const BoxDecoration(),
+                                          child: AbsorbPointer(
+                                            absorbing: true,
+                                            child: YoutubePlayerBuilder(
+                                                onEnterFullScreen: () {
+                                                  _controller.dispose();
+                                                },
+                                                player: YoutubePlayer(
+                                                  aspectRatio: 9 / 16,
+                                                  controller: _controller,
+                                                ),
+                                                builder: (context, player) {
+                                                  return Container(
+                                                    child: player,
+                                                  );
+                                                }),
                                           ),
-                                          builder: (context, player) {
-                                            return Container(
-                                              child: player,
-                                            );
-                                          }),
-                                    ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
+                                )
                               : SizedBox(),
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 15),
@@ -412,9 +411,9 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                             direction: Axis.horizontal,
                             children: List.generate(
                                 state.recipeDescModel?.tutorial?.ingredients
-                                    ?.length ??
+                                        ?.length ??
                                     0,
-                                    (index) => ingredients(
+                                (index) => ingredients(
                                     name: state.recipeDescModel?.tutorial
                                         ?.ingredients?[index].name,
                                     image: state.recipeDescModel?.tutorial
@@ -434,7 +433,7 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: state.recipeDescModel?.tutorial
-                                ?.tutorialSteps?.length ??
+                                    ?.tutorialSteps?.length ??
                                 0,
                             itemBuilder: (context, index) => steps(
                                 context: context,
