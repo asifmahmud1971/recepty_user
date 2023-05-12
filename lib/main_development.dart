@@ -20,7 +20,7 @@ void main() async {
   configureInjection();
 
   Stripe.publishableKey =
-      "pk_test_51MpFqYFkJt7AnaBKjmN1TJXc5j0ZHLJ72Nh0q1dIbfXIj8JR43gYn1eSlfwGDpzbKmCFaDxxNVvr2qxfgacILZg200CzMEgQ88";
+      "pk_live_51MpsChJwb0N1zIWuMOlSvJ47G8IGYmOknEhR0aqECR5JqJYaRievWl4BYfaAvDh98u6aoR8JJ4SqoXg5RwRCzdNs0045cqGrKY";
 
   //Load our .env file that contains our Stripe Secret key
   await dotenv.load(fileName: "assets/.env");

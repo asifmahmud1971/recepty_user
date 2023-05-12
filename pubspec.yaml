@@ -55,6 +55,7 @@ dev_dependencies:
   # add the generator to your dev_dependencies
   injectable_generator:
   build_runner:
+  youtube_player_iframe: ^4.0.4
 
 
 flutter_icons:

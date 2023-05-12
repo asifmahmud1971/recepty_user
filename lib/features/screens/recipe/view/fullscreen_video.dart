@@ -34,11 +34,11 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
       flags: const YoutubePlayerFlags(
           mute: false,
           autoPlay: true,
-          disableDragSeek: false,
+          disableDragSeek: true,
           loop: false,
           isLive: false,
           forceHD: false,
-          enableCaption: true,
+          enableCaption: false,
           showLiveFullscreenButton: false),
     )..addListener(listener);
     /*SystemChrome.setPreferredOrientations([
@@ -96,6 +96,7 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
         child: FittedBox(
           fit: BoxFit.fill,
           child: YoutubePlayerBuilder(
+
               player: YoutubePlayer(
                 aspectRatio: 9 / 16,
                 controller: _controller2,
