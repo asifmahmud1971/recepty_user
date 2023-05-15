@@ -91,23 +91,20 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
 
         return false;
       },
-      child: Align(
-        alignment: Alignment.center,
-        child: FittedBox(
-          fit: BoxFit.fill,
-          child: YoutubePlayerBuilder(
+      child: YoutubePlayerBuilder(
 
-              player: YoutubePlayer(
-                aspectRatio: 9 / 16,
-                controller: _controller2,
-              ),
-              builder: (context, player) {
-                return Container(
-                  child: player,
-                );
-              }),
-        ),
-      ),
+          player: YoutubePlayer(
+            onEnded: (v){
+              GetContext.back();
+            },
+            aspectRatio: 9 / 16,
+            controller: _controller2,
+          ),
+          builder: (context, player) {
+            return Container(
+              child: player,
+            );
+          }),
     );
   }
 }
