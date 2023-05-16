@@ -55,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
             automaticallyImplyLeading: false,
             title: /*HomePageHeader()*/ Text(
               AppStrings.appName.tr(),
-              style: GoogleFonts.pacifico(
-                textStyle: TextStyle(color: AppColors.kSecondaryColor, letterSpacing: .5),
+              style: GoogleFonts.italianno(
+                textStyle: TextStyle(color: AppColors.kSecondaryColor, letterSpacing: .5,fontSize: 28.sp),
               ),
             ),
             centerTitle: true,

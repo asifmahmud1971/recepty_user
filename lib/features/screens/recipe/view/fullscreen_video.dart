@@ -94,6 +94,16 @@ class _FullScreenVideoState extends State<FullScreenVideo> {
       child: YoutubePlayerBuilder(
 
           player: YoutubePlayer(
+            bottomActions: [
+              RemainingDuration(controller: _controller2,),
+              const SizedBox(width: 14.0),
+              CurrentPosition(controller: _controller2,),
+              const SizedBox(width: 8.0),
+              ProgressBar(isExpanded: true,controller: _controller2,),
+              RemainingDuration(),
+              PlaybackSpeedButton(controller: _controller2,),
+            ],
+
             onEnded: (v){
               GetContext.back();
             },
