@@ -47,6 +47,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
   youtube_player_flutter: ^8.1.2
+  google_translator: ^1.0.0
 
 dev_dependencies:
   flutter_test:

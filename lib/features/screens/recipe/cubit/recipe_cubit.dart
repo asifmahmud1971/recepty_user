@@ -30,9 +30,11 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     response.fold(
       (failure) {
+        dismissProgressDialog();
         emit(state.copyWith(status: RecipeStatus.failure));
       },
       (data) async {
+        dismissProgressDialog();
         emit(state.copyWith(
             status: RecipeStatus.success, recipeListModel: data));
       },
@@ -54,9 +56,11 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     response.fold(
           (failure) {
+            dismissProgressDialog();
         emit(state.copyWith(status: RecipeStatus.failure));
       },
           (data) async {
+            dismissProgressDialog();
         emit(state.copyWith(
             status: RecipeStatus.success, searchList: data));
       },
@@ -74,9 +78,11 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     response.fold(
       (failure) {
+        dismissProgressDialog();
         emit(state.copyWith(status: RecipeStatus.failure));
       },
       (data) async {
+        dismissProgressDialog();
         emit(state.copyWith(
             status: RecipeStatus.success, recipeDescModel: data));
       },
@@ -95,9 +101,11 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     response.fold(
       (failure) {
+        dismissProgressDialog();
         emit(state.copyWith(status: RecipeStatus.failure));
       },
       (data) async {
+        dismissProgressDialog();
         emit(state.copyWith(status: RecipeStatus.bookmarkAddSuccess,recipeDescModel: state.recipeDescModel));
       },
     );

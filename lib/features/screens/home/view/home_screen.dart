@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
             title: /*HomePageHeader()*/ Text(
               AppStrings.appName.tr(),
               style: GoogleFonts.italianno(
-                textStyle: TextStyle(color: AppColors.kSecondaryColor, letterSpacing: .5,fontSize: 28.sp),
+                textStyle: TextStyle(color: AppColors.kSecondaryColor, letterSpacing: .5,fontSize: 50.sp),
               ),
             ),
             centerTitle: true,
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                   recipeId: state
                                       .homeModel?.tutorials?[index].id
                                       .toString(), videoId:state
-                                    .homeModel?.tutorials?[index].video,
+                                    .homeModel?.tutorials?[index].video??"",
                                 ));
                               },
                               title: state.homeModel?.tutorials?[index].title,
