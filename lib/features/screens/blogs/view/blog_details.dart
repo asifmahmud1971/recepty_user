@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_translator/google_translator.dart';
 import 'package:receptyUser/core/constants/app_colors.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
@@ -59,7 +62,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
-                ),
+                ).translate(),
 
                 kHeightBox10,
 
@@ -93,7 +96,7 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
                       color: Colors.white, fontSize: 16.5, height: 1.4),
                   textAlign: TextAlign.left,
                   maxLines: 8,
-                ),
+                ).translate(),
               ],
             ),
           ),
@@ -105,28 +108,34 @@ class _BlogsDetailPageState extends State<BlogsDetailPage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-        child: Stack(
-          alignment: Alignment.topCenter,
-          clipBehavior: Clip.none,
-          children: <Widget>[
-            //Main Image
-            mainImageWidget(height),
+      body: GoogleTranslatorInit(
+        dotenv.env['TRANSLATION_KEY'].toString(),
+        translateFrom: Locale("sk"),
+        translateTo: Locale(context.locale.toString()),
+        automaticDetection: true,
+        builder: () => Container(
+          child: Stack(
+            alignment: Alignment.topCenter,
+            clipBehavior: Clip.none,
+            children: <Widget>[
+              //Main Image
+              mainImageWidget(height),
 
-            //Bottom Sheet
-            Container(
-              //Bottom Sheet Dimensions
-              margin: EdgeInsets.only(top: height / 2.3),
-              decoration: BoxDecoration(
-                color: AppColors.kPrimaryColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40)),
+              //Bottom Sheet
+              Container(
+                //Bottom Sheet Dimensions
+                margin: EdgeInsets.only(top: height / 2.3),
+                decoration: BoxDecoration(
+                  color: AppColors.kPrimaryColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40)),
+                ),
+
+                child: bottomContent(height, width),
               ),
-
-              child: bottomContent(height, width),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

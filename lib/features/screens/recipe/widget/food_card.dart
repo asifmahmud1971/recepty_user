@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_translator/google_translator.dart';
 import 'package:receptyUser/core/constants/app_size.dart';
 import 'package:receptyUser/features/components/custom_image.dart';
 import 'package:receptyUser/features/components/custom_svg.dart';
@@ -12,7 +13,15 @@ class FoodCard extends StatelessWidget {
   final String? tutorialLength;
   final String? calorie;
   final VoidCallback? onTap;
-  const FoodCard({Key? key, this.image, this.title, this.isPremium, this.onTap, this.tutorialLength, this.calorie}) : super(key: key);
+  const FoodCard(
+      {Key? key,
+      this.image,
+      this.title,
+      this.isPremium,
+      this.onTap,
+      this.tutorialLength,
+      this.calorie})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +33,15 @@ class FoodCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-
                 CustomImage(
                   radius: 10,
                   height: 240.h,
                   width: 180.w,
-                  baseUrl: image??"https://properfoodie.com/wp-content/uploads/2021/04/square-Steak-and-chips-8.jpg",
+                  baseUrl: image ??
+                      "https://properfoodie.com/wp-content/uploads/2021/04/square-Steak-and-chips-8.jpg",
                 ),
 
-               /* Container(
+                /* Container(
                   height: 240.h,
                   width: 1.sw,
                   clipBehavior: Clip.antiAlias,
@@ -63,12 +72,12 @@ class FoodCard extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      title??"Make steak and chips at home.",
+                                      title ?? "Make steak and chips at home.",
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: kRegularLine14.copyWith(
                                           color: Colors.white),
-                                    ),
+                                    ).translate(),
                                   ),
                                   // Icon(
                                   //   Icons.fav,
@@ -92,13 +101,13 @@ class FoodCard extends StatelessWidget {
                                       kWidthBox5,
                                       Expanded(
                                           child: Text(
-                                        "${tutorialLength??0} min",
+                                        "${tutorialLength ?? 0} min",
                                         style: kRegularLine14.copyWith(
                                             color: Colors.grey),
                                       ))
                                     ],
                                   )),
-                                 /* Row(
+                                  /* Row(
                                     children: [
                                       Icon(
                                         Icons.local_fire_department_outlined,

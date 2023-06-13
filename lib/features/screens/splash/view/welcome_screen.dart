@@ -22,13 +22,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   PaymentController? paymentController;
-  final List<String> items = [
-    'Slovak',
-    'Czech',
-    'English'
-
-
-  ];
+  final List<String> items = ['Slovak', 'Czech', 'English'];
   String selectedValue = "Czech";
 
   @override
@@ -37,7 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       selectedValue = "English";
     } else if (context.locale.toString() == "cs_CZ") {
       selectedValue = "Czech";
-    } else {
+    } else if (context.locale.toString() == "sk_SK") {
       selectedValue = "Slovak";
     }
 

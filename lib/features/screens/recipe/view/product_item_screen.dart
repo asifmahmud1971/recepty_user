@@ -212,10 +212,10 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                 builder: (context, themeState) {
                   return GoogleTranslatorInit(
                     dotenv.env['TRANSLATION_KEY'].toString(),
-                    translateFrom: Locale(context.locale.toString()),
+                    translateFrom: Locale("sk"),
                     translateTo: Locale(context.locale.toString()),
                     automaticDetection: true,
-                    builder: () =>Container(
+                    builder: () => Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
@@ -230,7 +230,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 10, bottom: 25),
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 25),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -255,91 +256,6 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                   .copyWith(color: AppColors.kSecondaryColor),
                             ).translate(),
                             kHeightBox15,
-                            /* Row(
-                          children: [
-                            Expanded(
-                                child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.black12,
-                                  border: Border.all(color: Colors.black12),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      context.read<RecipeCubit>().addBookmark(
-                                          id: state
-                                              .recipeDescModel?.tutorial?.id);
-                                    },
-                                    child: CircleAvatar(
-                                      radius: 20.r,
-                                      backgroundColor: Colors.teal,
-                                      child: Icon(
-                                        state.recipeDescModel?.tutorial
-                                                    ?.isBookmarked ??
-                                                false
-                                            ? Icons.bookmark
-                                            : Icons.bookmark_border,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  kWidthBox5,
-                                  Expanded(
-                                    child: FittedBox(
-                                      child: Text(
-                                        state.recipeDescModel?.tutorial
-                                                    ?.isBookmarked ??
-                                                false
-                                            ? AppStrings.removeBookmark.tr()
-                                            : AppStrings.addBookmark.tr(),
-                                        style: kRegularLine18.copyWith(),
-                                      ),
-                                    ),
-                                  ),
-                                  kWidthBox5,
-                                ],
-                              ),
-                            )),
-                            kWidthBox20,
-                            state.recipeDescModel?.tutorial?.video != null
-                                ? Expanded(
-                                    child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black12,
-                                        border: Border.all(color: Colors.black12),
-                                        borderRadius: BorderRadius.circular(20)),
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            GetContext.to(PlayVideo(
-                                              video: state.recipeDescModel
-                                                  ?.tutorial?.video!,
-                                            ));
-                                          },
-                                          child: CircleAvatar(
-                                            radius: 20.r,
-                                            backgroundColor: Colors.red,
-                                            child: Icon(
-                                              IconlyLight.play,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                        kWidthBox5,
-                                        Expanded(
-                                          child: Text(
-                                            AppStrings.playTutorial.tr(),
-                                            style: kRegularLine18.copyWith(),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ))
-                                : Expanded(child: SizedBox()),
-                          ],
-                        ),*/
                             state.recipeDescModel?.tutorial?.video != null
                                 ? Container(
                                     clipBehavior: Clip.antiAlias,
@@ -347,7 +263,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                                         border: Border.all(
                                             color: AppColors.kPrimaryColor
                                                 .withOpacity(0.5)),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     width: 1.sw,
                                     height: 200.h,
                                     child: Stack(
@@ -398,7 +315,8 @@ class _ProductItemScreenState extends State<ProductItemScreen> {
                             ),
                             kHeightBox10,
                             Text(
-                              state.recipeDescModel?.tutorial?.description ?? "",
+                              state.recipeDescModel?.tutorial?.description ??
+                                  "",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!

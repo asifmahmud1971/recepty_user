@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       selectedValue = "English";
     } else if (context.locale.toString() == "cs_CZ") {
       selectedValue = "Czech";
-    }else{
+    } else if (context.locale.toString() == "sk_SK") {
       selectedValue = "Slovak";
     }
 
@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               body: new Container(
                 child: new Stack(
                   children: <Widget>[
-                /*    new Align(
+                    /*    new Align(
                       alignment: Alignment.center,
                       child: new Padding(
                         padding: new EdgeInsets.only(top: _height / 15),
@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),*/
-                   /* Positioned(
+                    /* Positioned(
                       top: 50.h,
                       right: 10.w,
                       child: IconButton(
@@ -155,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Icons.email,
                                     preferences.getUserData()?.user?.email ??
                                         ""),
-                              /*  infoChild(
+                                /*  infoChild(
                                     _width,
                                     Icons.call,
                                     preferences
@@ -188,7 +188,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         selectedValue ?? ""),
                                     InkWell(
                                       onTap: () {
-
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
@@ -196,11 +195,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           },
                                         );
 
-                                        setState(() {});
+                                        setState(() {
+                                          log(context.locale.languageCode);
+                                        });
                                         if (selectedValue == "English") {
                                           context.setLocale(Locale('en', 'US'));
                                         } else if (selectedValue == "Czech") {
                                           context.setLocale(Locale('cs', 'CZ'));
+                                        } else {
+                                          context.setLocale(Locale('sk', 'SK'));
                                         }
                                       },
                                       child: Padding(

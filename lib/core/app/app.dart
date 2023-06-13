@@ -43,27 +43,22 @@ class MyApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (BuildContext context, Widget? child) {
-                return GoogleTranslatorInit(
-                  dotenv.env['TRANSLATION_KEY'].toString(),
-                  translateFrom: Locale('en'),
-                  translateTo: Locale(context.locale.toString()),
-                  automaticDetection: true,
-                  builder: () => MaterialApp(
-                    navigatorKey: GetContext.navigatorKey,
-                    debugShowCheckedModeBanner: false,
-                    builder: EasyLoading.init(),
-                    title: 'Recipty',
-                    theme: context.read<ThemeCubit>().darkTheme
-                        ? AppTheme.darkTheme
-                        : AppTheme.lightTheme,
-                    onGenerateRoute: RouteGenerator.getRoute,
-                    initialRoute: Routes.splash,
-                    localizationsDelegates: [...context.localizationDelegates,
-                      PhoneFieldLocalization.delegate
-                    ],
-                    supportedLocales: context.supportedLocales,
-                    locale: context.locale,
-                  ),
+                return MaterialApp(
+                  navigatorKey: GetContext.navigatorKey,
+                  debugShowCheckedModeBanner: false,
+                  builder: EasyLoading.init(),
+                  title: 'Recipty',
+                  theme: context.read<ThemeCubit>().darkTheme
+                      ? AppTheme.darkTheme
+                      : AppTheme.lightTheme,
+                  onGenerateRoute: RouteGenerator.getRoute,
+                  initialRoute: Routes.splash,
+                  localizationsDelegates: [
+                    ...context.localizationDelegates,
+                    PhoneFieldLocalization.delegate
+                  ],
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
                 );
               },
             );
